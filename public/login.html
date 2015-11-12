@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Font Awesome -->
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	
+	<!-- Perfect -->
+	<link href="css/app.min.css" rel="stylesheet">
+
+
+
+  </head>
+
+  <body ng-app="myAppUsuario" ng-controller="myCtrlUsuario">
+	<div class="login-wrapper">
+		<div class="text-center">
+			<h2 class="fadeInUp animation-delay8" style="font-weight:bold">
+				<span class="text-success"><img src="img/logo.png"></span>
+			</h2>
+		</div>
+		<div class="login-widget animation-delay1">	
+			<div class="panel panel-default">
+				<div class="panel-heading clearfix">
+					<div class="pull-left">
+						<i class="fa fa-lock fa-lg"></i> Iniciar Sesión
+					</div>
+
+					<div class="pull-right">
+						<span style="font-size:11px;">¿No tienes cuenta?</span>
+						<a class="btn btn-default btn-xs login-link" href="register.html" style="margin-top:-2px;"><i class="fa fa-plus-circle"></i>Registro</a>
+					</div>
+				</div>
+				<div class="panel-body" ng-controller="myCtrlUsuario">
+				 
+					<form class="form-login">
+						<div class="form-group">
+							<label>Nombre de Usuario</label>
+							<input type="text" placeholder="Usuario" class="form-control input-sm bounceIn animation-delay2" ng-model="cuenta.usuario">
+						</div>
+						<div class="form-group">
+							<label>Contraseña</label>
+							<input type="password" placeholder="Contraseña" class="form-control input-sm bounceIn animation-delay4" ng-model="cuenta.clave">
+						</div>
+						
+						<div class="seperator"></div>
+						<div class="form-group">
+							¿Has olvidado tu contraseña?<br/>
+							Click <a href="#">aqui</a> para cambiar contraseña
+						</div>
+
+						<hr/>
+							
+						<a class="btn btn-success btn-sm bounceIn animation-delay5 login-link pull-right" href="#" ng-click="ingresar()"><i class="fa fa-sign-in"></i> Ingresar</a>
+					</form>
+				</div>
+			</div><!-- /panel -->
+		</div><!-- /login-widget -->
+	</div><!-- /login-wrapper -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <!-- Jquery -->
+	<script src="js/jquery-1.10.2.min.js"></script>
+    
+    <!-- Bootstrap -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+   
+	<!-- Modernizr -->
+	<script src='js/modernizr.min.js'></script>
+   
+    <!-- Pace -->
+	<script src='js/pace.min.js'></script>
+   
+	<!-- Popup Overlay -->
+	<script src='js/jquery.popupoverlay.min.js'></script>
+   
+    <!-- Slimscroll -->
+	<script src='js/jquery.slimscroll.min.js'></script>
+   
+	<!-- Cookie -->
+	<script src='js/jquery.cookie.min.js'></script>
+
+	<!-- Perfect -->
+	<script src="js/app/app.js"></script>
+
+
+	<!-- Cargamos angular -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+	<script src="angularJS/usuario.js"></script>
+  </body>
+</html>

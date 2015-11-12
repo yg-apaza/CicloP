@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CICLO-P</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Font Awesome -->
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	
+	<!-- Pace -->
+	<link href="css/pace.css" rel="stylesheet">
+	
+	<!-- Color box -->
+	<link href="css/colorbox/colorbox.css" rel="stylesheet">
+
+	<!-- Perfect -->
+	<link href="css/app.min.css" rel="stylesheet">
+	<link href="css/app-skin.css" rel="stylesheet">
+	
+  </head>
+
+  <body class="overflow-hidden">
+	<!-- Overlay Div -->
+	<div id="overlay" class="transparent"></div>
+
+	<a href="" id="theme-setting-icon"><i class="fa fa-cog fa-lg"></i></a>
+	<div id="theme-setting">
+		<div class="title">
+			<strong class="no-margin">Skin Color</strong>
+		</div>
+		<div class="theme-box">
+			<a class="theme-color" style="background:#323447" id="default"></a>
+			<a class="theme-color" style="background:#efefef" id="skin-1"></a>
+			<a class="theme-color" style="background:#a93922" id="skin-2"></a>
+			<a class="theme-color" style="background:#3e6b96" id="skin-3"></a>
+			<a class="theme-color" style="background:#635247" id="skin-4"></a>
+			<a class="theme-color" style="background:#3a3a3a" id="skin-5"></a>
+			<a class="theme-color" style="background:#495B6C" id="skin-6"></a>
+		</div>
+		<div class="title">
+			<strong class="no-margin">Sidebar Menu</strong>
+		</div>
+		<div class="theme-box">
+			<label class="label-checkbox">
+				<input type="checkbox" checked id="fixedSidebar">
+				<span class="custom-checkbox"></span>
+				Fixed Sidebar
+			</label>
+		</div>
+	</div><!-- /theme-setting -->
+	
+	<div id="wrapper" class="preload">
+		<div id="top-nav" class="skin-6 fixed">
+			<div class="brand">
+				<span>CICLO</span>
+				<span class="text-toggle"> P</span>
+			</div><!-- /brand -->
+			<button type="button" class="navbar-toggle pull-left" id="sidebarToggle">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<button type="button" class="navbar-toggle pull-left hide-menu" id="menuToggle">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<ul class="nav-notification clearfix">
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						<i class="fa fa-bell fa-lg"></i>
+						<span class="notification-label bounceIn animation-delay4">1</span>
+					</a>
+					<ul class="dropdown-menu message dropdown-1">
+						<li><a>Tienes 1 notificacion</a></li>					  
+						<li>
+							<a class="clearfix" href="#">
+								<img src="img/user.jpg" alt="User Avatar">
+								<div class="detail">
+									<strong>John Doe</strong>
+									<p class="no-margin">
+										Te designó como diseñador en Proyecto2
+									</p>
+									<small class="text-muted"><i class="fa fa-check text-success"></i> 27m ago</small>
+								</div>
+							</a>	
+						</li>
+						
+						<li><a href="#">Ver todos los mensajes</a></li>					  
+					</ul>
+				</li>
+				
+				<li class="profile dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						<strong>Anonimus</strong>
+						<span><i class="fa fa-chevron-down"></i></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a class="clearfix" href="#">
+								<img src="img/user.jpg" alt="User Avatar">
+								<div class="detail">
+									<strong>Anonimus</strong>
+									<p class="grey">anonimus@gmail.com</p> 
+								</div>
+							</a>
+						</li>
+						
+						<li><a tabindex="-1" class="main-link logoutConfirm_open" href="#logoutConfirm"><i class="fa fa-lock fa-lg"></i> Salir</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div><!-- /top-nav-->
+		
+		<aside class="fixed skin-6">
+			<div class="sidebar-inner scrollable-sidebar">
+				<div class="size-toggle">
+					<a class="btn btn-sm" id="sizeToggle">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a class="btn btn-sm pull-right logoutConfirm_open"  href="#logoutConfirm">
+						<i class="fa fa-power-off"></i>
+					</a>
+				</div><!-- /size-toggle -->	
+				<div class="user-block clearfix">
+					<img src="img/user.jpg" alt="User Avatar">
+					<div class="detail">
+						<strong>Anonimus</strong>
+						<ul class="list-inline">
+							<li><a href="profile.html">Profile</a></li>
+						</ul>
+					</div>
+				</div><!-- /user-block -->
+				<div class="search-block">
+					<div class="input-group">
+						<input type="text" class="form-control input-sm" placeholder="Busca tus proyectos">
+						<span class="input-group-btn">
+							<button class="btn btn-default btn-sm" type="button"><i class="fa fa-search"></i></button>
+						</span>
+					</div><!-- /input-group -->
+				</div><!-- /search-block -->
+				<div class="main-menu">
+					<ul>
+						<li class="active">
+							<a href="index.html">
+								
+								<span class="text">
+									Inicio
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+						</li>
+						<li class="openable open">
+							<a href="#">
+								<span class="text">
+									Proyectos
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+							<ul class="submenu">
+								<li class="openable">
+									<a href="#"><span class="submenu-label">Proyecto 1</span></a>
+									<ul class="submenu third-level">
+										<li>
+											<a href="verProyecto.html">
+												<span class="submenu-label">Ver Proyecto</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="submenu-label">Ver Reportes</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="submenu-label">Modificar Proyecto</span>
+											</a>
+										</li>
+
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="nuevoProyecto.html">
+								<span class="text">
+									Crear Proyecto
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+						</li>
+					</ul>
+				</div><!-- /main-menu -->
+			</div><!-- /sidebar-inner -->
+		</aside>
+
+		<div id="main-container">
+			<div id="breadcrumb">
+				<ul class="breadcrumb">
+					 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li> 
+
+				</ul>
+			</div><!-- /breadcrumb-->
+			
+			<img src="img/slide1.jpg">
+			
+		</div><!-- /main-container -->
+		<!-- Footer
+		================================================== -->
+		<footer>
+			<div class="row">
+				<div class="col-sm-6">
+					<span class="footer-brand">
+						<strong class="text-danger">Ciclo</strong>-P
+					</span>
+					<p class="no-margin">
+						&copy; 2015 <strong>Ciclo-P</strong>. Todo los derechos reservados.
+					</p>
+				</div><!-- /.col -->
+			</div><!-- /.row-->
+		</footer>
+	</div><!-- /wrapper -->
+
+	<a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
+	
+	<!-- Logout confirmation -->
+	<div class="custom-popup width-100" id="logoutConfirm">
+		<div class="padding-md">
+			<h4 class="m-top-none"> Do you want to logout?</h4>
+		</div>
+
+		<div class="text-center">
+			<a class="btn btn-success m-right-sm" href="login.html">Logout</a>
+			<a class="btn btn-danger logoutConfirm_close">Cancel</a>
+		</div>
+	</div>
+	
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+	<!-- Jquery -->
+	<script src="js/jquery-1.10.2.min.js"></script>
+	
+	<!-- Bootstrap -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+   
+	<!-- Colorbox -->
+	<script src="js/jquery.colorbox.min.js"></script>	
+
+	<!-- Modernizr -->
+	<script src='js/modernizr.min.js'></script>
+	
+	<!-- Pace -->
+	<script src='js/pace.min.js'></script>
+	
+	<!-- Popup Overlay -->
+	<script src='js/jquery.popupoverlay.min.js'></script>
+	
+	<!-- Slimscroll -->
+	<script src='js/jquery.slimscroll.min.js'></script>
+	
+	<!-- Cookie -->
+	<script src='js/jquery.cookie.min.js'></script>
+
+	<!-- Perfect -->
+	<script src="js/app/app.js"></script>
+	
+	<script>
+		$(function()	{
+			//Colorbox 
+			$('.gallery-zoom').colorbox({
+				rel:'gallery',
+				maxWidth:'90%',
+				width:'800px'
+			});
+		});
+	</script>
+	
+  </body>
+</html>
