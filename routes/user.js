@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
+var User = require('../models/usuario.js');
 
 router.get('/', function(req, res, next) {
-	res.sendFile(path.join(__dirname, '../public', 'login.html'));
+	res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 /** Registro */

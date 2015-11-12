@@ -6,7 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = mongoose = require('mongoose');
-var routes = require('./routes/index');
+var user = require('./routes/user');
 var passport = require('passport');
 var localStrategy = require('passport-local' ).Strategy;
 
@@ -29,6 +29,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/user/', user);
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
+});
+
 //passport
 app.use(require('express-session')({
     secret: 'keyboard cat',
@@ -41,10 +46,6 @@ app.use(passport.session());
 passport.use(new localStrategy(Usuario.authenticate()));
 passport.serializeUser(Usuario.serializeUser());
 passport.deserializeUser(Usuario.deserializeUser());
-
-
-/** Rutas */
-app.use('/', routes);
 
 /** Controladores de errores */
 
