@@ -3,7 +3,6 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
 	res.sendFile(path.join(__dirname, '../public', 'login.html'));
-	console.log("asdasdasd");
 });
 
 /** Registro */
