@@ -27,12 +27,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/user/', user);
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '../public', 'index.html'));
-});
 
 //passport
 app.use(require('express-session')({
@@ -42,10 +36,17 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'public')));
+
 //configure passport
 passport.use(new localStrategy(Usuario.authenticate()));
 passport.serializeUser(Usuario.serializeUser());
 passport.deserializeUser(Usuario.deserializeUser());
+
+app.use('/user/', user);
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
+});
 
 /** Controladores de errores */
 
