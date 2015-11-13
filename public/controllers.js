@@ -3,6 +3,7 @@ angular.module('myApp').controller('loginController',
   function ($scope, $location, AuthService) {
 	  console.log(AuthService.getUserStatus());
 	  $scope.login = function () {
+		  
 		  // initial values
 		  $scope.error = false;
 		  $scope.disabled = true;
