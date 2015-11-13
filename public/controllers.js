@@ -4,8 +4,8 @@ angular.module('myApp').controller('loginController',
 	  console.log(AuthService.getUserStatus());
 	  $scope.login = function () {
 		  // initial values
-		  //$scope.error = false;
-		  //$scope.disabled = true;
+		  $scope.error = false;
+		  $scope.disabled = true;
 		
 		  // call login from service
 		  AuthService.login($scope.loginForm.username, $scope.loginForm.password)
@@ -22,9 +22,7 @@ angular.module('myApp').controller('loginController',
 		      //$scope.disabled = false;
 		      $scope.loginForm = {};
 		    });
-		
 	  };
-
 }]);
 
 angular.module('myApp').controller('logoutController',
