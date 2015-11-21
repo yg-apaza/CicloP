@@ -3,8 +3,9 @@ var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var Usuario = new Schema({
-    username: String,
-    password: String,
+    usuario: String,
+    contrasenia: String,
+    email: String
 });
 
 Usuario.plugin(passportLocalMongoose);
