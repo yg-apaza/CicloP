@@ -4,21 +4,21 @@ var path = require('path');
 
 router.get('/', function (req, res) {
 	if(req.user)
-		res.sendFile(path.join(__dirname, '../public', 'home.html'));
+		res.sendFile(path.join(__dirname, '../views', 'home.html'));
 	else
-		res.sendFile(path.join(__dirname, '../public', 'index.html'));
+		res.sendFile(path.join(__dirname, '../views', 'index.html'));
 });
 
 router.get('/home', function (req, res) {
-    res.sendFile(path.join(__dirname, 'public', 'home.html'));
+    res.sendFile(path.join(__dirname, '../views', 'home.html'));
 });
 
 router.get('/login', function (req, res) {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, '../views', 'login.html'));
 });
 
 router.get('/register', function (req, res) {
-    res.sendFile(path.join(__dirname, 'public', 'register.html'));
+    res.sendFile(path.join(__dirname, '../views', 'register.html'));
 });
 
 module.exports = router;
