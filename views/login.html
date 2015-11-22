@@ -39,7 +39,7 @@
 				</div>
 				<div class="panel-body">
 				 	<!-- modificacion -->
-					<form class="form-login">
+					<form class="form-login" ng-submit="ingresar()">
 						<div class="form-group">
 							<label>Nombre de Usuario</label>
 							<input type="text" placeholder="Usuario" class="form-control input-sm bounceIn animation-delay2" ng-model="cuenta.username" name="username">
@@ -56,8 +56,10 @@
 						</div>
 
 						<hr/>
-							
+						<button type="submit" class="btn btn-default">Ingresar</button>
+						<!--
 						<a class="btn btn-success btn-sm bounceIn animation-delay5 login-link pull-right" href="login" ng-click="ingresar()"><i class="fa fa-sign-in"></i> Ingresar</a>
+						-->
 					</form>
 				</div>
 			</div><!-- /panel -->
