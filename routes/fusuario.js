@@ -36,11 +36,10 @@ router.post('/login', function(req, res, next) {
 	    	return res.json({status: false, message: "No existe el usuario."});
 	    }
 	    req.logIn(user, function(err) {
-	    	console.log(err);
 	    	if (err) {
-	    		return res.json({status: false ,message: "Contraseña inválida"});
+	    		return res.json({status: false, message: "Contraseña inválida"});
 	    	}
-	    	return res.json({ status: true, message: "Acceso valido"});;
+	    	return res.json({status: true, message: "Acceso valido"});;
 	    });
 	})(req, res, next);
 });
@@ -50,6 +49,5 @@ router.get('/logout', function(req, res) {
 	req.logout();
 	res.redirect('/');
 });
-
 
 module.exports = router;
