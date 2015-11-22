@@ -14,8 +14,6 @@ router.post('/validate', function(req, res) {
 /** Registro */
 router.post('/register', function(req, res) {
 	Usuario.register(new Usuario({nombre: req.body.nombre, apellidos: req.body.apellidos, username: req.body.usuario, correo: req.body.correo}), req.body.clave, function(err, usuario) {
-		if(err && (err.name == "UserExistsError"))
-			return res.json({status: false, message: "Ya existe ese nombre de usuario."});
 		if(err)
 		{
 			// Completar otros errores de usuario
@@ -40,7 +38,7 @@ router.post('/login', function(req, res, next) {
 	    	if (err) {
 	    		return res.json({status: "Contraseña inválida"});
 	    	}
-	    	return res.sendFile(path.join(__dirname, '../public', 'home.html'));
+	    	return res.sendFile(path.join(__dirname, 'public', 'home.html'));
 	    });
 	})(req, res, next);
 });
