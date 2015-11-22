@@ -77,19 +77,16 @@
 						<i class="fa fa-bell fa-lg"></i>
 						<span class="notification-label bounceIn animation-delay4">1</span>
 					</a>
-					<ul class="dropdown-menu message dropdown-1">
+					<ul class="dropdown-menu message dropdown-1" >
 						<li><a>Tienes 1 notificacion</a></li>					  
-						<li>
-							<a class="clearfix" href="#">
-								<img src="img/user.jpg" alt="User Avatar">
-								<div class="detail">
-									<strong>John Doe</strong>
-									<p class="no-margin">
-										Te designó como diseñador en Proyecto2
-									</p>
-									<small class="text-muted"><i class="fa fa-check text-success"></i> 27m ago</small>
-								</div>
-							</a>	
+						<li ng-repeat="notificacion in notificaciones">
+							<a href="#">
+								<span ng-class=colorIconClass(notificacion.tipo)>
+									<i ng-class=iconClass(notificacion.tipo)></i>
+								</span>
+								<span class="m-left-xs">{{notificacion.mensaje}}</span>
+								<span class="time text-muted">{{notificacion.fecha}}</span>
+							</a>
 						</li>
 						
 						<li><a href="#">Ver todos los mensajes</a></li>					  
@@ -133,7 +130,7 @@
 				<div class="user-block clearfix">
 					<img src="img/user.jpg" alt="User Avatar">
 					<div class="detail">
-						<strong>Anonimus</strong>
+						<strong>{{usuario.username}}</strong>
 						<ul class="list-inline">
 							<li><a href="profile.html">Profile</a></li>
 						</ul>
@@ -234,12 +231,12 @@
 	<!-- Logout confirmation -->
 	<div class="custom-popup width-100" id="logoutConfirm">
 		<div class="padding-md">
-			<h4 class="m-top-none"> Do you want to logout?</h4>
+			<h4 class="m-top-none"> ¿Realmente quiere salir?</h4>
 		</div>
 
 		<div class="text-center">
-			<a class="btn btn-success m-right-sm" href="login.html">Logout</a>
-			<a class="btn btn-danger logoutConfirm_close">Cancel</a>
+			<a class="btn btn-success m-right-sm" href="fusuario/logout">Si</a>
+			<a class="btn btn-danger logoutConfirm_close">No</a>
 		</div>
 	</div>
 	
