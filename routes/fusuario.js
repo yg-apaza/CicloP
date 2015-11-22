@@ -22,7 +22,7 @@ router.post('/register', function(req, res) {
 							                {
 							                	tipo: 1,
 							                	mensaje: "Bienvenido al sistema del Ciclo P. Comience creando un proyecto",
-						                		fecha: (new Date())
+						                		fecha: new Date().toJSON().slice(0,10)
 							                }
 						                ]
 									}),
