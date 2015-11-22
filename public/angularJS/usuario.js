@@ -6,7 +6,6 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
 	  
 	  $http.post('/fusuario/login', $scope.cuenta)
 		.success(function(data) {
-				
 				$scope.cuenta = {}; // Borramos los datos del formulario
 				$scope.respuestaServer = data;
 				if($scope.respuestaServer.status)
