@@ -40,7 +40,7 @@ router.post('/login', function(req, res, next) {
 	    	if (err) {
 	    		return res.json({status: "Contraseña inválida"});
 	    	}
-	    	return res.sendFile(path.join(__dirname, 'public', 'home.html'));
+	    	return res.sendFile(path.join(__dirname, '../public', 'home.html'));
 	    });
 	})(req, res, next);
 });
