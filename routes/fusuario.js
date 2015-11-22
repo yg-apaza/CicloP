@@ -13,7 +13,7 @@ router.post('/validate', function(req, res) {
 
 /** Registro */
 router.post('/register', function(req, res) {
-	Usuario.register(new Usuario({username: req.body.username, email: req.body.email}), req.body.password, function(err, usuario) {
+	Usuario.register(new Usuario({nombre: req.body.nombre, apellidos: req.body.apellidos, usuario: req.body.usuario, correo: req.body.correo}), req.body.clave, function(err, usuario) {
 		if(err) {
 			return res.json({status: false});
 		}
@@ -47,7 +47,6 @@ router.post('/logout', function(req, res) {
 	req.logout();
 	res.redirect('/');
 });
-
 
 
 module.exports = router;
