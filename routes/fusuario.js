@@ -4,10 +4,10 @@ var Usuario = require('../models/usuario');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-	console.log(req.user);
+	res.json(req.user);
 });
 
-router.post('/validar', function(req, res) {
+router.post('/validate', function(req, res) {
 	
 });
 
@@ -16,7 +16,7 @@ router.post('/register', function(req, res) {
 	Usuario.register(new Usuario({username: req.body.username, email: req.body.email}), req.body.password, function(err, usuario) {
 		if(err) {
 			return res.json({status: false});
-	    }
+		}
 		passport.authenticate('local')(req, res, function () {
 			return res.json({status: true});
 		});
@@ -36,6 +36,7 @@ router.post('/login', function(req, res, next) {
 	    	if (err) {
 	    		return res.json({status: false});
 	    	}
+	    	//res.redi
 	    	res.json({status: true}) 	
 	    });
 	})(req, res, next);
@@ -46,5 +47,7 @@ router.post('/logout', function(req, res) {
 	req.logout();
 	res.redirect('/');
 });
+
+
 
 module.exports = router;
