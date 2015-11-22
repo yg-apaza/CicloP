@@ -4,8 +4,8 @@ var Usuario = require('../models/usuario');
 var router = express.Router();
 var path = require('path');
 
-router.get('/', function(req, res) {
-	res.json(req.user);
+router.post('/', function(req, res) {
+	res.json({nombre: req.user.nombre, apellidos: req.user.apellidos, correo: req.user.correo, username: req.user.username});
 });
 
 router.post('/validate', function(req, res) {
