@@ -14,7 +14,19 @@ router.post('/validate', function(req, res) {
 
 /** Registro */
 router.post('/register', function(req, res) {
-	Usuario.register(new Usuario({nombre: req.body.nombre, apellidos: req.body.apellidos, username: req.body.usuario, correo: req.body.correo}), req.body.clave, function(err, usuario) {
+	Usuario.register(new Usuario	({	nombre: req.body.nombre,
+										apellidos: req.body.apellidos,
+										username: req.body.usuario,
+										correo: req.body.correo,
+										notificaciones:[
+							                {
+							                	tipo: 1,
+							                	mensaje: "Bienvenido al sistema del Ciclo P. Comience creando un proyecto",
+						                		fecha: new Date().toJSON().slice(0,10)
+							                }
+						                ]
+									}),
+									req.body.clave, function(err, usuario) {
 		if(err)
 		{
 			// Completar otros errores de usuario
