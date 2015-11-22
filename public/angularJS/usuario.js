@@ -6,10 +6,13 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
 	  
 	  $http.post('/fusuario/login', $scope.cuenta)
 		.success(function(data) {
-				$window.location.href = "/home";
+				
 				$scope.cuenta = {}; // Borramos los datos del formulario
 				$scope.respuestaServer = data;
-				//alert(JSON.stringify($scope.respuestaServer));
+				if($scope.respuestaServer.status)
+					$window.location.href = "/home";
+				else
+					alert(JSON.stringify($scope.respuestaServer));
 		});
   };
 });
