@@ -13,13 +13,14 @@ router.post('/validate', function(req, res) {
 
 /** Registro */
 router.post('/register', function(req, res) {
-	Usuario.register(new Usuario({nombre: req.body.nombre, apellidos: req.body.apellidos, usuario: req.body.usuario, correo: req.body.correo}), req.body.clave, function(err, usuario) {
+
+	Usuario.register(new Usuario({nombre: req.body.nombre, apellidos: req.body.apellidos, username: req.body.usuario, correo: req.body.correo}), req.body.clave, function(err, usuario) {
+		console.log(err);
 		if(err) {
 			return res.json({status: false});
 		}
-		passport.authenticate('local')(req, res, function () {
+		else 
 			return res.json({status: true});
-		});
 	});
 });
 

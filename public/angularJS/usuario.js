@@ -9,8 +9,8 @@ app.controller('myCtrlUsuario',  function($scope) {
 });
 
 app.controller('myCtrlUsuarioReg',  function($scope,$http) {
-	$scope.cuentaReg = {nombre:'', apellidos:'', usuario:'ss', correo:'', clave:'s', claveVerificacion:''};
-	
+	$scope.cuentaReg = {nombre:'a', apellidos:'a', usuario:'ss', correo:'a', clave:'s', claveVerificacion:'a'};
+	alert("estas en registrar");
 	$scope.registrar = function(){
 		alert(JSON.stringify($scope.cuentaReg));
 		$http.post('/fusuario/register', $scope.cuentaReg)
