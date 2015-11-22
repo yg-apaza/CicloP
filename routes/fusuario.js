@@ -13,14 +13,11 @@ router.post('/validate', function(req, res) {
 
 /** Registro */
 router.post('/register', function(req, res) {
-
 	Usuario.register(new Usuario({nombre: req.body.nombre, apellidos: req.body.apellidos, username: req.body.usuario, correo: req.body.correo}), req.body.clave, function(err, usuario) {
-		console.log(err);
-		if(err) {
-			return res.json({status: false});
-		}
-		else 
-			return res.json({status: true});
+		if((err.name).equals("UserExistsError"))
+			return res.redirect('/').json({status: false, message: "Ya existe ese nombre de usuario."});
+		else
+			return res.json({status: true, message: "Usuario registrado con éxito"});
 	});
 });
 
@@ -37,7 +34,7 @@ router.post('/login', function(req, res, next) {
 	    	if (err) {
 	    		return res.json({status: false});
 	    	}
-	    	//res.redi
+	    	//res.redirect('');
 	    	res.json({status: true}) 	
 	    });
 	})(req, res, next);
