@@ -41,7 +41,7 @@ router.post('/login', function(req, res, next) {
 	    	if (err) {
 	    		return res.json({message: "Contraseña inválida"});
 	    	}
-	    	return res.redirect('/');
+	    	return res.json({message: "Acceso correcto"});
 	    });
 	})(req, res, next);
 });
