@@ -8,18 +8,20 @@ app.controller('myCtrlUsuario',  function($scope) {
   };
 });
 
-app.controller('myCtrlUsuarioReg',  function($scope) {
- $scope.cuenta = {nombre:'', apellidos:'', usuario:'', correo:'', clave1:'', clave2:''};
-  $scope.registrar = function(){
-        alert(JSON.stringify($scope.cuentaReg));
+app.controller('myCtrlUsuarioReg',  function($scope,$http) {
+	$scope.cuentaReg = {nombre:'', apellidos:'', usuario:'ss', correo:'', clave:'s', claveVerificacion:''};
+	
+	$scope.registrar = function(){
+		alert(JSON.stringify($scope.cuentaReg));
+		$http.post('/fusuario/register', $scope.cuentaReg)
+		.success(function(data) {
+			
+				$scope.newPersona = {}; // Borramos los datos del formulario
+				$scope.personas = data;
+				alert(JSON.stringify($scope.personas));
+			})
+		.error(function(data) {
+			console.log('Error: ' + data);
+		});
   };
 });
-
-
-$http.get('/api/cuenta').success(function(data) {
-		$scope.cuenta = data;
-	})
-	.error(function(data) {
-		console.log('Error: ' + data);
-	});
-
