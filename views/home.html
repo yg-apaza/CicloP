@@ -106,7 +106,7 @@
 							<a class="clearfix" href="#">
 								<img src="img/user.jpg" alt="User Avatar">
 								<div class="detail">
-									<strong>Anonimus</strong>
+									<strong>{{usuario.nombre + ' ' + usuario.apellidos }}</strong>
 									<p class="grey">{{usuario.correo}}</p> 
 								</div>
 							</a>
@@ -273,6 +273,11 @@
 
 	<!-- Perfect -->
 	<script src="js/app/app.js"></script>
+	
+	<!-- Cargamos angular -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+	<script src="angularJS/CHome.js"></script>
 	
 	<script>
 		$(function()	{
