@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var Usuario = require('../models/usuario');
 var router = express.Router();
+var path = require('path');
 
 router.get('/', function(req, res) {
 	res.json(req.user);
@@ -28,17 +29,19 @@ router.post('/register', function(req, res) {
 /** Login */
 router.post('/login', function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
+		console.log(user);
 		if (err) {
-			return res.json({status: false});
+			return res.json({message: err.name});
 		}
 	    if (!user) {
 	    	return res.json({message: "No existe el usuario."});
 	    }
 	    req.logIn(user, function(err) {
+	    	console.log(err);
 	    	if (err) {
-	    		return res.json({status: "Contraseña inválida"});
+	    		return res.json({message: "Contraseña inválida"});
 	    	}
-	    	return res.sendFile(path.join(__dirname, 'public', 'home.html'));
+	    	return res.redirect('/');
 	    });
 	})(req, res, next);
 });
