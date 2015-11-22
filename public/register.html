@@ -19,6 +19,7 @@
   </head>
 
   <body ng-app="myAppUsuario" ng-controller="myCtrlUsuarioReg">
+  
 	<div class="login-wrapper">
 		<div class="text-center">
 			<h2 class="fadeInUp animation-delay10" style="font-weight:bold">
@@ -34,29 +35,29 @@
 					<form class="form-login">
 						<div class="form-group">
 							<label>Nombre</label>
-							<input type="text" placeholder="Nombre" class="form-control input-sm bounceIn animation-delay2" ng-model="cuenta.nombre">
+							<input type="text" placeholder="Nombre" class="form-control input-sm bounceIn animation-delay2" ng-model="cuentaReg.nombre">
 						</div><!-- /form-group -->
 						<div class="form-group">
 							<label>Apellidos</label>
-							<input type="text" placeholder="Apellido" class="form-control input-sm bounceIn animation-delay3" ng-model="cuenta.apellidos">
+							<input type="text" placeholder="Apellido" class="form-control input-sm bounceIn animation-delay3" ng-model="cuentaReg.apellidos">
 						</div><!-- /form-group -->
 						<div class="form-group">
 							<label>Nombre de Usuario</label>
-							<input type="text" placeholder="Usuario" class="form-control input-sm bounceIn animation-delay4" ng-model="cuenta.usuario">
+							<input type="text" placeholder="Usuario" class="form-control input-sm bounceIn animation-delay4" ng-model="cuentaReg.usuario">
 						</div><!-- /frm-group -->
 						<div class="form-group">
 							<label>Contraseña</label>
-							<input type="password" placeholder="Contraseña" class="form-control input-sm bounceIn animation-delay3" ng-model="cuenta.clave1">
+							<input type="password" placeholder="Contraseña" class="form-control input-sm bounceIn animation-delay3" ng-model="cuentaReg.clave">
 						</div><!-- /form-group -->
 						<div class="form-group">
 							<label>Confirmar Contraseña</label>
-							<input type="text" placeholder="Contraseña" class="form-control input-sm bounceIn animation-delay5" ng-model="cuenta.clave2">
+							<input type="text" placeholder="Contraseña" class="form-control input-sm bounceIn animation-delay5" ng-model="cuentaReg.claveVerificacion">
 						</div><!-- /form-group -->
 						<div class="form-group">
 							<label>Correo Electrónico</label>
-							<input type="text" placeholder="Correo Electrónico" class="form-control input-sm bounceIn animation-delay6" ng-model="cuenta.correo">
+							<input type="text" placeholder="Correo Electrónico" class="form-control input-sm bounceIn animation-delay6" ng-model="cuentaReg.correo">
 						</div><!-- /form-group -->
-
+				
 						<div class="seperator"></div>
 						<div class="form-group">
 							<div class="controls">
@@ -67,7 +68,7 @@
 						<hr/>
 						<div class="form-group">
 							<div class="controls text-right">
-								<a class="btn btn-success btn-sm bounceIn animation-delay7 login-link" href="#" ng-click="registrar()"><i class="fa fa-plus-circle"></i> Registrar</a>
+								<a class="btn btn-success btn-sm bounceIn animation-delay7 login-link" href="/login.html" ng-click="registrar()"><i class="fa fa-plus-circle"></i> Registrar</a>
 							</div>
 						</div><!-- /form-group -->
 					</form>
