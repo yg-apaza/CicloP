@@ -9,7 +9,7 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
 				$window.location.href = "/home";
 				$scope.cuenta = {}; // Borramos los datos del formulario
 				$scope.respuestaServer = data;
-				alert(JSON.stringify($scope.respuestaServer));
+				//alert(JSON.stringify($scope.respuestaServer));
 		});
   };
 });

@@ -29,25 +29,24 @@ router.post('/register', function(req, res) {
 /** Login */
 router.post('/login', function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
-		console.log(user);
 		if (err) {
-			return res.json({message: err.name});
+			return res.json({status: false, message: err.name});
 		}
 	    if (!user) {
-	    	return res.json({message: "No existe el usuario."});
+	    	return res.json({status: false, message: "No existe el usuario."});
 	    }
 	    req.logIn(user, function(err) {
 	    	console.log(err);
 	    	if (err) {
-	    		return res.json({message: "Contraseña inválida"});
+	    		return res.json({status: false ,message: "Contraseña inválida"});
 	    	}
-	    	return res.redirect('/');
+	    	return res.json({ status: true, message: "Acceso valido"});;
 	    });
 	})(req, res, next);
 });
 
 /** Logout */
-router.post('/logout', function(req, res) {
+router.get('/logout', function(req, res) {
 	req.logout();
 	res.redirect('/');
 });
