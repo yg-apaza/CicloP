@@ -3,7 +3,6 @@ var app = angular.module('myAppUsuario',[]);
 app.controller('myCtrlUsuario',  function($scope,$http) {
   $scope.cuenta = {usuario:'',clave:''};
   $scope.ingresar = function(){
-	  $scope.cuenta = {usuario:'', clave:''};
 	  $http.post('/fusuario/login', $scope.cuentaReg)
 		.success(function(data) {
 				$scope.cuenta = {}; // Borramos los datos del formulario
