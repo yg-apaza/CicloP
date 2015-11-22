@@ -14,6 +14,10 @@ router.post('/validate', function(req, res) {
 /** Registro */
 router.post('/register', function(req, res) {
 	Usuario.register(new Usuario({nombre: req.body.nombre, apellidos: req.body.apellidos, username: req.body.usuario, correo: req.body.correo}), req.body.clave, function(err, usuario) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/yg-apaza/CicloP.git
 		if(err)
 		{
 			// Completar otros errores de usuario
