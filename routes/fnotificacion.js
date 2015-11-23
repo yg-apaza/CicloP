@@ -16,18 +16,24 @@ router.post('/', function(req, res) {
 });
 
 router.post('/agregar', function(req, res) {
-	Usuario.findOne({ usuario: req.user.username }, function (err, usuario) {
+	Usuario.findOne({ username: req.user.username }, function (err, usuario) {
 		usuario.notificaciones.push(req.body.notificacion);
 		usuario.save();
 	});
 });
 
 router.post('/verTodo', function(req, res){
-	Usuario.findOne({ usuario: req.user.username }, function (err, usuario) {
-		for(i = 0; i < usuario.notificaciones.length; i++)
-			usuario.notificaciones[i].leido = true;
-		usuario.save();
-		res.json({status: true});
+	Usuario.findOne({username: req.user.username}, function (err, usuario) {
+		var i, nuevasNotificaciones = usuario.notificaciones;
+		for(i = 0; i < nuevasNotificaciones.length; i++)
+			nuevasNotificaciones[i].leido = true;
+		
+		Usuario.update({username: req.user.username}, {notificaciones: nuevasNotificaciones}, function(err){		
+			if(err)
+				res.json({status: false});
+			else
+				res.json({status: true});
+		});
 	});
 });
 module.exports = router;
