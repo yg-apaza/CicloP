@@ -5,10 +5,14 @@ var router = express.Router();
 // var path = require('path');
 
 router.post('/', function(req, res) {
-	if(req.body.num === 0)
-		res.json(req.user.notificaciones);
-	else
-		res.json(req.user.notificaciones.slice(req.user.notificaciones.length - req.num, req.user.notificaciones.length));
+	var i;
+	var count = 0;
+	for(i = 0; i < req.user.notificaciones.length; i++)
+	{
+		if(!req.user.notificaciones[i].leido)
+			count++;
+	}
+	res.json({notificaciones: req.user.notificaciones, noleidos: count});
 });
 
 router.post('/agregar', function(req, res) {
