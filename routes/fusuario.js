@@ -21,8 +21,10 @@ router.post('/register', function(req, res) {
 										notificaciones:[
 							                {
 							                	tipo: 1,
-							                	mensaje: "Bienvenido al sistema del Ciclo P. Comience creando un proyecto",
-						                		fecha: new Date().toJSON().slice(0,10)
+							                	titulo: "Bienvenido a Ciclo P",
+							                	descripcion: "Bienvenido al sistema del Ciclo P. Comience creando un proyecto",
+						                		fecha: new Date().toJSON().slice(5,10),
+						                		leido: false
 							                }
 						                ]
 									}),
