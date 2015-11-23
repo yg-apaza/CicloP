@@ -23,13 +23,17 @@ router.post('/agregar', function(req, res) {
 });
 
 router.post('/verTodo', function(req, res){
-	Usuario.findOne({ username: req.user.username }, function (err, usuario) {
+	Usuario.findOne({username: req.user.username}, function (err, usuario) {
+		var i, nuevasNotificaciones = usuario.notificaciones;
+		for(i = 0; i < nuevasNotificaciones.length; i++)
+			nuevasNotificaciones[i].leido = true;
 		
-		var i;
-		for(i = 0; i < usuario.notificaciones.length; i++)
-			usuario.notificaciones[i].leido = true;
-		usuario.save();
-		res.json({status: true});
+		Usuario.update({username: req.user.username}, {notificaciones: nuevasNotificaciones}, function(err){		
+			if(err)
+				res.json({status: false});
+			else
+				res.json({status: true});
+		});
 	});
 });
 module.exports = router;
