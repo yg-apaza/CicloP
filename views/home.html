@@ -73,14 +73,14 @@
 			</button>
 			<ul class="nav-notification clearfix">
 				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="leerNotificacion()">
 						<i class="fa fa-bell fa-lg"></i>
-						<span ng-show="{{noleidos}}" class="notification-label bounceIn animation-delay4">{{noleidos}}</span>
+						<span ng-show="{{'noleidos'}}" class="notification-label bounceIn animation-delay4">{{noleidos}}</span>
 					</a>
 					<ul class="dropdown-menu message dropdown-1" >
-						<span ng-show={{noleidos==0}}> <li><a>No tienes notificaciones nuevas</a></li></span>
-						<span ng-show={{noleidos==1}}> <li><a>Tiene {{noleidos}} notificacion nueva</a></li></span>
-						<span ng-show={{noleidos>1}} > <li><a>Tienes {{noleidos}} notificaciones nuevas</a></li></span>			  
+						<li ng-show="{{'noleidos==0'}}"> <a>No tienes notificaciones nuevas</a></li>
+						<li ng-show="{{'noleidos==1'}}"> <a>Tiene {{noleidos}} notificacion nueva</a></li>
+						 <li ng-show="{{'noleidos>1'}}"> <a>Tienes {{noleidos}} notificaciones nuevas</a></li>			  
 						
 						<li ng-repeat="notificacion in notificaciones">
 							<a href="#">

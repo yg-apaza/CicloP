@@ -22,6 +22,14 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
 	   	  return "notification-icon bg-warning";
   };
   
+  $scope.leerNotificacion = function(){
+	  $http.post('/fnotificacion/verTodo')
+		.success(function(data) {
+				if(data.status)
+					$scope.noleidos = 0;
+	   });
+  }
+  
   $scope.iconClass = function(tipo){
      if (tipo == 1)
 	  return "fa fa-bullhorn";
