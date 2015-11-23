@@ -5,6 +5,10 @@ var router = express.Router();
 var path = require('path');
 
 router.post('/', function(req, res) {
+	/*
+	Usuario.findOne({ usuario: req.user.username}, function (err, usuario) {
+		return res.json({nombre: usuario.nombre, apellidos: usuario.apellidos, correo: usuario.correo, username: usuario.usuario});
+	});*/
 	res.json({nombre: req.user.nombre, apellidos: req.user.apellidos, correo: req.user.correo, username: req.user.username});
 });
 
