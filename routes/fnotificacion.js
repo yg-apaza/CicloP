@@ -22,7 +22,7 @@ router.post('/agregar', function(req, res) {
 	});
 });
 
-router.post('/verTodo', function(req, res){
+router.post('/verTodo', function(req, res) {
 	Usuario.findOne({username: req.user.username}, function (err, usuario) {
 		var i, nuevasNotificaciones = usuario.notificaciones;
 		for(i = 0; i < nuevasNotificaciones.length; i++)
@@ -36,4 +36,5 @@ router.post('/verTodo', function(req, res){
 		});
 	});
 });
+
 module.exports = router;

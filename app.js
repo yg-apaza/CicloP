@@ -10,6 +10,8 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var fusuario = require('./routes/fusuario');
 var fnotificacion = require('./routes/fnotificacion');
+var fproyecto = require('./routes/fproyecto');
+
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local' ).Strategy;
@@ -56,6 +58,7 @@ mongoose.connect('mongodb://localhost/ciclopbd');
 app.use('/', index);
 app.use('/fusuario/', fusuario);
 app.use('/fnotificacion/', fnotificacion);
+app.use('/fproyecto/', fproyecto);
 
 /** Controladores de errores */
 

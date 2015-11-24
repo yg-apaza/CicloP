@@ -5,10 +5,6 @@ var router = express.Router();
 var path = require('path');
 
 router.post('/', function(req, res) {
-	/*
-	Usuario.findOne({ usuario: req.user.username}, function (err, usuario) {
-		return res.json({nombre: usuario.nombre, apellidos: usuario.apellidos, correo: usuario.correo, username: usuario.usuario});
-	});*/
 	res.json({nombre: req.user.nombre, apellidos: req.user.apellidos, correo: req.user.correo, username: req.user.username});
 });
 
@@ -38,9 +34,22 @@ router.post('/register', function(req, res) {
 			// Completar otros errores de usuario
 			if((err.name) == "UserExistsError")
 				return res.json({status: false, message: "Ya existe ese nombre de usuario."});
+			if(err.errors)
+			{
+				if(err.errors.nombre)
+					return res.json({status: false, message: err.errors.nombre.message});
+				else if(err.errors.apellidos)
+					return res.json({status: false, message: err.errors.apellidos.message});
+				else if(err.errors.correo)
+					return res.json({status: false, message: err.errors.correo.message});
+				else if(err.errors.usuario)
+					return res.json({status: false, message: err.errors.usuario.message});
+			}
 		}
 		else
-			return res.json({status: true, message: "Usuario registrado con éxito"});
+		{
+	    	return res.json({status: true, message: "Usuario registrado"});
+		}
 	});
 });
 
