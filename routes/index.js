@@ -10,15 +10,27 @@ router.get('/', function (req, res) {
 });
 
 router.get('/home', function (req, res) {
-    res.sendFile(path.join(__dirname, '../views', 'home.html'));
+	res.redirect('/');
+	/*
+	if(req.user)
+		res.sendFile(path.join(__dirname, '../views', 'home.html'));
+	else
+		res.sendFile(path.join(__dirname, '../views', 'index.html'));
+		*/
 });
 
 router.get('/login', function (req, res) {
-    res.sendFile(path.join(__dirname, '../views', 'login.html'));
+	if(!req.user)
+		res.sendFile(path.join(__dirname, '../views', 'login.html'));
+	else
+		res.redirect('/');
 });
 
 router.get('/register', function (req, res) {
-    res.sendFile(path.join(__dirname, '../views', 'register.html'));
+	if(!req.user)
+		res.sendFile(path.join(__dirname, '../views', 'register.html'));
+	else
+		res.redirect('/');
 });
 
 module.exports = router;

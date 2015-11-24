@@ -34,6 +34,17 @@ router.post('/register', function(req, res) {
 			// Completar otros errores de usuario
 			if((err.name) == "UserExistsError")
 				return res.json({status: false, message: "Ya existe ese nombre de usuario."});
+			if(err.errors)
+			{
+				if(err.errors.nombre)
+					return res.json({status: false, message: err.errors.nombre.message});
+				else if(err.errors.apellidos)
+					return res.json({status: false, message: err.errors.apellidos.message});
+				else if(err.errors.correo)
+					return res.json({status: false, message: err.errors.correo.message});
+				else if(err.errors.usuario)
+					return res.json({status: false, message: err.errors.usuario.message});
+			}
 		}
 		else
 		{
