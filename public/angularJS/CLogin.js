@@ -11,7 +11,7 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
 				if($scope.respuestaServer.status)
 					$window.location.href = "/home";
 				else
-					alert(JSON.stringify($scope.respuestaServer));
+					$scope.respuestaServer =  data.message;
 		});
   };
 });
