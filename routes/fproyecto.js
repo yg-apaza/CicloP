@@ -5,7 +5,10 @@ var Usuario = require('../models/usuario');
 var router = express.Router();
 
 router.post('/', function(req, res) {
-	
+	Proyectos.find({}, function(err, proyectos){
+		if(!err)
+			res.json(proyectos);
+	});
 });
 
 router.post('/agregar', function(req, res) {
