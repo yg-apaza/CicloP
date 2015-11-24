@@ -10,8 +10,8 @@ var Usuario = new Schema({
     correo: String,
     usuario: String,
     clave: String,
-    //notificaciones: [{tipo: Number, mensaje: String, fecha: Date}]
-    notificaciones: {type: Array}
+    notificaciones: {type: Array},
+    roles: {type: Array}
 });
 
 Usuario.plugin(passportLocalMongoose);
