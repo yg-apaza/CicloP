@@ -25,7 +25,8 @@ router.post('/agregar', function(req, res) {
 	{
 		Usuario.findOne({username: req.body.roles[i].username}, function (err, usuario) {
 			console.log(usuario.notificaciones)
-			var nuevosRoles = usuario.roles;
+			//var nuevosRoles = usuario.roles;
+			var nuevosRoles = [];
 			nuevosRoles.push({rol: req.body.roles[i].rol, proyecto: proy._id});
 			Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {		
 				if(!err)

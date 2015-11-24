@@ -4,7 +4,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 // Notificaciones: tipo: 1: Sistema, 2: Proyecto, 3: Check, 4: Warning
 
-var Usuario = new Schema({
+var Usuario = new Schema ({
     nombre: {
     	type: String,
     	validate: {
