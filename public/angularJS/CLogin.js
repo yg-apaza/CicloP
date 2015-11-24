@@ -23,7 +23,7 @@ app.controller('myCtrlUsuarioReg',  function($scope,$http,$window) {
 		$http.post('/fusuario/register', $scope.cuentaReg)
 		.success(function(data) {
 				if(data.status)
-					$window.location.href = "/home";
+					$window.location.href = "/login";
 				else{
 					$scope.respuestaServer =  data.message;
 				}
