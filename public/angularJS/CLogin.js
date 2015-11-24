@@ -16,15 +16,17 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
   };
 });
 
-app.controller('myCtrlUsuarioReg',  function($scope,$http) {
+app.controller('myCtrlUsuarioReg',  function($scope,$http,$window) {
 	$scope.cuentaReg = {nombre:'', apellidos:'', usuario:'', correo:'', clave:''};
-	
+	$scope.respuestaServer = '';
 	$scope.registrar = function(){
 		$http.post('/fusuario/register', $scope.cuentaReg)
 		.success(function(data) {
-				$scope.cuentaReg = {}; // Borramos los datos del formulario
-				$scope.respuestaServer = data;
-				alert(JSON.stringify($scope.respuestaServer));
+				if(data.status)
+					$window.location.href = "/home";
+				else{
+					$scope.respuestaServer =  data.message;
+				}
 		});
 	};
 });
