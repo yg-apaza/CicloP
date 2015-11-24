@@ -16,6 +16,9 @@
 	<!-- Perfect -->
 	<link href="css/app.min.css" rel="stylesheet">
 	
+	<!-- Pace -->
+	<link href="css/pace.css" rel="stylesheet">
+	
   </head>
 
   <body ng-app="myAppUsuario" ng-controller="myCtrlUsuarioReg">
@@ -32,44 +35,50 @@
 					<i class="fa fa-plus-circle fa-lg"></i> Registrar Usuario
 				</div>
 				<div class="panel-body">
-					<form class="form-login" action>
+					<form class="form-login" data-validate="parsley" ng-submit="registrar()" novalidate>
 						<div class="form-group">
 							<label>Nombre</label>
-							<input type="text" placeholder="Nombre" class="form-control input-sm bounceIn animation-delay2" ng-model="cuentaReg.nombre">
+							<input type="text" placeholder="Nombre" class="form-control input-sm bounceIn animation-delay2" data-required="true" data-type="nombre" ng-model="cuentaReg.nombre">
 						</div><!-- /form-group -->
 						<div class="form-group">
 							<label>Apellidos</label>
-							<input type="text" placeholder="Apellido" class="form-control input-sm bounceIn animation-delay3" ng-model="cuentaReg.apellidos">
+							<input type="text" placeholder="Apellido" class="form-control input-sm bounceIn animation-delay3" data-required="true" data-type="apellidos" ng-model="cuentaReg.apellidos">
 						</div><!-- /form-group -->
 						<div class="form-group">
 							<label>Nombre de Usuario</label>
-							<input type="text" placeholder="Usuario" class="form-control input-sm bounceIn animation-delay4" ng-model="cuentaReg.usuario">
+							<input type="text" placeholder="Usuario" class="form-control input-sm bounceIn animation-delay4" data-required="true" data-type="usuario" data-type="alphanum" ng-model="cuentaReg.usuario">
 						</div><!-- /frm-group -->
 						<div class="form-group">
 							<label>Contraseña</label>
-							<input type="password" placeholder="Contraseña" class="form-control input-sm bounceIn animation-delay3" ng-model="cuentaReg.clave">
+							<input type="password" id="password" placeholder="Contraseña" class="form-control input-sm bounceIn animation-delay3" data-required="true" data-minlength="6" ng-model="cuentaReg.clave">
+						</div><!-- /form-group -->
+						<div class="form-group">
+							<label>Confirmar Contraseña</label>
+							<input type="password"  placeholder="Contraseña" class="form-control input-sm bounceIn animation-delay3" data-equalto="#password" data-required="true">
 						</div><!-- /form-group -->
 						<div class="form-group">
 							<label>Correo Electrónico</label>
-							<input type="text" placeholder="Correo Electrónico" class="form-control input-sm bounceIn animation-delay6" ng-model="cuentaReg.correo">
+							<input type="text" placeholder="Correo Electrónico" class="form-control input-sm bounceIn animation-delay6" data-required="true" data-type="email" ng-model="cuentaReg.correo">
 						</div><!-- /form-group -->
 				
 						<div class="seperator"></div>
 						<div class="form-group">
 							<div class="controls">
-								¿Tienes una cuenta? <a href="login.html" class="primary-font login-link">Ingresar</a>
+								¿Tienes una cuenta? <a href="login" class="primary-font login-link"> Ingresar</a>
 							</div>
 						</div><!-- /form-group -->
 							
 						<hr/>
 						<div class="form-group">
 							<div class="controls text-right">
-								<a class="btn btn-success btn-sm bounceIn animation-delay7 login-link" href="/login" ng-click="registrar()"><i class="fa fa-plus-circle"></i> Registrar</a>
+								<button type="submit" class="btn btn-success animation-delay7"><i class="fa fa-plus-circle"></i> Registrar</button>	
 							</div>
 						</div><!-- /form-group -->
 					</form>
 				</div>
 			</div><!-- /panel -->
+			<div class="alert alert-danger">{{respuestaServer}}</div>
+			{{respuestaServer}}
 		</div><!-- /login-widget -->
 	</div><!-- /login-wrapper -->
 	
@@ -82,6 +91,9 @@
     
     <!--Bootstrap-->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    
+    <!-- Parsley -->
+	<script src="js/parsley.min.js"></script>
    
 	<!-- Modernizr -->
 	<script src='js/modernizr.min.js'></script>

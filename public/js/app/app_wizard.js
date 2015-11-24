@@ -31,7 +31,8 @@ $(function	()	{
 	$('#formValidate1').parsley( { listeners: {
         onFormSubmit: function ( isFormValid, event ) {
             if(isFormValid)	{
-				alert('Registration Complete');
+            	alert('Your message has been sent');
+            	
 				return false;
 			}
         }
@@ -41,6 +42,7 @@ $(function	()	{
         onFormSubmit: function ( isFormValid, event ) {
             if(isFormValid)	{
 				alert('Your message has been sent');
+				$(document).ready( registrar );
 				return false;
 			}
         }
