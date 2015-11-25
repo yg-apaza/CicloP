@@ -41,5 +41,14 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
    	  return "fa fa-warning";
   };
   
+  $scope.leerProyectos = function(){
+	  
+	  $http.post('/fproyectos/')
+		.success(function(data) {
+				$scope.proyectos = data;
+	   });
+  }
+  
+  
 });
 

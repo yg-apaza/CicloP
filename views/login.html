@@ -39,7 +39,7 @@
 				</div>
 				<div class="panel-body">
 				 	<!-- modificacion -->
-					<form class="form-login">
+					<form class="form-login" ng-submit="ingresar()">
 						<div class="form-group">
 							<label>Nombre de Usuario</label>
 							<input type="text" placeholder="Usuario" class="form-control input-sm bounceIn animation-delay2" ng-model="cuenta.username" name="username">
@@ -49,14 +49,22 @@
 							<input type="password" placeholder="Contraseña" class="form-control input-sm bounceIn animation-delay4" ng-model="cuenta.password" name="password">
 						</div>
 						
+						<p class="text-danger pull-right">{{respuestaServerIngreso}}</p>
+						
 						<div class="seperator"></div>
-						<div class="form-group">
-							¿Has olvidado tu contraseña?<br/>
-							Click <a href="#">aqui</a> para cambiar contraseña
-						</div>
+						
 						<hr/>
-						<a class="btn btn-success btn-sm bounceIn animation-delay5 login-link pull-right" href="login" ng-click="ingresar()"><i class="fa fa-sign-in"></i> Ingresar</a>
+						<div class="form-group">
+							<span class="pull-left">
+							¿Has olvidado tu contraseña? <br>
+							Click <a href="#"><span class="text-info" >aqui</span></a> para recuperar
+							</span>
+							
+							<button type="submit" class="btn btn-success animation-delay7 pull-right"><i class="fa fa-sign-in"></i> Ingresar</button>	
+						</div>
+						
 					</form>
+					
 				</div>
 			</div><!-- /panel -->
 		</div><!-- /login-widget -->

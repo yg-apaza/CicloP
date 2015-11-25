@@ -38,15 +38,16 @@
 					<form class="form-login" data-validate="parsley" ng-submit="registrar()" novalidate>
 						<div class="form-group">
 							<label>Nombre</label>
-							<input type="text" placeholder="Nombre" class="form-control input-sm bounceIn animation-delay2" data-required="true" data-type="nombre" ng-model="cuentaReg.nombre">
+							<input type="text" placeholder="Nombre" class="form-control input-sm bounceIn animation-delay2" data-required="true" data-type="palabras" ng-model="cuentaReg.nombre">
 						</div><!-- /form-group -->
 						<div class="form-group">
 							<label>Apellidos</label>
-							<input type="text" placeholder="Apellido" class="form-control input-sm bounceIn animation-delay3" data-required="true" data-type="apellidos" ng-model="cuentaReg.apellidos">
+							<input type="text" placeholder="Apellido" class="form-control input-sm bounceIn animation-delay3" data-required="true" data-type="palabras" ng-model="cuentaReg.apellidos">
 						</div><!-- /form-group -->
 						<div class="form-group">
 							<label>Nombre de Usuario</label>
 							<input type="text" placeholder="Usuario" class="form-control input-sm bounceIn animation-delay4" data-required="true" data-type="usuario" data-type="alphanum" ng-model="cuentaReg.usuario">
+							<p class="text-danger">{{respuestaServer}}</p>	
 						</div><!-- /frm-group -->
 						<div class="form-group">
 							<label>Contraseña</label>
@@ -77,7 +78,6 @@
 					</form>
 				</div>
 			</div><!-- /panel -->
-			<div class="alert alert-danger">{{respuestaServer}}</div>
 		</div><!-- /login-widget -->
 	</div><!-- /login-wrapper -->
 	

@@ -33,7 +33,7 @@ router.post('/register', function(req, res) {
 		{
 			// Completar otros errores de usuario
 			if((err.name) == "UserExistsError")
-				return res.json({status: false, message: "Ya existe ese nombre de usuario."});
+				return res.json({status: false, message: "Ya existe ese nombre de usuario"});
 			if(err.errors)
 			{
 				if(	err.errors.nombre ||
@@ -53,11 +53,12 @@ router.post('/register', function(req, res) {
 /** Login */
 router.post('/login', function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
+		console.log(user);
 		if (err) {
 			return res.json({status: false, message: err.name});
 		}
 	    if (!user) {
-	    	return res.json({status: false, message: "No existe el usuario."});
+	    	return res.json({status: false, message: "Ingreso de datos incorrectos"});
 	    }
 	    req.logIn(user, function(err) {
 	    	if (err) {

@@ -16,7 +16,7 @@ router.get('/home', function (req, res) {
 		res.sendFile(path.join(__dirname, '../views', 'home.html'));
 	else
 		res.sendFile(path.join(__dirname, '../views', 'index.html'));
-		*/
+	*/
 });
 
 router.get('/login', function (req, res) {

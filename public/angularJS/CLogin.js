@@ -2,6 +2,7 @@ var app = angular.module('myAppUsuario',[]);
 
 app.controller('myCtrlUsuario',  function($scope,$http,$window) {
   $scope.cuenta = {username:'',password:''};
+  $scope.respuestaServerIngreso = '';
   $scope.ingresar = function(){
 	  
 	  $http.post('/fusuario/login', $scope.cuenta)
@@ -11,7 +12,7 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
 				if($scope.respuestaServer.status)
 					$window.location.href = "/home";
 				else
-					alert(JSON.stringify($scope.respuestaServer));
+					$scope.respuestaServerIngreso =  data.message;
 		});
   };
 });
