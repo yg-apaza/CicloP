@@ -43,7 +43,7 @@
 	
   </head>
 
-  <body class="overflow-hidden">
+  <body class="overflow-hidden" ng-app="myAppProyecto" ng-controller="myCtrlAgregarProyecto">
 	<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
 
@@ -206,7 +206,7 @@
 							</ul>
 						</li>
 						<li class="active">
-							<a href="nuevoProyecto.html">
+							<a href="nuevoProyecto">
 								<span class="text">
 									Crear Proyecto
 								</span>
@@ -217,7 +217,7 @@
 				</div><!-- /main-menu -->
 			</div><!-- /sidebar-inner -->
 		</aside>
-
+		
 		<div id="main-container">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
@@ -227,7 +227,7 @@
 			</div><!-- /breadcrumb-->
 			<div class="padding-md">
 				<div class="panel panel-default">
-					<form>
+					<form ng-submit="crearProyecto()">
 						<div class="panel-heading">Crear Proyecto</div>
 						<div class="panel-body">
 							<div class="row">
@@ -235,21 +235,21 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="nombreProyecto">Nombre del proyecto</label>
-										<input type="text" class="form-control input-sm" id="nombreProyecto" >
+										<input type="text" class="form-control input-sm" id="nombreProyecto" ng-model="newProject.nombre">
 									</div><!-- /form-group -->
 									<div class="form-group">
 										<label for="Descripcion">Descripcion</label>
-										<textarea class="form-control" rows="3" id="Descripcion"></textarea>
+										<textarea class="form-control" rows="3" id="Descripcion" ng-model="newProject.descripcion"></textarea>
 									</div><!-- /form-group -->
 									<div class="form-group">
 										<label for="fechaCulminacion">Fecha de Culminacion</label>
 										<div class="input-group">
-											<input type="text" value="22/10/2015" class="datepicker form-control">
+											<input type="text" ng-init="newProject.fechaCulminacion = '22/10/2015'" ng-value="newProject.fechaCulminacion" class="datepicker form-control" ng-model="newProject.fechaCulminacion">
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										</div>
 									</div><!-- /form-group -->
 								</div>
-
+								
 								<div class="col-md-6">
 									<table class="table table-bordered table-condensed table-hover table-striped">
 										<thead>
@@ -259,36 +259,25 @@
 												<th>Rol</th>	
 											</tr>
 										</thead>
-										<tr>
+										<tr ng-repeat="usuario in usuarios">
 											<td> 	
-												<input type="text" class="form-control">								
+												<input type="text" class="form-control" ng-model="usuario.username">
 											</td>
 											<td>
-												<span class="label label-success">ok</span>
+												<span ng-class=classEstado(usuario.estado)>{{usuario.msjEstado}}</span>
 											</td>
 											<td> 
-												<select class="input-sm form-control inline"> 
-													<option value="0">Diseñador</option> 
-													<option value="1">Probador</option> 
-												</select>									
-											</td>
-										</tr>
-										<tr>
-											<td> 	
-												<input type="text" class="form-control">								
-											</td>
-											<td>
-												<span class="label label-danger">No Existe</span>
-											</td>
-											<td> 
-												<select class="input-sm form-control inline"> 
-													<option value="0">Diseñador</option> 
-													<option value="1">Probador</option> 
-												</select>									
+												<select class="input-sm form-control inline" ng-model="usuario.rol"> 
+													<option ng-repeat="rol in roles" value="{{rol.valor}}">
+													{{rol.nombre}}
+													</option> 
+												</select>								
 											</td>
 										</tr>
 									</table>				
 								</div>
+								{{usuarios}}
+								{{newProject}}
 							</div>
 						</div>
 						<div class="panel-footer text-right">
@@ -383,5 +372,11 @@
 	<script src="js/app/app_form.js"></script>
 	<script src="js/app/app.js"></script>
 
+	<!-- Cargamos angular -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+	<script src="angularJS/CProyecto.js"></script>
+	
+	
   </body>
 </html>

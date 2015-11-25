@@ -46,7 +46,7 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
 	  $http.post('/fproyectos/')
 		.success(function(data) {
 				$scope.proyectos = data;
-	   });
+	  });
   }
   
   
