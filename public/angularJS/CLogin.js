@@ -10,9 +10,9 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
 				$scope.cuenta = {}; // Borramos los datos del formulario
 				$scope.respuestaServer = data;
 				if($scope.respuestaServer.status)
-					$window.location.href = "/home";
+					alert('Se creo Proyecto');
 				else
-					$scope.respuestaServerIngreso =  data.message;
+					alert('Problemas de servidor');
 		});
   };
 });
