@@ -5,7 +5,7 @@ var Usuario = require('../models/usuario');
 var router = express.Router();
 
 router.post('/', function(req, res) {
-	
+
 });
 
 router.post('/agregar', function(req, res) {
@@ -25,12 +25,13 @@ router.post('/agregar', function(req, res) {
 	var i;
 	for(i = 0; i < req.body.usuarios.length; i++)
 	{
-		console.log(req.body.usuarios[i]);
-		Usuario.findOne({username: req.body.usuarios[i].username}, function (err, usuario) {
-			
-			var nuevosRoles = usuario.roles;
-			console.log(nuevosRoles);
-			nuevosRoles.push({rol: req.body.usuarios[i].rol, proyecto: proy._id});
+
+		Usuario.findOne({username: req.body.roles[i].username}, function (err, usuario) {
+			console.log(usuario.notificaciones)
+			//var nuevosRoles = usuario.roles;
+			var nuevosRoles = [];
+			nuevosRoles.push({rol: req.body.roles[i].rol, proyecto: proy._id});
+
 			Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {		
 				if(!err)
 					r = true;

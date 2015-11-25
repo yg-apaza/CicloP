@@ -36,14 +36,11 @@ router.post('/register', function(req, res) {
 				return res.json({status: false, message: "Ya existe ese nombre de usuario"});
 			if(err.errors)
 			{
-				if(err.errors.nombre)
+				if(	err.errors.nombre ||
+					err.errors.apellidos ||
+					err.errors.correo ||
+					err.errors.usuario )
 					return res.json({status: false, message: ""});
-				else if(err.errors.apellidos)
-					return res.json({status: false, message: ""});
-				else if(err.errors.correo)
-					return res.json({status: false, message: ""});
-				else if(err.errors.usuario)
-					return res.json({status: false, message: err.errors.usuario.message});
 			}
 		}
 		else
