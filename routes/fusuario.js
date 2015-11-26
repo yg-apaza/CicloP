@@ -29,23 +29,31 @@ router.post('/register', function(req, res) {
 						                ]
 									}),
 									req.body.clave, function(err, usuario) {
-		if(err)
+		if (!(req.body.correo && req.body.nombre &&
+				req.body.apellidos))
 		{
-			// Completar otros errores de usuario
-			if((err.name) == "UserExistsError")
-				return res.json({status: false, message: "Ya existe ese nombre de usuario"});
-			if(err.errors)
-			{
-				if(	err.errors.nombre ||
-					err.errors.apellidos ||
-					err.errors.correo ||
-					err.errors.usuario )
-					return res.json({status: false, message: ""});
-			}
+			res.json({status: false, message: ""});
 		}
 		else
 		{
-	    	return res.json({status: true, message: "Usuario registrado"});
+			if(err)
+			{
+				
+				// Completar otros errores de usuario
+				if((err.name) == "UserExistsError")
+					return res.json({status: false, message: "Ya existe ese nombre de usuario"});
+				if(err.errors)
+				{
+					if(	err.errors.nombre ||
+						err.errors.apellidos ||
+						err.errors.correo ||
+						err.errors.usuario )
+						return res.json({status: false, message: ""});
+				}
+		
+			}
+			else
+		    	return res.json({status: true, message: "Usuario registrado"});
 		}
 	});
 });
@@ -53,7 +61,6 @@ router.post('/register', function(req, res) {
 /** Login */
 router.post('/login', function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
-		console.log(user);
 		if (err) {
 			return res.json({status: false, message: err.name});
 		}

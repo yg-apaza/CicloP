@@ -44,7 +44,6 @@ var Usuario = new Schema ({
     clave: String,
     notificaciones: {type: Array},
     roles: {type: Array}
-
 });
 
 Usuario.plugin(passportLocalMongoose);

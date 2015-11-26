@@ -16,36 +16,32 @@ router.post('/', function(req, res) {
 });
 
 router.post('/agregar', function(req, res) {
-	console.log(req.body.usuarios);
-	
 	var p = false, r = false;
 	var proy = new Proyecto({	nombre: req.body.nombre,
 								descripcion: req.body.descripcion,
-								fculminacion: req.body.fechaCulminacion
-								
+								fCulminacion: req.body.fechaCulminacion
 							});
 	proy.save(function(err){
 		if (!err)
 			p = true;
 	});
-	
-	var i;
-	for(i = 0; i < req.body.usuarios.length; i++)
+	if(p)
 	{
-
-		Usuario.findOne({username: req.body.roles[i].username}, function (err, usuario) {
-			console.log(usuario.notificaciones)
-			//var nuevosRoles = usuario.roles;
-			var nuevosRoles = [];
-			nuevosRoles.push({rol: req.body.roles[i].rol, proyecto: proy._id});
-
-			Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {		
-				if(!err)
-					r = true;
+		var i;
+		for(i = 0; i < req.body.usuarios.length; i++)
+		{
+			Usuario.findOne({username: req.body.roles[i].username}, function (err, usuario) {
+				console.log(usuario.notificaciones)
+				var nuevosRoles = usuario.roles;
+				nuevosRoles.push({rol: req.body.roles[i].rol, proyecto: proy._id});
+		
+				Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {		
+					if(!err)
+						r = true;
+				});
 			});
-		});
+		}
 	}
-	
 	return res.json({status: p && r});
 });
 

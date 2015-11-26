@@ -10,9 +10,9 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
 				$scope.cuenta = {}; // Borramos los datos del formulario
 				$scope.respuestaServer = data;
 				if($scope.respuestaServer.status)
-					alert('Se creo Proyecto');
+					$window.location.href = "/home";
 				else
-					alert('Problemas de servidor');
+					$scope.respuestaServerIngreso =  data.message;
 		});
   };
 });
@@ -20,12 +20,13 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
 app.controller('myCtrlUsuarioReg',  function($scope,$http,$window) {
 	$scope.cuentaReg = {nombre:'', apellidos:'', usuario:'', correo:'', clave:''};
 	$scope.respuestaServer = '';
-	$scope.registrar = function(){
+	$scope.registrar = function() {
 		$http.post('/fusuario/register', $scope.cuentaReg)
 		.success(function(data) {
 				if(data.status)
 					$window.location.href = "/login";
-				else{
+				else {
+					alert("fff");
 					$scope.respuestaServer =  data.message;
 				}
 		});
