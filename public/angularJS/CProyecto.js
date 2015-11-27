@@ -1,23 +1,41 @@
 var app = angular.module('myAppProyecto',[]);
 
 app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
-
+	//1: existe 2: no existe 3:invalido
 	$scope.roles = [{valor: 1, nombre:'Diseñador'},{valor: 2, nombre:'Probador'}];
 	$scope.usuarios = [
-		{username:'', msjEstado: "no existe", estado: false, rol:''},
-		{username:'', msjEstado: "no existe", estado: false, rol:''},
-		{username:'', msjEstado: "no existe", estado: false, rol:''},
-		{username:'', msjEstado: "no existe", estado: false, rol:''},
-		{username:'', msjEstado: "no existe", estado: false, rol:''}
+	    {username:'', rol:''},
+		{username:'', rol:''},
+		{username:'', rol:''},
+		{username:'', rol:''},
+		{username:'', rol:''}
 	];
-
-	$scope.newProject = {};
 	
+	$scope.estadosMsj = [
+	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
+	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
+	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
+	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
+	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
+	];
+	
+	for (i = 0; i < $scope.usuarios.length; i++) { 
+	      $scope.usuarios[i].msjEstado = $scope.estadosMsj[i].msjEstado;
+	      $scope.usuarios[i].estado = $scope.estadosMsj[i].estado;
+	}
+	
+	$scope.newProject = {};
+	var id = null;
+	$scope.respuestaServidorProyecto;
 	$scope.actualizarUsuarios = function (){
 		$http.post('fusuario/validate',$scope.usuarios)
 		.success(function(data) {
 				if(data.status){
-					$scope.usuarios = data.usuarios;
+					$scope.estadosMsj = data.usuarios;
+					for (i = 0; i < $scope.usuarios.length; i++) { 
+					      $scope.usuarios[i].msjEstado = $scope.estadosMsj[i].msjEstado;
+					      $scope.usuarios[i].estado = $scope.estadosMsj[i].estado;
+					}
 				}
 		});
 	}
@@ -27,19 +45,23 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 		$http.post('/fproyecto/agregar', $scope.newProject)
 		.success(function(data) {
 				$scope.respuestaServer = data;
-				if($scope.respuestaServer.status)
-					alert('Se creo proyecto');
-				else
-					alert('No Se creo proyecto');
+				if($scope.respuestaServer.status){
+					id = $scope.respuestaServer.id;
+				}
+					
+				else{
+					$scope.respuestaServidorProyecto = "No se creo proyecto";
+				}
+					
 
 		});	
 	};
 	
 	$scope.classEstado = function(stado){
-	     if (stado)
-		  return "label label-success";
-	     else
-	   	  return "label label-danger";
+	     if (stado==1)return "label label-success";
+	     else if(stado==2)return "label label-danger";
+	     else if(stado==3)return "label label-warning";
+	    	 
 	};	
 });
 
