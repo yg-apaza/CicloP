@@ -12,18 +12,26 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	];
 
 	$scope.newProject = {};
+	
+	
 	$scope.actualizarUsuarios = function (){
-
+		
+		$http.post('fusuario/validate',$scope.usuarios)
+		.success(function(data) {
+				$scope.usuarios = data;
+				//alert(JSON.stringify($scope.usuarios));
+		});
+		
 	}
 	$scope.crearProyecto = function(){
 		$scope.newProject.usuarios = $scope.usuarios;
-		alert(JSON.stringify($scope.newProject));
-		
-		$http.post('/fusuario/validate')
+		$http.post('/fproyecto/agregar', $scope.newProject)
 		.success(function(data) {
-				alert('ssss')
-				$scope.usuarios = data;
-				alert(JSON.stringify($scope.usuarios));
+				$scope.respuestaServer = data;
+				if($scope.respuestaServer.status)
+					alert('Se creo proyecto');
+				else
+					alert('No Se creo proyecto');
 		});
 	};
 	
