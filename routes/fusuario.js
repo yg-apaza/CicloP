@@ -9,6 +9,7 @@ router.post('/', function(req, res) {
 	res.json({nombre: req.user.nombre, apellidos: req.user.apellidos, correo: req.user.correo, username: req.user.username});
 });
 
+// 2u-r
 router.post('/validate', function(req, res) {
 	if(req.body)
 	{

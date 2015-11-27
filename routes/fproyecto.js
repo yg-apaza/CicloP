@@ -15,8 +15,7 @@ router.post('/', function(req, res) {
 	});*/
 });
 
-router.post('/agregar', function(req, res) {
-	
+router.post('/agregar', function(req, res) {	
 	var p = false, r = false;
 	var proy = new Proyecto({	nombre: req.body.nombre,
 								descripcion: req.body.descripcion,
@@ -33,7 +32,6 @@ router.post('/agregar', function(req, res) {
 					Usuario.findOne({username: req.body.usuarios[i].username}, function (err, usuario) {
 						if(!err && usuario)
 						{
-							console.log(nuevosRoles)
 							var nuevosRoles = usuario.roles;
 							nuevosRoles.push({rol: req.body.usuarios[i].rol, proyecto: proy._id});
 							Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {});
@@ -41,10 +39,11 @@ router.post('/agregar', function(req, res) {
 					});
 				})(i, req);
 			}
-			return res.json({status: true});
+			return res.json({status: true, id: proy._id});
 		}
+		else
+			return res.json({status: false, id: null});
 	});
-	return res.json({status: false, message: ""})
 });
 
 module.exports = router;
