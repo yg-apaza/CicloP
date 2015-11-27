@@ -227,15 +227,14 @@
 			</div><!-- /breadcrumb-->
 			<div class="padding-md">
 				<div class="panel panel-default">
-					<form ng-submit="crearProyecto()">
+					<form ng-submit="crearProyecto()" data-validate="parsley" novalidate>
 						<div class="panel-heading">Crear Proyecto</div>
 						<div class="panel-body">
 							<div class="row">
-							
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="nombreProyecto">Nombre del proyecto</label>
-										<input type="text" class="form-control input-sm" id="nombreProyecto" ng-model="newProject.nombre">
+										<input type="text" class="form-control input-sm" id="nombreProyecto" ng-model="newProject.nombre" data-required="true">
 									</div><!-- /form-group -->
 									<div class="form-group">
 										<label for="Descripcion">Descripcion</label>
@@ -327,6 +326,9 @@
 	
 	<!-- Bootstrap -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    
+    <!-- Parsley -->
+	<script src="js/parsley.min.js"></script>
     
 	<!-- Chosen -->
 	<script src='js/chosen.jquery.min.js'></script>	
