@@ -10,24 +10,17 @@ router.post('/', function(req, res) {
 
 // en pruebas
 router.post('/validate', function(req, res) {
-	console.log(req.body.usuarios);
 	var i, nuevosUsuarios = req.body.usuarios;
 	for(i = 0; i < nuevosUsuarios.length; i++)
 	{
 		(function(i, req, nuevosUsuarios)
 		{
-			Usuario.findOne({username: nuevosUsuarios[i].username}, function (err, usuario) {
+			Usuario.findOne(nuevosUsuarios, {username: nuevosUsuarios[i].username}, function (err, usuario) {
 				if(!err && usuario)
 				{
 					console.log("hay")
 					nuevosUsuarios[i].msjEstado = "existe";
 					nuevosUsuarios[i].estado = true;
-					/*
-					console.log(nuevosRoles)
-					var nuevosRoles = usuario.roles;
-					nuevosRoles.push({rol: req.body.usuarios[i].rol, proyecto: proy._id});
-					Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {});
-					*/
 				}
 				else
 				{
@@ -35,7 +28,8 @@ router.post('/validate', function(req, res) {
 					nuevosUsuarios[i].msjEstado = "no existe";
 					nuevosUsuarios[i].estado = false;
 				}
-			});
+			}.bind({nuevosUsuarios: nuevosUsuarios}));
+			console.log(nuevosUsuarios);
 		})(i, req, nuevosUsuarios);
 	}
 	res.json(nuevosUsuarios);
