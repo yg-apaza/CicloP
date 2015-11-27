@@ -26,6 +26,7 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	
 	$scope.newProject = {};
 	var id = null;
+	
 	$scope.respuestaServidorProyecto;
 	$scope.actualizarUsuarios = function (){
 		$http.post('fusuario/validate',$scope.usuarios)
@@ -48,7 +49,6 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 				if($scope.respuestaServer.status){
 					id = $scope.respuestaServer.id;
 				}
-					
 				else{
 					$scope.respuestaServidorProyecto = "No se creo proyecto";
 				}
