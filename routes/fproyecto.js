@@ -5,10 +5,11 @@ var Usuario = require('../models/usuario');
 var router = express.Router();
 
 router.post('/', function(req, res) {
-	Usuario.findOne({username: req.user}, function(err, usuario){});
-	Proyectos.find({}, function(err, proyectos){
+	Proyecto.findOne({_id: req.body.id}, function(err, p){
 		if(!err)
-			res.json(proyectos);
+			return res.json({status: true, proyecto: p});
+		else
+			return res.json({status: false, proyecto: null});
 	});
 });
 
@@ -47,5 +48,7 @@ router.post('/agregar', function(req, res) {
 	else
 		return res.json({status: false, id: null});
 });
+
+
 
 module.exports = router;
