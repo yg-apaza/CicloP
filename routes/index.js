@@ -11,12 +11,6 @@ router.get('/', function (req, res) {
 
 router.get('/home', function (req, res) {
 	res.redirect('/');
-	/*
-	if(req.user)
-		res.sendFile(path.join(__dirname, '../views', 'home.html'));
-	else
-		res.sendFile(path.join(__dirname, '../views', 'index.html'));
-	*/
 });
 
 router.get('/login', function (req, res) {
@@ -28,8 +22,7 @@ router.get('/login', function (req, res) {
 
 router.get('/nuevoProyecto', function (req,res){
 	if(req.user)
-		res.sendFile(path.join(__dirname,'../views','nuevoProyecto.html'));
-		
+		res.sendFile(path.join(__dirname,'../views','nuevoProyecto.html'));		
 	else
 		res.redirect('/');
 });

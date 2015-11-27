@@ -16,7 +16,7 @@ router.post('/', function(req, res) {
 });
 
 router.post('/agregar', function(req, res) {
-	console.log(req.body);
+	
 	var p = false, r = false;
 	var proy = new Proyecto({	nombre: req.body.nombre,
 								descripcion: req.body.descripcion,

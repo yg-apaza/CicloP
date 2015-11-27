@@ -10,9 +10,11 @@ router.post('/', function(req, res) {
 });
 
 router.post('/validate', function(req, res) {
-	if(req.body.usuarios)
+	console.log("recibi");
+	console.log(req.body);
+	if(req.body)
 	{
-		var i, nuevosUsuarios = req.body.usuarios;	
+		var i, nuevosUsuarios = req.body;	
 		async.each(nuevosUsuarios, function(nu, callback){
 			Usuario.findOne({username: nu.username}, function (err, usuario) {
 				if(!err && usuario)
@@ -30,11 +32,15 @@ router.post('/validate', function(req, res) {
 		},
 		function(err)
 		{
+			console.log("enviado");
+			console.log(nuevosUsuarios);
 			res.json({status: true, usuarios: nuevosUsuarios});
 		});
 	}
-	else
+	else{
+		console.log("enviado :'v");
 		res.json({status: false, usuarios: null})
+	}
 });
 
 /** Registro */

@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var Proyecto = new Schema({
 	nombre: String,
 	descripcion: String,
-	fCreacion: String,
+	fCreacion: {type: Date, default: Date.now},
 	fCulminacion: String
 });
 
