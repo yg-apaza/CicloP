@@ -52,8 +52,6 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 				else{
 					$scope.respuestaServidorProyecto = "No se creo proyecto";
 				}
-					
-
 		});	
 	};
 	
