@@ -5,14 +5,13 @@ var Usuario = require('../models/usuario');
 var router = express.Router();
 
 router.post('/', function(req, res) {
-	/*
 	Usuario.findOne({username: req.user}, function(err, usuario){
-		usuario.
+		var i;
+		for(i = 0; i < usuario.roles.length; i++)
+		{
+			
+		}
 	});
-	Proyectos.find({}, function(err, proyectos){
-		if(!err)
-			res.json(proyectos);
-	});*/
 });
 
 router.post('/agregar', function(req, res)
