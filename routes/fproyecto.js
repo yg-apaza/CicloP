@@ -34,6 +34,7 @@ router.post('/agregar', function(req, res)
 					Usuario.findOne({username: req.body.usuarios[i].username}, function (err, usuario) {
 						if(!err && usuario)
 						{
+							console.log(nuevosRoles)
 							var nuevosRoles = usuario.roles;
 							nuevosRoles.push({rol: req.body.usuarios[i].rol, proyecto: proy._id});
 							Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {});

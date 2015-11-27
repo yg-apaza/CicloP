@@ -9,7 +9,32 @@ router.post('/', function(req, res) {
 });
 
 router.post('/validate', function(req, res) {
-	
+	var i;
+	for(i = 0; i < req.body.usuarios.length; i++)
+	{
+		(function(i, req)
+		{
+			Usuario.findOne({username: req.body.usuarios[i].username}, function (err, usuario) {
+				if(!err && usuario)
+				{
+					req.body.usuarios[i].msjEstado = "existe";
+					req.body.usuarios[i].estado = true;
+					/*
+					console.log(nuevosRoles)
+					var nuevosRoles = usuario.roles;
+					nuevosRoles.push({rol: req.body.usuarios[i].rol, proyecto: proy._id});
+					Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {});
+					*/
+				}
+				else
+				{
+					req.body.usuarios[i].msjEstado = "no existe";
+					req.body.usuarios[i].estado = false;
+				}
+			});
+		})(i, req);
+	}
+	res.json(req.body.usuarios);
 });
 
 /** Registro */
