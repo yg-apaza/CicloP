@@ -3,38 +3,35 @@ var passport = require('passport');
 var Usuario = require('../models/usuario');
 var router = express.Router();
 var path = require('path');
+var async = require('async');
 
 router.post('/', function(req, res) {
 	res.json({nombre: req.user.nombre, apellidos: req.user.apellidos, correo: req.user.correo, username: req.user.username});
 });
 
-// en pruebas
 router.post('/validate', function(req, res) {
 	if(req.body.usuarios)
 	{
-		var i, nuevosUsuarios = req.body.usuarios;
-		for(i = 0; i < nuevosUsuarios.length; i++)
+		var i, nuevosUsuarios = req.body.usuarios;	
+		async.each(nuevosUsuarios, function(nu, callback){
+			Usuario.findOne({username: nu.username}, function (err, usuario) {
+				if(!err && usuario)
+				{
+					nu.msjEstado = "existe";
+					nu.estado = true;
+				}
+				else
+				{
+					nu.msjEstado = "no existe";
+					nu.estado = false;
+				}
+				callback();
+			});
+		},
+		function(err)
 		{
-			(function(i, req, nuevosUsuarios)
-			{
-				Usuario.findOne(nuevosUsuarios, {username: nuevosUsuarios[i].username}, function (err, usuario) {
-					if(!err && usuario)
-					{
-						console.log("hay")
-						nuevosUsuarios[i].msjEstado = "existe";
-						nuevosUsuarios[i].estado = true;
-					}
-					else
-					{
-						console.log("no hay");
-						nuevosUsuarios[i].msjEstado = "no existe";
-						nuevosUsuarios[i].estado = false;
-					}
-				}.bind({nuevosUsuarios: nuevosUsuarios}));
-				console.log(nuevosUsuarios);
-			})(i, req, nuevosUsuarios);
-		}
-		res.json({status: true, usuarios: nuevosUsuarios});
+			res.json({status: true, usuarios: nuevosUsuarios});
+		});
 	}
 	else
 		res.json({status: false, usuarios: null})
