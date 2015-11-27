@@ -15,34 +15,37 @@ router.post('/', function(req, res) {
 	});*/
 });
 
-router.post('/agregar', function(req, res) {
+router.post('/agregar', function(req, res)
+{
 	var p = false, r = false;
 	var proy = new Proyecto({	nombre: req.body.nombre,
 								descripcion: req.body.descripcion,
 								fCulminacion: req.body.fechaCulminacion
 							});
+	
 	proy.save(function(err){
 		if (!err)
-			p = true;
-	});
-	if(p)
-	{
-		var i;
-		for(i = 0; i < req.body.usuarios.length; i++)
 		{
-			Usuario.findOne({username: req.body.roles[i].username}, function (err, usuario) {
-				console.log(usuario.notificaciones)
-				var nuevosRoles = usuario.roles;
-				nuevosRoles.push({rol: req.body.roles[i].rol, proyecto: proy._id});
-		
-				Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {		
-					if(!err)
-						r = true;
-				});
-			});
+			var i;
+			for(i = 0; i < req.body.usuarios.length; i++)
+			{
+				(function(i, req)
+				{
+					Usuario.findOne({username: req.body.usuarios[i].username}, function (err, usuario) {
+						if(!err)
+						{
+							var nuevosRoles = usuario.roles;
+							nuevosRoles.push({rol: req.body.usuarios[i].rol, proyecto: proy._id});
+							Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {});
+						}
+					});
+				})(i, req);
+			}
+			return res.json({status: true});
 		}
-	}
-	return res.json({status: p && r});
+		else
+			res.json({status: false});
+	});
 });
 
 module.exports = router;
