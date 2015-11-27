@@ -31,11 +31,8 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 					alert('Se creo proyecto');
 				else
 					alert('No Se creo proyecto');
-<<<<<<< HEAD
+
 		});	
-=======
-		});
->>>>>>> branch 'master' of https://github.com/yg-apaza/CicloP.git
 	};
 	
 	$scope.classEstado = function(stado){
