@@ -10,35 +10,38 @@ router.post('/', function(req, res) {
 });
 
 router.post('/validate', function(req, res) {
-	console.log("recibi");
-	console.log(req.body);
 	if(req.body)
 	{
-		var i, nuevosUsuarios = req.body;	
-		async.each(nuevosUsuarios, function(nu, callback){
+		var i, nuevosUsuarios = req.body;
+		async.each(nuevosUsuarios, function(nu, callback) {
 			Usuario.findOne({username: nu.username}, function (err, usuario) {
 				if(!err && usuario)
 				{
-					nu.msjEstado = "existe";
-					nu.estado = true;
+					if(usuario.username == req.user.username)
+					{
+						nu.msjEstado = "no válido";
+						nu.estado = 3;
+					}
+					else
+					{
+						nu.msjEstado = "existe";
+						nu.estado = 1;
+					}
 				}
 				else
 				{
 					nu.msjEstado = "no existe";
-					nu.estado = false;
+					nu.estado = 2;
 				}
 				callback();
 			});
 		},
 		function(err)
 		{
-			console.log("enviado");
-			console.log(nuevosUsuarios);
 			res.json({status: true, usuarios: nuevosUsuarios});
 		});
 	}
-	else{
-		console.log("enviado :'v");
+	else {
 		res.json({status: false, usuarios: null})
 	}
 });
