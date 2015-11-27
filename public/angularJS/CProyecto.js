@@ -12,17 +12,18 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	];
 
 	$scope.newProject = {};
+	$scope.actualizarUsuarios = function (){
+
+	}
 	$scope.crearProyecto = function(){
 		$scope.newProject.usuarios = $scope.usuarios;
 		alert(JSON.stringify($scope.newProject));
-		$http.post('/fproyecto/agregar', $scope.newProject)
+		
+		$http.post('/fusuario/validate')
 		.success(function(data) {
-				$scope.cuenta = {}; // Borramos los datos del formulario
-				$scope.respuestaServer = data;
-				if($scope.respuestaServer.status)
-					alert('Se creo proyecto');
-				else
-					alert('No Se creo proyecto');
+				alert('ssss')
+				$scope.usuarios = data;
+				alert(JSON.stringify($scope.usuarios));
 		});
 		
 	};
