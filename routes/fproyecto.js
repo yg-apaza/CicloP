@@ -5,24 +5,24 @@ var Usuario = require('../models/usuario');
 var router = express.Router();
 
 router.post('/', function(req, res) {
+	/*
 	Usuario.findOne({username: req.user}, function(err, usuario){
-		var i;
-		for(i = 0; i < usuario.roles.length; i++)
-		{
-			
-		}
+		usuario.
 	});
+	Proyectos.find({}, function(err, proyectos){
+		if(!err)
+			res.json(proyectos);
+	});*/
 });
 
-router.post('/agregar', function(req, res)
-{
+router.post('/agregar', function(req, res) {
+	console.log(req.body);
 	var p = false, r = false;
 	var proy = new Proyecto({	nombre: req.body.nombre,
 								descripcion: req.body.descripcion,
 								fCulminacion: req.body.fechaCulminacion
 							});
-	
-	proy.save(function(err){
+	proy.save(function(err) {
 		if (!err)
 		{
 			var i;
@@ -43,9 +43,8 @@ router.post('/agregar', function(req, res)
 			}
 			return res.json({status: true});
 		}
-		else
-			res.json({status: false});
 	});
+	return res.json({status: false, message: ""})
 });
 
 module.exports = router;
