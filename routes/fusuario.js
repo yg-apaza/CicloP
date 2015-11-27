@@ -10,29 +10,39 @@ router.post('/', function(req, res) {
 
 // en pruebas
 router.post('/validate', function(req, res) {
-	var i, nuevosUsuarios = req.body.usuarios;
-	for(i = 0; i < nuevosUsuarios.length; i++)
+	if(req.body.usuarios)
 	{
-		(function(i, req, nuevosUsuarios)
+		var i, nuevosUsuarios = req.body.usuarios;
+		for(i = 0; i < nuevosUsuarios.length; i++)
 		{
-			Usuario.findOne(nuevosUsuarios, {username: nuevosUsuarios[i].username}, function (err, usuario) {
-				if(!err && usuario)
-				{
-					console.log("hay")
-					nuevosUsuarios[i].msjEstado = "existe";
-					nuevosUsuarios[i].estado = true;
-				}
-				else
-				{
-					console.log("no hay");
-					nuevosUsuarios[i].msjEstado = "no existe";
-					nuevosUsuarios[i].estado = false;
-				}
-			}.bind({nuevosUsuarios: nuevosUsuarios}));
-			console.log(nuevosUsuarios);
-		})(i, req, nuevosUsuarios);
+			console.log("abajo");
+			((function(i)
+			{
+				Usuario.findOne({username: nuevosUsuarios[i].username}, function (err, usuario) {
+					return out(i, err, usuario);
+				});
+			})(i));
+		}
+		res.json({status: true, usuarios: nuevosUsuarios});
+		
+		// Funcion auxiliar
+		function out(i, err, usuario){
+			if(!err && usuario)
+			{
+				nuevosUsuarios[i].msjEstado = "existe";
+				nuevosUsuarios[i].estado = true;
+				console.log("si hay");
+			}
+			else
+			{
+				nuevosUsuarios[i].msjEstado = "no existe";
+				nuevosUsuarios[i].estado = false;
+				console.log("no hay");
+			}
+		};
 	}
-	res.json(nuevosUsuarios);
+	else
+		res.json({status: false, usuarios: null});
 });
 
 /** Registro */
