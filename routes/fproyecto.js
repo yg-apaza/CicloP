@@ -28,20 +28,20 @@ router.post('/agregar', function(req, res) {
 			var i;
 			for(i = 0; i < req.body.usuarios.length; i++)
 			{
-				Usuario.findOne({username: req.body.roles[i].username}, function (err2, usuario) {
-					if(!err2)
-					{
-						console.log(usuario.notificaciones)
-						var nuevosRoles = usuario.roles;
-						nuevosRoles.push({rol: req.body.roles[i].rol, proyecto: proy._id});
-	
-						Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err3) {		
-							if(!err3)
-								return res.json({status: true, message: ""});
-						});
-					}
-				});
+				(function(i, req)
+				{
+					Usuario.findOne({username: req.body.usuarios[i].username}, function (err, usuario) {
+						if(!err && usuario)
+						{
+							console.log(nuevosRoles)
+							var nuevosRoles = usuario.roles;
+							nuevosRoles.push({rol: req.body.usuarios[i].rol, proyecto: proy._id});
+							Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {});
+						}
+					});
+				})(i, req);
 			}
+			return res.json({status: true});
 		}
 	});
 	return res.json({status: false, message: ""})

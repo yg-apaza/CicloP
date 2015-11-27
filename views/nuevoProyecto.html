@@ -43,7 +43,7 @@
 	
   </head>
 
-  <body class="overflow-hidden" ng-app="myAppProyecto" ng-controller="myCtrlAgregarProyecto">
+  <body class="overflow-hidden" ng-app="myAppProyecto" >
 	<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
 
@@ -74,7 +74,7 @@
 	</div><!-- /theme-setting -->
 	
 	<div id="wrapper" class="preload">
-		<div id="top-nav" class="skin-6 fixed">
+		<div id="top-nav" class="skin-6 fixed" ng-controller="myCtrlHome">
 			<div class="brand">
 				<span>CICLO</span>
 				<span class="text-toggle"> P</span>
@@ -91,32 +91,32 @@
 			</button>
 			<ul class="nav-notification clearfix">
 				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" >
 						<i class="fa fa-bell fa-lg"></i>
-						<span class="notification-label bounceIn animation-delay4">1</span>
+						<span ng-show="{{'noleidos'}}" class="notification-label bounceIn animation-delay4">{{noleidos}}</span>
 					</a>
-					<ul class="dropdown-menu message dropdown-1">
-						<li><a>Tienes 1 notificacion</a></li>					  
-						<li>
-							<a class="clearfix" href="#">
-								<img src="img/user.jpg" alt="User Avatar">
-								<div class="detail">
-									<strong>John Doe</strong>
-									<p class="no-margin">
-										Te designó como diseñador en Proyecto2
-									</p>
-									<small class="text-muted"><i class="fa fa-check text-success"></i> 27m ago</small>
-								</div>
-							</a>	
+					<ul class="dropdown-menu message dropdown-1" >
+						<li ng-show="{{'noleidos==0'}}"> <a>No tienes notificaciones nuevas</a></li>
+						<li ng-show="{{'noleidos==1'}}"> <a>Tiene {{noleidos}} notificacion nueva</a></li>
+						 <li ng-show="{{'noleidos>1'}}"> <a>Tienes {{noleidos}} notificaciones nuevas</a></li>			  
+						
+						<li ng-repeat="notificacion in notificaciones">
+							<a href="#">
+								<span ng-class=colorIconClass(notificacion.tipo)>
+									<i ng-class=iconClass(notificacion.tipo)></i>
+								</span>
+								<span class="m-left-xs">{{notificacion.titulo}}</span>
+								<span class="time text-muted">{{notificacion.fecha}}</span>
+							</a>
 						</li>
 						
-						<li><a href="#">Ver todos los mensajes</a></li>					  
+						<li><a href="#" ng-click="leerNotificacion()">Ver todos los mensajes</a></li>					  
 					</ul>
 				</li>
 				
 				<li class="profile dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						<strong>Anonimus</strong>
+						<strong>{{usuario.username}}</strong>
 						<span><i class="fa fa-chevron-down"></i></span>
 					</a>
 					<ul class="dropdown-menu">
@@ -124,8 +124,8 @@
 							<a class="clearfix" href="#">
 								<img src="img/user.jpg" alt="User Avatar">
 								<div class="detail">
-									<strong>Anonimus</strong>
-									<p class="grey">anonimus@gmail.com</p> 
+									<strong>{{usuario.nombre + ' ' + usuario.apellidos }}</strong>
+									<p class="grey">{{usuario.correo}}</p> 
 								</div>
 							</a>
 						</li>
@@ -136,7 +136,7 @@
 			</ul>
 		</div><!-- /top-nav-->
 		
-		<aside class="fixed skin-6">
+		<aside class="fixed skin-6" ng-controller="myCtrlHome">
 			<div class="sidebar-inner scrollable-sidebar">
 				<div class="size-toggle">
 					<a class="btn btn-sm" id="sizeToggle">
@@ -151,7 +151,7 @@
 				<div class="user-block clearfix">
 					<img src="img/user.jpg" alt="User Avatar">
 					<div class="detail">
-						<strong>Anonimus</strong>
+						<strong>{{usuario.nombre}}</strong>
 						<ul class="list-inline">
 							<li><a href="profile.html">Profile</a></li>
 						</ul>
@@ -168,7 +168,7 @@
 				<div class="main-menu">
 					<ul>
 						<li>
-							<a href="index.html">
+							<a href="/">
 								<span class="text">
 									Inicio
 								</span>
@@ -218,7 +218,7 @@
 			</div><!-- /sidebar-inner -->
 		</aside>
 		
-		<div id="main-container">
+		<div id="main-container" ng-controller="myCtrlAgregarProyecto">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
 					 <li><i class="fa fa-home"></i><a href="index.html">Home</a></li> 
@@ -250,7 +250,7 @@
 									</div><!-- /form-group -->
 								</div>
 								
-								<div class="col-md-6">
+								<div class="col-md-6" ng-click="actualizarUsuarios()">
 									<table class="table table-bordered table-condensed table-hover table-striped">
 										<thead>
 											<tr>
@@ -376,6 +376,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
 	<script src="angularJS/CProyecto.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 	
 	
   </body>

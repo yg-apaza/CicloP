@@ -8,8 +8,31 @@ router.post('/', function(req, res) {
 	res.json({nombre: req.user.nombre, apellidos: req.user.apellidos, correo: req.user.correo, username: req.user.username});
 });
 
+// en pruebas
 router.post('/validate', function(req, res) {
-	
+	var i, nuevosUsuarios = req.body.usuarios;
+	for(i = 0; i < nuevosUsuarios.length; i++)
+	{
+		(function(i, req, nuevosUsuarios)
+		{
+			Usuario.findOne(nuevosUsuarios, {username: nuevosUsuarios[i].username}, function (err, usuario) {
+				if(!err && usuario)
+				{
+					console.log("hay")
+					nuevosUsuarios[i].msjEstado = "existe";
+					nuevosUsuarios[i].estado = true;
+				}
+				else
+				{
+					console.log("no hay");
+					nuevosUsuarios[i].msjEstado = "no existe";
+					nuevosUsuarios[i].estado = false;
+				}
+			}.bind({nuevosUsuarios: nuevosUsuarios}));
+			console.log(nuevosUsuarios);
+		})(i, req, nuevosUsuarios);
+	}
+	res.json(nuevosUsuarios);
 });
 
 /** Registro */
