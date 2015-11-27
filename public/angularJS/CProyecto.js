@@ -25,7 +25,6 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 				$scope.usuarios = data;
 				alert(JSON.stringify($scope.usuarios));
 		});
-		
 	};
 	
 	$scope.classEstado = function(stado){

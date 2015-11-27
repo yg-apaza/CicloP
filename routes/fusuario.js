@@ -8,17 +8,20 @@ router.post('/', function(req, res) {
 	res.json({nombre: req.user.nombre, apellidos: req.user.apellidos, correo: req.user.correo, username: req.user.username});
 });
 
+// en pruebas
 router.post('/validate', function(req, res) {
-	var i;
-	for(i = 0; i < req.body.usuarios.length; i++)
+	console.log(req.body.usuarios);
+	var i, nuevosUsuarios = req.body.usuarios;
+	for(i = 0; i < nuevosUsuarios.length; i++)
 	{
-		(function(i, req)
+		(function(i, req, nuevosUsuarios)
 		{
-			Usuario.findOne({username: req.body.usuarios[i].username}, function (err, usuario) {
+			Usuario.findOne({username: nuevosUsuarios[i].username}, function (err, usuario) {
 				if(!err && usuario)
 				{
-					req.body.usuarios[i].msjEstado = "existe";
-					req.body.usuarios[i].estado = true;
+					console.log("hay")
+					nuevosUsuarios[i].msjEstado = "existe";
+					nuevosUsuarios[i].estado = true;
 					/*
 					console.log(nuevosRoles)
 					var nuevosRoles = usuario.roles;
@@ -28,13 +31,14 @@ router.post('/validate', function(req, res) {
 				}
 				else
 				{
-					req.body.usuarios[i].msjEstado = "no existe";
-					req.body.usuarios[i].estado = false;
+					console.log("no hay");
+					nuevosUsuarios[i].msjEstado = "no existe";
+					nuevosUsuarios[i].estado = false;
 				}
 			});
-		})(i, req);
+		})(i, req, nuevosUsuarios);
 	}
-	res.json(req.body.usuarios);
+	res.json(nuevosUsuarios);
 });
 
 /** Registro */
