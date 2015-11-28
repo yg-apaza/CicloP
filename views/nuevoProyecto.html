@@ -176,15 +176,15 @@
 							</a>
 						</li>
 						<li class="openable open">
-							<a href="#">
-								<span class="text">
+							<a href="#"  >
+								<span class="text"">
 									Proyectos
 								</span>
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li class="openable open">
-									<a href="#"><span class="submenu-label">Proyecto 1</span></a>
+								<li class="openable open" ng-repeat="proyecto in proyectos">
+									<a href="#"><span class="submenu-label">{{proyecto.nombre}}</span></a>
 									<ul class="submenu third-level">
 										<li>
 											<a href="verProyecto.html">
@@ -227,15 +227,14 @@
 			</div><!-- /breadcrumb-->
 			<div class="padding-md">
 				<div class="panel panel-default">
-					<form ng-submit="crearProyecto()">
+					<form ng-submit="crearProyecto()" data-validate="parsley" novalidate>
 						<div class="panel-heading">Crear Proyecto</div>
 						<div class="panel-body">
 							<div class="row">
-							
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="nombreProyecto">Nombre del proyecto</label>
-										<input type="text" class="form-control input-sm" id="nombreProyecto" ng-model="newProject.nombre">
+										<input type="text" class="form-control input-sm" id="nombreProyecto" ng-model="newProject.nombre" data-required="true">
 									</div><!-- /form-group -->
 									<div class="form-group">
 										<label for="Descripcion">Descripcion</label>
@@ -250,7 +249,7 @@
 									</div><!-- /form-group -->
 								</div>
 								
-								<div class="col-md-6" ng-click="actualizarUsuarios()">
+								<div class="col-md-6" ng-keyup="actualizarUsuarios()">
 									<table class="table table-bordered table-condensed table-hover table-striped">
 										<thead>
 											<tr>
@@ -261,7 +260,7 @@
 										</thead>
 										<tr ng-repeat="usuario in usuarios">
 											<td> 	
-												<input type="text" class="form-control" ng-model="usuario.username">
+												<input type="text" class="form-control" ng-model="usuario.username" >
 											</td>
 											<td>
 												<span ng-class=classEstado(usuario.estado)>{{usuario.msjEstado}}</span>
@@ -276,12 +275,13 @@
 										</tr>
 									</table>				
 								</div>
-								{{usuarios}}
-								{{newProject}}
 							</div>
 						</div>
+						
 						<div class="panel-footer text-right">
+							
 							<button type="submit" class="btn btn-success">Crear</button>
+							<p class="text-danger">{{respuestaServidorProyecto}}</p>
 						</div>
 					</form>
 				</div><!-- /panel -->
@@ -327,6 +327,9 @@
 	
 	<!-- Bootstrap -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    
+    <!-- Parsley -->
+	<script src="js/parsley.min.js"></script>
     
 	<!-- Chosen -->
 	<script src='js/chosen.jquery.min.js'></script>	

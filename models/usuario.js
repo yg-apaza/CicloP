@@ -32,7 +32,7 @@ var Usuario = new Schema ({
     		message: '{VALUE} no es un correo válido'
     	}
     },
-    usuario: {
+    username: {
     	type: String,
     	validate: {
     		validator: function(v) {

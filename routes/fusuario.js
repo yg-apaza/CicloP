@@ -3,43 +3,44 @@ var passport = require('passport');
 var Usuario = require('../models/usuario');
 var router = express.Router();
 var path = require('path');
+var async = require('async');
 
 router.post('/', function(req, res) {
 	res.json({nombre: req.user.nombre, apellidos: req.user.apellidos, correo: req.user.correo, username: req.user.username});
 });
 
-// en pruebas
+// 2u-r
 router.post('/validate', function(req, res) {
-	if(req.body.usuarios)
+	if(req.body)
 	{
-		var i, nuevosUsuarios = req.body.usuarios;
-		for(i = 0; i < nuevosUsuarios.length; i++)
+		var i, nuevosUsuarios = req.body;
+		async.each(nuevosUsuarios, function(nu, callback) {
+			Usuario.findOne({username: nu.username}, function (err, usuario) {
+				if(!err && usuario)
+				{
+					if(usuario.username == req.user.username)
+					{
+						nu.msjEstado = "no válido";
+						nu.estado = 3;
+					}
+					else
+					{
+						nu.msjEstado = "existe";
+						nu.estado = 1;
+					}
+				}
+				else
+				{
+					nu.msjEstado = "no existe";
+					nu.estado = 2;
+				}
+				callback();
+			});
+		},
+		function(err)
 		{
-			console.log("abajo");
-			((function(i)
-			{
-				Usuario.findOne({username: nuevosUsuarios[i].username}, function (err, usuario) {
-					return out(i, err, usuario);
-				});
-			})(i));
-		}
-		res.json({status: true, usuarios: nuevosUsuarios});
-		
-		// Funcion auxiliar
-		function out(i, err, usuario){
-			if(!err && usuario)
-			{
-				nuevosUsuarios[i].msjEstado = "existe";
-				nuevosUsuarios[i].estado = true;
-				console.log("si hay");
-			}
-			else
-			{
-				nuevosUsuarios[i].msjEstado = "no existe";
-				nuevosUsuarios[i].estado = false;
-				console.log("no hay");
-			}
-		};
+			res.json({status: true, usuarios: nuevosUsuarios});
+		});
 	}
 	else
 		res.json({status: false, usuarios: null});
@@ -71,7 +72,6 @@ router.post('/register', function(req, res) {
 		{
 			if(err)
 			{
-				
 				// Completar otros errores de usuario
 				if((err.name) == "UserExistsError")
 					return res.json({status: false, message: "Ya existe ese nombre de usuario"});
@@ -80,7 +80,7 @@ router.post('/register', function(req, res) {
 					if(	err.errors.nombre ||
 						err.errors.apellidos ||
 						err.errors.correo ||
-						err.errors.usuario )
+						err.errors.username )
 						return res.json({status: false, message: ""});
 				}
 		
