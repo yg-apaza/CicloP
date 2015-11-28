@@ -5,6 +5,7 @@ var Usuario = require('../models/usuario');
 var router = express.Router();
 var async = require('async');
 
+
 router.post('/', function(req, res) {
 	Proyecto.findOne({_id: req.body.id}, function(err, p){
 		if(!err)
@@ -78,6 +79,12 @@ router.post('/verProyectos', function(req, res) {
 		res.json(nombresProyectos);
 	});
 });
+
+// GUARDAR ID AUTOMATICAMENTE AL CREAR PROYECTO
+// VER ULTIMO PROYECTO
+// MODIFICAR - GUARDAR NUEVOS DATOS (USUARIOS, NOMBRE, ... )
+// VALIDAR ROLES DE USUARIOS ... (REPETIDOS)
+// VERIFICAR REGISTRAR USUARIO, nombre de usuario "zorro"
 
 router.post('/guardarId', function(req, res){
 	req.session.idProy = req.body.id;
