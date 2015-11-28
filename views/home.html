@@ -150,7 +150,7 @@
 				<div class="main-menu">
 					<ul>
 						<li class="active">
-							<a href="index.html">
+							<a href="/">
 								
 								<span class="text">
 									Inicio
@@ -167,21 +167,21 @@
 							</a>
 							
 							<ul class="submenu">
-								<li class="openable" >
-									<a href="#"><span class="submenu-label">sss</span></a>
+								<li class="openable open" ng-repeat="proyecto in proyectos">
+									<a href="#"><span class="submenu-label">{{proyecto.nombre}}</span></a>
 									<ul class="submenu third-level">
 										<li>
-											<a href="verProyecto">
+											<a href="verProyecto.html">
 												<span class="submenu-label">Ver Proyecto</span>
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="reporte.html">
 												<span class="submenu-label">Ver Reportes</span>
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="modificarProyecto.html">
 												<span class="submenu-label">Modificar Proyecto</span>
 											</a>
 										</li>
@@ -205,7 +205,7 @@
 		<div id="main-container">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li> 
+					 <li><i class="fa fa-home"></i><a href="/"> Home</a></li> 
 
 				</ul>
 			</div><!-- /breadcrumb-->

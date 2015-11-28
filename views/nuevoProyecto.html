@@ -176,15 +176,15 @@
 							</a>
 						</li>
 						<li class="openable open">
-							<a href="#">
-								<span class="text">
+							<a href="#"  >
+								<span class="text"">
 									Proyectos
 								</span>
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li class="openable open">
-									<a href="#"><span class="submenu-label">Proyecto 1</span></a>
+								<li class="openable open" ng-repeat="proyecto in proyectos">
+									<a href="#"><span class="submenu-label">{{proyecto.nombre}}</span></a>
 									<ul class="submenu third-level">
 										<li>
 											<a href="verProyecto.html">

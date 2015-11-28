@@ -2,8 +2,13 @@ var app = angular.module('myAppHome',[]);
 
 app.controller('myCtrlHome',  function($scope,$http,$window) {
   //$scope.usuario = {username:'',nombre:'', apellidos:'', correo:''};
-  $scope.proyectos = [{nombre: 'proyecto 1'},{nombre: 'proyecto 2'}];
+  //$scope.proyectos = [{nombre: 'proyecto 1'},{nombre: 'proyecto 2'}];
   
+	  $http.post('/fproyecto/verProyectos')
+		.success(function(data) {
+				$scope.proyectos = data;
+	  });
+	
   $http.post('/fusuario').success(function(data) {
 		$scope.usuario = data;
   });

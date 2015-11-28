@@ -26,6 +26,13 @@ router.get('/nuevoProyecto', function (req,res){
 	else
 		res.redirect('/');
 });
+router.get('/verProyecto', function (req, res) {
+	if(req.user)
+		res.sendFile(path.join(__dirname, '../views', 'etapas.html'));
+	else
+		res.redirect('/');
+});
+
 router.get('/register', function (req, res) {
 	if(!req.user)
 		res.sendFile(path.join(__dirname, '../views', 'register.html'));

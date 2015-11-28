@@ -25,9 +25,10 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	}
 	
 	$scope.newProject = {};
-	var id = null;
+	$scope.myProject = {};
 	
 	$scope.respuestaServidorProyecto;
+	
 	$scope.actualizarUsuarios = function (){
 		$http.post('fusuario/validate',$scope.usuarios)
 		.success(function(data) {
@@ -47,7 +48,8 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 		.success(function(data) {
 				$scope.respuestaServer = data;
 				if($scope.respuestaServer.status){
-					id = $scope.respuestaServer.id;
+					$scope.respuestaServidorProyecto = "";
+					$window.location.href = "/verProyecto";	
 				}
 				else{
 					$scope.respuestaServidorProyecto = "No se creo proyecto";
@@ -58,15 +60,20 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	$scope.classEstado = function(stado){
 	     if (stado==1)return "label label-success";
 	     else if(stado==2)return "label label-danger";
-	     else if(stado==3)return "label label-warning";
-	    	 
+	     else if(stado==3)return "label label-warning";   
 	};	
 });
 
 
 app.controller('myCtrlHome',  function($scope,$http,$window) {
 	  //$scope.usuario = {username:'',nombre:'', apellidos:'', correo:''};
-		
+	
+	  $http.post('/fproyecto/verProyectos')
+		.success(function(data) {
+				$scope.proyectos = data;
+	  });
+	  
+	  $scope.proyectos = {};
 	  $http.post('/fusuario').success(function(data) {
 			$scope.usuario = data;
 	  });
@@ -103,16 +110,6 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
 	   	  return "fa fa-check";
 	     if (tipo == 4)
 	   	  return "fa fa-warning";
-	  };
-	  
-	  $scope.leerProyectos = function(){
-		  
-		  $http.post('/fproyectos/')
-			.success(function(data) {
-					$scope.proyectos = data;
-		  });
-	  }
-	  
-	  
+	  }; 
 	});
 
