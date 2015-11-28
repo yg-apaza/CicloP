@@ -40,6 +40,16 @@ router.post('/agregar', function(req, res) {
 						});
 					})(i, req);
 				}
+				
+				Usuario.findOne({username: req.user.username}, function (err, usuario) {
+					if(!err && usuario)
+					{
+						var rolCoordinador = usuario.roles;
+						rolCoordinador.push({rol: 3, proyecto: proy._id});
+						Usuario.update({username: usuario.username}, {roles: rolCoordinador}, function(err) {});
+					}
+				});
+				
 				return res.json({status: true, id: proy._id});
 			}
 			else
@@ -52,6 +62,7 @@ router.post('/agregar', function(req, res) {
 
 router.post('/verProyectos', function(req, res) {
 	var roles = req.user.roles;
+	
 	var nombresProyectos = [];
 	async.each(roles, function(r, callback) {
 		Proyecto.findOne({_id: r.proyecto}, function (err, p) {
