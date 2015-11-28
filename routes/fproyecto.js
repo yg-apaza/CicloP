@@ -54,12 +54,10 @@ router.post('/verProyectos', function(req, res) {
 	var roles = req.user.roles;
 	var nombresProyectos = [];
 	async.each(roles, function(r, callback) {
-		console.log(nombresProyectos);
 		Proyecto.findOne({_id: r.proyecto}, function (err, p) {
 			if(!err)
 			{
 				nombresProyectos.push({nombre: p.nombre});
-				console.log(nombresProyectos);
 			}
 			callback();
 		});
@@ -68,6 +66,11 @@ router.post('/verProyectos', function(req, res) {
 	{
 		res.json(nombresProyectos);
 	});
+});
+
+router.post('/guardarId', function(req, res){
+	req.session.idProy = req.body.id;
+	res.json({status: true});
 });
 
 
