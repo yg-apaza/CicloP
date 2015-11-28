@@ -3,6 +3,7 @@ var passport = require('passport');
 var Proyecto = require('../models/proyecto');
 var Usuario = require('../models/usuario');
 var router = express.Router();
+var async = require('async');
 
 router.post('/', function(req, res) {
 	Proyecto.findOne({_id: req.body.id}, function(err, p){
@@ -49,6 +50,25 @@ router.post('/agregar', function(req, res) {
 		return res.json({status: false, id: null});
 });
 
+router.post('/verProyectos', function(req, res) {
+	var roles = req.user.roles;
+	var nombresProyectos = [];
+	async.each(roles, function(r, callback) {
+		console.log(nombresProyectos);
+		Proyecto.findOne({_id: r.proyecto}, function (err, p) {
+			if(!err)
+			{
+				nombresProyectos.push({nombre: p.nombre});
+				console.log(nombresProyectos);
+			}
+			callback();
+		});
+	},
+	function(err)
+	{
+		res.json(nombresProyectos);
+	});
+});
 
 
 module.exports = router;
