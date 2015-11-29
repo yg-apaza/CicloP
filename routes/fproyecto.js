@@ -58,9 +58,11 @@ router.post('/agregar', function(req, res) {
 						Usuario.findOne({username: req.body.usuarios[i].username}, function (err, usuario) {
 							if(!err && usuario)
 							{
-								var nuevosRoles = usuario.roles;
-								nuevosRoles.push({rol: req.body.usuarios[i].rol, proyecto: proy._id});
-								Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {});
+								var rol = new Rol({	idUsuario: usuario._id,
+													idProyecto: proy._id,
+													tipo: req.body.usuarios[i].rol
+												});
+								rol.save(function(err){});
 							}
 						});
 					})(i);
@@ -69,11 +71,14 @@ router.post('/agregar', function(req, res) {
 				Usuario.findOne({username: req.user.username}, function (err, usuario) {
 					if(!err && usuario)
 					{
-						var rolCoordinador = usuario.roles;
-						rolCoordinador.push({rol: 3, proyecto: proy._id});
-						Usuario.update({username: usuario.username}, {roles: rolCoordinador}, function(err) {});
+						var rol = new Rol({	idUsuario: usuario._id,
+											idProyecto: proy._id,
+											tipo: 3
+										});
+						rol.save(function(err){});
 					}
 				});
+				
 				req.session.idProy = proy._id;
 				return res.json({status: true, id: proy._id});
 			}

@@ -8,6 +8,7 @@ var expressSession = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var socketio = require('socket.io').listen(3000).sockets;
 var LocalStrategy = require('passport-local' ).Strategy;
 var MongoStore = require('connect-mongo')(expressSession);
 

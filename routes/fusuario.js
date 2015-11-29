@@ -71,8 +71,8 @@ router.post('/register', function(req, res) {
 					}),
 		req.body.clave,
 	    function(err, usuario) {
-			if (!(req.body.correo && req.body.nombre &&	req.body.apellidos))
-				res.json({status: false, message: ""});
+			if (!(req.body.nombre && req.body.apellidos && req.body.correo))
+				res.json({status: false, message: "Campos vacíos"});
 			else
 			{
 				if(err) {
@@ -84,7 +84,7 @@ router.post('/register', function(req, res) {
 							err.errors.apellidos ||
 							err.errors.correo ||
 							err.errors.username )
-							return res.json({status: false, message: ""});
+							return res.json({status: false, message: "Datos inválidos"});
 					}
 				}
 				else
