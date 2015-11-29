@@ -73,7 +73,7 @@ router.post('/agregar', function(req, res) {
 						Usuario.update({username: usuario.username}, {roles: rolCoordinador}, function(err) {});
 					}
 				});
-				req.session.idProy = req.body.id;
+				req.session.idProy = proy._id;
 				return res.json({status: true, id: proy._id});
 			}
 			else
@@ -104,12 +104,23 @@ router.post('/verProyectos', function(req, res) {
 });
 
 router.post('/verUltimoProyecto', function(req, res) {
+	
 	Proyecto.findOne({_id: req.session.idProy}, function(err, p){
-		if(!err)
+		
+		if(!err){
+			console.log(req.session.idProy);
+			console.log("dsds");
 			return res.json({status: true, proyecto: p});
-		else
+			
+		}
+			
+		else{
+			console.log("nose");
 			return res.json({status: false, proyecto: null});
+		}
+			
 	});
+	
 });
 
 // MODIFICAR - GUARDAR NUEVOS DATOS (USUARIOS, NOMBRE, ... )

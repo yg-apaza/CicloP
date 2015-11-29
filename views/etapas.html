@@ -25,7 +25,7 @@
 	
   </head>
 
-  <body class="overflow-hidden" ng-app="myAppProyecto" >
+  <body class="overflow-hidden" ng-app="myAppEtapa" >
 	<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
 
@@ -196,17 +196,17 @@
 			</div><!-- /sidebar-inner -->
 		</aside>
 
-		<div id="main-container" ng-controller="myCtrlAgregarProyecto">
+		<div id="main-container" ng-controller="myCtrlEtapasProyecto">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					 <li><i class="fa fa-home"></i><a href="/"> Home</a></li> 
+					 <li><i class="fa fa-home"></i><a href="/">Home</a></li> 
 				</ul>
 			</div><!-- /breadcrumb-->
 			
 			<div class="main-header clearfix">
 				<div class="page-title">
-					<h3 class="no-margin">{{newProject.nombre}}</h3>
-					<span>{{newProject.descripcion}}</span>
+					<h3 class="no-margin">{{myProject.nombre}}</h3>
+					<span>{{myProject.descripcion}}</span>
 				</div><!-- /page-title -->
 			</div><!-- /main-header -->
 			
@@ -349,7 +349,7 @@
 	<!-- Cargamos angular -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
-	<script src="angularJS/CProyecto.js"></script>
+	<script src="angularJS/CEtapas.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 	
 	

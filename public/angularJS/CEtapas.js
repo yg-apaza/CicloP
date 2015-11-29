@@ -1,83 +1,18 @@
 var app = angular.module('myAppEtapa',[]);
 
-app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
-	//1: existe 2: no existe 3:invalido
-	$scope.roles = [{valor: 1, nombre:'Diseñador'},{valor: 2, nombre:'Probador'}];
-	$scope.antiguosUsuarios = {};
+app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 	
-	$scope.usuarios = [
-	    {username:'', rol:''},
-		{username:'', rol:''},
-		{username:'', rol:''},
-		{username:'', rol:''},
-		{username:'', rol:''}
-	];
-	
-	$scope.estadosMsj = [
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	];
-	
-	for (i = 0; i < $scope.usuarios.length; i++) { 
-	      $scope.usuarios[i].msjEstado = $scope.estadosMsj[i].msjEstado;
-	      $scope.usuarios[i].estado = $scope.estadosMsj[i].estado;
-	}
-	
-	$scope.newProject = {};
 	$scope.myProject = {};
 	
 	$scope.respuestaServidorProyecto;
-	
-	$http.post('/fproyecto/', $scope.newProject)
-	.success(function(data) {
-			$scope.respuestaServer = data;
-			if($scope.respuestaServer.status){
-				$scope.respuestaServidorProyecto = "";
-				$window.location.href = "/verProyecto";	
-			}
-			else{
-				$scope.respuestaServidorProyecto = "No se modifico proyecto";
-			}
-	});	
-	
-	
-	
-	$scope.actualizarUsuarios = function (){
-		$http.post('fusuario/validate',$scope.usuarios)
-		.success(function(data) {
-				if(data.status){
-					$scope.estadosMsj = data.usuarios;
-					for (i = 0; i < $scope.usuarios.length; i++) { 
-					      $scope.usuarios[i].msjEstado = $scope.estadosMsj[i].msjEstado;
-					      $scope.usuarios[i].estado = $scope.estadosMsj[i].estado;
-					}
-				}
-		});
-	}
-	
-	$scope.modificarProyecto = function(){
-		$scope.newProject.usuarios = $scope.usuarios;
-		$http.post('/fproyecto/modificar', $scope.newProject)
-		.success(function(data) {
-				$scope.respuestaServer = data;
-				if($scope.respuestaServer.status){
-					$scope.respuestaServidorProyecto = "";
-					$window.location.href = "/verProyecto";	
-				}
-				else{
-					$scope.respuestaServidorProyecto = "No se modifico proyecto";
-				}
-		});	
-	};
-	
-	$scope.classEstado = function(stado){
-	     if (stado==1)return "label label-success";
-	     else if(stado==2)return "label label-danger";
-	     else if(stado==3)return "label label-warning";   
-	};	
+
+	$http.post('/fproyecto/verUltimoProyecto')
+	.success(function(data){
+			if(data.status)
+				$scope.myProject = data.proyecto;
+			else 
+				alert("Problemas internos");
+	});		
 });
 
 
