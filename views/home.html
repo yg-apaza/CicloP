@@ -168,7 +168,7 @@
 							
 							<ul class="submenu">
 								<li class="openable open" ng-repeat="proyecto in proyectos">
-									<a href="#"><span class="submenu-label">{{proyecto.nombre}}</span></a>
+									<a href="#"><span class="submenu-label" ng-click="prueba(proyecto.nombre)">{{proyecto.nombre}}</span></a>
 									<ul class="submenu third-level">
 										<li>
 											<a href="verProyecto.html">
