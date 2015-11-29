@@ -2,7 +2,6 @@ var express = require('express');
 var passport = require('passport');
 var Usuario = require('../models/usuario');
 var router = express.Router();
-// var path = require('path');
 
 router.post('/', function(req, res) {
 	var i;

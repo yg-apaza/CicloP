@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
+var Schema = mongoose.Schema;
 
 // Notificaciones: tipo: 1: Sistema, 2: Proyecto, 3: Check, 4: Warning
 

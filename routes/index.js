@@ -20,7 +20,7 @@ router.get('/login', function (req, res) {
 		res.redirect('/');
 });
 
-router.get('/nuevoProyecto', function (req,res){
+router.get('/nuevoProyecto', function (req,res) {
 	if(req.user)
 		res.sendFile(path.join(__dirname,'../views','nuevoProyecto.html'));		
 	else
