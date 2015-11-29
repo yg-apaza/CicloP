@@ -27,7 +27,8 @@ router.post('/modificar', function(req, res) {
 			function(err){		
 				if(!err)
 				{
-					
+					res.json({status: true});
+					//usuarios
 				}
 				else
 					res.json({status: false});
@@ -106,7 +107,6 @@ router.post('/verUltimoProyecto', function(req, res) {
 	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {
 		if(!err)
 		{
-			
 			return res.json({status: true, proyecto: p});
 		}
 		else
