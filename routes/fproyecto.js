@@ -91,7 +91,7 @@ router.post('/verProyectos', function(req, res) {
 		Proyecto.findOne({_id: r.proyecto}, function (err, p) {
 			if(!err)
 			{
-				nombresProyectos.push({nombre: p.nombre, id: p._id});
+				nombresProyectos.push({nombre: p.nombre, id: p._id.toString()});
 			}
 			callback();
 		});
@@ -103,29 +103,21 @@ router.post('/verProyectos', function(req, res) {
 });
 
 router.post('/verUltimoProyecto', function(req, res) {
-	
-	Proyecto.findOne({_id: req.session.idProy}, function(err, p){
-		
-		if(!err){
-			console.log(req.session.idProy);
-			console.log("dsds");
+	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {
+		if(!err)
+		{
+			
 			return res.json({status: true, proyecto: p});
-			
 		}
-			
-		else{
-			console.log("nose");
+		else
 			return res.json({status: false, proyecto: null});
-		}
-			
 	});
-	
 });
 
 // MODIFICAR - GUARDAR NUEVOS DATOS (USUARIOS, NOMBRE, ... )
 // VALIDAR ROLES DE USUARIOS ... (REPETIDOS)
 
-router.post('/guardarId', function(req, res){
+router.post('/guardarId', function(req, res) {
 	req.session.idProy = req.body.id;
 	res.json({status: true});
 });
