@@ -25,11 +25,12 @@ router.post('/modificar', function(req, res) {
 				descripcion: req.body.descripcion,
 				fechaCulminacion: req.body.fechaCulminacion,
 			},
+			{runValidators: true},
 			function(err){		
 				if(!err)
 				{
+					
 					res.json({status: true});
-					//usuarios
 				}
 				else
 					res.json({status: false});
@@ -76,7 +77,9 @@ router.post('/agregar', function(req, res) {
 					function(err) {
 						if(!err)
 						{
-							if(rolesValidos.indexOf('1') > -1 && rolesValidos.indexOf('2') > -1)
+							if( rolesValidos.indexOf('1') > -1 &&
+								rolesValidos.indexOf('2') > -1 &&
+								rolesValidos.indexOf('2') != rolesValidos.lastIndexOf('2'))
 							{
 								Usuario.findOne({username: req.user.username}, function (err, usuario) {
 									if(!err && usuario)
@@ -99,24 +102,24 @@ router.post('/agregar', function(req, res) {
 									rol.save(function(err){});
 								}
 								req.session.idProy = proy._id;
-								return res.json({status: true, id: proy._id});
+								return res.json({status: true, id: proy._id, message: "Proyecto creado exitosamente."});
 							}
 							else
 							{
 								Proyecto.remove({_id: proy._id}, function(err){});
-								return res.json({status: false, id: null});
+								return res.json({status: false, id: null, message: "Número de probadores o diseñadores incorrecto."});
 							}
 						}
 						else
-							return res.json({status: false, id: null});
+							return res.json({status: false, id: null, message: "No se creó el proyecto."});
 					});
 			}
 			else
-				return res.json({status: false, id: null});
+				return res.json({status: false, id: null, message: "No se creó el proyecto."});
 		});
 	}
 	else
-		return res.json({status: false, id: null});
+		return res.json({status: false, id: null, message: "Datos incompletos."});
 });
 
 router.post('/verProyectos', function(req, res) {
@@ -140,17 +143,21 @@ router.post('/verProyectos', function(req, res) {
 
 router.post('/verUltimoProyecto', function(req, res) {
 	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {
-		if(!err)
-		{
-			return res.json({status: true, proyecto: p});
+		if(!err) {
+			Rol.find({idProyecto: req.session.idProy}, function(err, roles) {
+				if(! err) {
+					
+				}
+				else
+					return res.json({status: false, proyecto: null, usuarios: null});
+			});
 		}
 		else
-			return res.json({status: false, proyecto: null});
+			return res.json({status: false, proyecto: null, usuarios: null});
 	});
 });
 
 // MODIFICAR - GUARDAR NUEVOS DATOS (USUARIOS, NOMBRE, ... )
-// VALIDAR ROLES DE USUARIOS ... (REPETIDOS)
 
 router.post('/guardarId', function(req, res) {
 	req.session.idProy = req.body.id;
