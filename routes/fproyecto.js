@@ -1,8 +1,9 @@
+var async = require('async');
 var express = require('express');
 var passport = require('passport');
-var async = require('async');
-var Proyecto = require('../models/proyecto');
 var Usuario = require('../models/usuario');
+var Proyecto = require('../models/proyecto');
+var Rol = require('../models/rol');
 var router = express.Router();
 
 router.post('/', function(req, res) {

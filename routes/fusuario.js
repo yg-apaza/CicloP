@@ -1,9 +1,9 @@
+var async = require('async');
 var express = require('express');
 var passport = require('passport');
+var path = require('path');
 var Usuario = require('../models/usuario');
 var router = express.Router();
-var path = require('path');
-var async = require('async');
 
 router.post('/', function(req, res) {
 	res.json({

@@ -1,12 +1,12 @@
 /** Dependencias */
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var express = require('express');
-var path = require('path');
+var expressSession = require('express-session');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var expressSession = require('express-session');
-var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var path = require('path');
 var passport = require('passport');
 //var socketio = require('socket.io').listen(3000).sockets;
 var LocalStrategy = require('passport-local' ).Strategy;
@@ -25,7 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 /** Conexion con la base de datos */
-mongoose.connect('mongodb://localhost/ciclopbd');
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/ciclopbd');
 
 /** Configuraciones Generales*/
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
