@@ -15,7 +15,7 @@ router.post('/', function(req, res) {
 });
 
 router.post('/modificar', function(req, res) {
-	if(req.body._id && req.body.nombre && req.body.descripcion && req.body.fechaCulminacion && req.body.usuarios)
+	if(req.body._id && req.body.nombre && req.body.descripcion && req.body.fechaCulminacion)
 	{
 		Proyecto.update(
 			{_id: req.body._id},
