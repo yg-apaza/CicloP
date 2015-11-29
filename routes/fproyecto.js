@@ -92,20 +92,21 @@ router.post('/agregar', function(req, res) {
 });
 
 router.post('/verProyectos', function(req, res) {
-	var roles = req.user.roles;
-	var nombresProyectos = [];
-	async.each(roles, function(r, callback) {
-		Proyecto.findOne({_id: r.proyecto}, function (err, p) {
-			if(!err)
-			{
-				nombresProyectos.push({nombre: p.nombre, id: p._id.toString()});
-			}
-			callback();
+	Rol.find({idUsuario: req.user._id}, function(err, roles){
+		var nombresProyectos = [];
+		async.each(roles, function(r, callback) {
+			Proyecto.findOne({_id: r.idProyecto}, function (err, p) {
+				if(!err)
+				{
+					nombresProyectos.push({nombre: p.nombre, id: p._id.toString()});
+				}
+				callback();
+			});
+		},
+		function(err)
+		{
+			res.json(nombresProyectos);
 		});
-	},
-	function(err)
-	{
-		res.json(nombresProyectos);
 	});
 });
 
