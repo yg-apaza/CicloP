@@ -52,36 +52,64 @@ router.post('/agregar', function(req, res) {
 			if (!err)
 			{
 				var i;
-				for(i = 0; i < req.body.usuarios.length; i++)
-				{
-					(function(i)
-					{
-						Usuario.findOne({username: req.body.usuarios[i].username}, function (err, usuario) {
+				var usuariosValidos = [];
+				var rolesValidos = [];
+				
+				async.each(
+					req.body.usuarios,
+					function(u, callback){
+						Usuario.findOne({username: u.username}, function (err, usuario) {
 							if(!err && usuario)
 							{
-								var rol = new Rol({	idUsuario: usuario._id,
-													idProyecto: proy._id,
-													tipo: req.body.usuarios[i].rol
-												});
-								rol.save(function(err){});
+								if(	usuario.username != req.user.username &&
+									usuariosValidos.indexOf(usuario._id) == -1 &&
+									(u.rol == '1' || 
+									 u.rol == '2'))
+								{
+									usuariosValidos.push(usuario._id);
+									rolesValidos.push(u.rol);
+								}
 							}
+							callback();
 						});
-					})(i);
-				}
-				
-				Usuario.findOne({username: req.user.username}, function (err, usuario) {
-					if(!err && usuario)
-					{
-						var rol = new Rol({	idUsuario: usuario._id,
-											idProyecto: proy._id,
-											tipo: 3
-										});
-						rol.save(function(err){});
-					}
-				});
-				
-				req.session.idProy = proy._id;
-				return res.json({status: true, id: proy._id});
+					},
+					function(err) {
+						if(!err)
+						{
+							if(rolesValidos.indexOf('1') > -1 && rolesValidos.indexOf('2') > -1)
+							{
+								Usuario.findOne({username: req.user.username}, function (err, usuario) {
+									if(!err && usuario)
+									{
+										var rol = new Rol({	idUsuario: usuario._id,
+															idProyecto: proy._id,
+															tipo: '3'
+														});
+										rol.save(function(err){});
+									}
+								});
+								
+								var i;
+								for(i = 0; i < rolesValidos.length; i++)
+								{
+									var rol = new Rol({	idUsuario: usuariosValidos[i],
+										idProyecto: proy._id,
+										tipo: rolesValidos[i]
+									});
+									rol.save(function(err){});
+								}
+								req.session.idProy = proy._id;
+								return res.json({status: true, id: proy._id});
+							}
+							else
+							{
+								Proyecto.remove({_id: proy._id}, function(err){});
+								return res.json({status: false, id: null});
+							}
+						}
+						else
+							return res.json({status: false, id: null});
+					});
 			}
 			else
 				return res.json({status: false, id: null});

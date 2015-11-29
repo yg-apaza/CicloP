@@ -31,13 +31,11 @@ router.post('/validate', function(req, res)	{
 								nu.estado = 3;
 							}
 							else {
-								if(usuariosValidos.indexOf(nu.username) > -1)
-								{
+								if(usuariosValidos.indexOf(nu.username) > -1) {
 									nu.msjEstado = "no válido";
 									nu.estado = 3;
 								}
-								else
-								{
+								else {
 									nu.msjEstado = "existe";
 									nu.estado = 1;
 									usuariosValidos.push(nu.username);
