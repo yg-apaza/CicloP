@@ -18,6 +18,7 @@ router.post('/', function(req, res) {
 router.post('/validate', function(req, res)	{
 	if(req.body) {
 		var i, nuevosUsuarios = req.body;
+		var usuariosValidos = [];
 		async.each(
 			nuevosUsuarios,
 			function(nu, callback) {
@@ -30,8 +31,17 @@ router.post('/validate', function(req, res)	{
 								nu.estado = 3;
 							}
 							else {
-								nu.msjEstado = "existe";
-								nu.estado = 1;
+								if(usuariosValidos.indexOf(nu.username) > -1)
+								{
+									nu.msjEstado = "no válido";
+									nu.estado = 3;
+								}
+								else
+								{
+									nu.msjEstado = "existe";
+									nu.estado = 1;
+									usuariosValidos.push(nu.username);
+								}
 							}
 						}
 						else {
