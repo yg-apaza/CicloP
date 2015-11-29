@@ -91,7 +91,7 @@ router.post('/verProyectos', function(req, res) {
 		Proyecto.findOne({_id: r.proyecto}, function (err, p) {
 			if(!err)
 			{
-				nombresProyectos.push({nombre: p.nombre, id: p._id});
+				nombresProyectos.push({nombre: p.nombre, id: p._id.toString()});
 			}
 			callback();
 		});
