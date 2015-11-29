@@ -86,7 +86,6 @@ router.post('/agregar', function(req, res) {
 
 router.post('/verProyectos', function(req, res) {
 	var roles = req.user.roles;
-	
 	var nombresProyectos = [];
 	async.each(roles, function(r, callback) {
 		Proyecto.findOne({_id: r.proyecto}, function (err, p) {
