@@ -28,6 +28,17 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
 	   	  return "notification-icon bg-warning";
   };
   
+  $scope.enviarID = function(id){
+	  $scope.temp = {};
+	  $scope.temp.id = id;
+	  $http.post('/fproyecto/guardarId',$scope.temp)
+		.success(function(data) {
+				alert(data);
+				if(data.status)
+					$window.location.href = "/modificarProyecto";	
+					
+	   });
+  };
 
   $scope.leerNotificacion = function(){
 	  $http.post('/fnotificacion/verTodo')
