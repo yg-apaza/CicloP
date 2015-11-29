@@ -16,9 +16,6 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
 		$scope.notificaciones = data.notificaciones;
 		$scope.noleidos = data.noleidos;
   });
-  //$http.post('/fproyectos').success(function(data) {
-  //	$scope.proyectos = data;
-  //});
   
   $scope.colorIconClass = function(tipo){
 	     if (tipo == 1)
@@ -30,6 +27,11 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
 	     if (tipo == 4)
 	   	  return "notification-icon bg-warning";
   };
+  
+  $scope.prueba = function(nombre){
+	  alert(nombre);
+  }
+  
   
   $scope.leerNotificacion = function(){
 	  $http.post('/fnotificacion/verTodo')
@@ -49,6 +51,5 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
      if (tipo == 4)
    	  return "fa fa-warning";
   };
-  
 });
 
