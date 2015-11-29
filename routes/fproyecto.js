@@ -77,6 +77,8 @@ router.post('/agregar', function(req, res) {
 					function(err) {
 						if(!err)
 						{
+							console.log(rolesValidos.indexOf('2'));
+							console.log(rolesValidos.lastIndexOf('2'));
 							if( rolesValidos.indexOf('1') > -1 &&
 								rolesValidos.indexOf('2') > -1 &&
 								rolesValidos.indexOf('2') != rolesValidos.lastIndexOf('2'))
