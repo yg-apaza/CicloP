@@ -145,6 +145,11 @@ router.post('/verProyectos', function(req, res) {
 
 router.post('/verUltimoProyecto', function(req, res) {
 	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {
+		if(!err)
+			return res.json({status: false, proyecto: p, usuarios: null});
+		else
+			return res.json({status: false, proyecto: null, usuarios: null});
+		/*
 		if(!err) {
 			Rol.find({idProyecto: req.session.idProy}, function(err, roles) {
 				if(! err) {
@@ -156,6 +161,7 @@ router.post('/verUltimoProyecto', function(req, res) {
 		}
 		else
 			return res.json({status: false, proyecto: null, usuarios: null});
+			*/
 	});
 });
 

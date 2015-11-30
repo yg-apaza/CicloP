@@ -98,7 +98,8 @@ router.post('/register', function(req, res) {
 				}
 				else {
 					enviarEmail(	req.body.correo,
-									req.body.nombre + " " + req.body.apellidos);
+									req.body.nombre + " " + req.body.apellidos,
+									req.body.usuario);
 			    	return res.json({status: true, message: "Usuario registrado"});
 				}
 			}
@@ -127,8 +128,7 @@ router.get('/logout', function(req, res) {
 	res.redirect('/');
 });
 
-function enviarEmail(para, nombre) {
-	console.log("sadasdasd")
+function enviarEmail(para, nombre, usuario) {
 	var transporter = nodemailer.createTransport({
 	    service: 'Gmail',
 	    auth: {
@@ -142,37 +142,27 @@ function enviarEmail(para, nombre) {
 		    to: para,
 		    subject: "Bienvenido a Ciclo-P",
 		    text: "",
-		    html: "<h1><strong>Bienvenido a Ciclo-P</strong></h1>" +
-		    		"<p>Hola <strong>" + nombre + "</strong>!</p>" +
-		    		"<p>Tu cuenta ha sido creada con &eacute;xito, ya puedes empezar a crear proyectos " +
-		    		"o participar en otros. Con Ciclo - P podr&aacute;:</p>" +
-		    		"<ul> <li>Verificar el estado de su proyecto</li> " +
-		    		"<li>Planificar y ver las etapas de desarrollo de software</li>" +
-		    		"<li>Crear y publicar listas de chequeo</li>" +
-		    		"<li>Generar reportes y evaluar su proyecto</li></ul>" +
-		    		"<p>Cualquier consulta o recomendaci&oacute;n, comun&iacute;quese a este mismo correo.</p>" +
-		    		"<ul> </ul>" +
-		    		"<hr /> " +
-		    		"<p>Ciclo-P es una metodolog&iacute;a para el desarrollo de software." +
-		    		"MOT S.A. propone una herramienta para su validaci&oacute;n y verificaci&oacute;n de" +
-		    		"cada etapa propuesta.</p>" +
-		    		"<p>Para mayor informaci&oacute;n acerca de esta metodolog&iacute;a consulte el siguiente art&iacute;culo:</p>" +
-		    		"<blockquote>Propuesta&nbsp;&nbsp; Metodol&oacute;gica&nbsp;&nbsp; para&nbsp;&nbsp;" +
-		    		"la&nbsp;&nbsp; realizaci&oacute;n&nbsp;&nbsp; de&nbsp;&nbsp;" +
-		    		"Pruebas&nbsp;&nbsp; de&nbsp;&nbsp; software&nbsp;&nbsp; en&nbsp;&nbsp; un&nbsp;&nbsp;" +
-		    		"Ambiente &nbsp;<br />" +
-		    		"Productivo, Christian de Jes&uacute;s Cardona Vel&aacute;squez, 2009. Disponible en:" +
-		    		"&lt;<a href='http://www.bdigital.unal.edu.co/930/1/8357252_2009.pdf'>" +
-		    		"http://www.bdigital.unal.edu.co/930/1/8357252_2009.pdf</a>" +
-		    		"&gt;</blockquote> <hr />  <p><small>MOT S.A. - Copyright 2015</small></p>"
+		    html:
+		    	'<h1 style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/yg-apaza/CicloP/master/logo.png" style="height: 100px; width: 277px;" /></h1>' +
+		    	'<h1><span style="font-family:verdana,geneva,sans-serif;"><strong>Bienvenido a Ciclo-P</strong></span></h1>' +
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Hola <strong>' + nombre + '</strong>!</span></p>' +
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Tu cuenta <strong><em>' + usuario + '</em></strong> ha sido creada con &eacute;xito, ya puedes empezar a crear proyectos o participar en otros, adem&aacute;s de:</span></p>' +
+		    	'<ul>' +
+		    		'<li><span style="font-family:verdana,geneva,sans-serif;">Verificar el estado de su proyecto</span></li>' +
+		    		'<li><span style="font-family:verdana,geneva,sans-serif;">Planificar y ver las etapas de desarrollo de software</span></li>' +
+		    		'<li><span style="font-family:verdana,geneva,sans-serif;">Crear y publicar listas de chequeo</span></li>' +
+		    		'<li><span style="font-family:verdana,geneva,sans-serif;">Generar reportes y evaluar su proyecto</span></li>' +
+		    	'</ul>' + 
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Cualquier consulta o recomendaci&oacute;n, comun&iacute;quese a este mismo correo.</span></p>' +
+		    	'<hr />' +
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Ciclo-P es una metodolog&iacute;a para el desarrollo de software. MOT S.A. propone una herramienta para su validaci&oacute;n y verificaci&oacute;n de cada etapa propuesta.</span></p>' +
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Para mayor informaci&oacute;n acerca de esta metodolog&iacute;a consulte el siguiente art&iacute;culo:</span></p>' +
+		    	'<div style="background:#eee;border:1px solid #ccc;padding:5px 10px;"><span style="font-family:verdana,geneva,sans-serif;"><em>Propuesta&nbsp;&nbsp; Metodol&oacute;gica&nbsp;&nbsp; para&nbsp;&nbsp; la&nbsp;&nbsp; realizaci&oacute;n&nbsp;&nbsp; de&nbsp;&nbsp; Pruebas&nbsp;&nbsp; de&nbsp;&nbsp; software&nbsp;&nbsp; en&nbsp;&nbsp; un&nbsp;&nbsp; Ambiente&nbsp; Productivo, Christian de Jes&uacute;s Cardona Vel&aacute;squez, 2009. Disponible en: &lt;<a href="http://www.bdigital.unal.edu.co/930/1/8357252_2009.pdf">http://www.bdigital.unal.edu.co/930/1/8357252_2009.pdf</a> &gt;</em></span></div>' +
+		    	'<hr />' +
+		    	'<p style="text-align: center;"><span style="font-family:verdana,geneva,sans-serif;"><small><span class="marker">MOT S.A. - Copyright 2015</span></small></span></p>'
 	};
 	
-	transporter.sendMail(mailOptions, function(err, info) {
-	    if(err)
-	        console.log(error);
-	    else
-	    	console.log('Message sent: ' + info.response);
-	});
+	transporter.sendMail(mailOptions, function(err, info) {});
 }
 
 module.exports = router;
