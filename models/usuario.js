@@ -41,9 +41,7 @@ var Usuario = new Schema ({
     		message: '{VALUE} no es un usuario válido'
     	}
     },
-    clave: String,
-    notificaciones: {type: Array},
-    roles: {type: Array}
+    notificaciones: {type: Array}
 });
 
 Usuario.plugin(passportLocalMongoose);

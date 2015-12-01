@@ -1,8 +1,9 @@
+var async = require('async');
 var express = require('express');
 var passport = require('passport');
-var async = require('async');
-var Proyecto = require('../models/proyecto');
 var Usuario = require('../models/usuario');
+var Proyecto = require('../models/proyecto');
+var Rol = require('../models/rol');
 var router = express.Router();
 
 router.post('/', function(req, res) {
@@ -25,11 +26,12 @@ router.post('/modificar', function(req, res) {
 				descripcion: req.body.descripcion,
 				fechaCulminacion: req.body.fechaCulminacion,
 			},
+			{runValidators: true},
 			function(err){		
 				if(!err)
 				{
+					
 					res.json({status: true});
-					//usuarios
 				}
 				else
 					res.json({status: false});
@@ -52,71 +54,119 @@ router.post('/agregar', function(req, res) {
 			if (!err)
 			{
 				var i;
-				for(i = 0; i < req.body.usuarios.length; i++)
-				{
-					(function(i)
-					{
-						Usuario.findOne({username: req.body.usuarios[i].username}, function (err, usuario) {
+				var usuariosValidos = [];
+				var rolesValidos = [];
+				
+				async.each(
+					req.body.usuarios,
+					function(u, callback){
+						Usuario.findOne({username: u.username}, function (err, usuario) {
 							if(!err && usuario)
 							{
-								var nuevosRoles = usuario.roles;
-								nuevosRoles.push({rol: req.body.usuarios[i].rol, proyecto: proy._id});
-								Usuario.update({username: usuario.username}, {roles: nuevosRoles}, function(err) {});
+								if(	usuario.username != req.user.username &&
+									usuariosValidos.indexOf(usuario._id) == -1 &&
+									(u.rol == '1' || 
+									 u.rol == '2'))
+								{
+									usuariosValidos.push(usuario._id);
+									rolesValidos.push(u.rol);
+								}
 							}
+							callback();
 						});
-					})(i);
-				}
-				
-				Usuario.findOne({username: req.user.username}, function (err, usuario) {
-					if(!err && usuario)
-					{
-						var rolCoordinador = usuario.roles;
-						rolCoordinador.push({rol: 3, proyecto: proy._id});
-						Usuario.update({username: usuario.username}, {roles: rolCoordinador}, function(err) {});
-					}
-				});
-				req.session.idProy = proy._id;
-				return res.json({status: true, id: proy._id});
+					},
+					function(err) {
+						if(!err)
+						{
+							console.log(rolesValidos.indexOf('2'));
+							console.log(rolesValidos.lastIndexOf('2'));
+							if( rolesValidos.indexOf('1') > -1 &&
+								rolesValidos.indexOf('2') > -1 &&
+								rolesValidos.indexOf('2') != rolesValidos.lastIndexOf('2'))
+							{
+								Usuario.findOne({username: req.user.username}, function (err, usuario) {
+									if(!err && usuario)
+									{
+										var rol = new Rol({	idUsuario: usuario._id,
+															idProyecto: proy._id,
+															tipo: '3'
+														});
+										rol.save(function(err){});
+									}
+								});
+								
+								var i;
+								for(i = 0; i < rolesValidos.length; i++)
+								{
+									var rol = new Rol({	idUsuario: usuariosValidos[i],
+										idProyecto: proy._id,
+										tipo: rolesValidos[i]
+									});
+									rol.save(function(err){});
+								}
+								req.session.idProy = proy._id;
+								return res.json({status: true, id: proy._id, message: "Proyecto creado exitosamente."});
+							}
+							else
+							{
+								Proyecto.remove({_id: proy._id}, function(err){});
+								return res.json({status: false, id: null, message: "Número de probadores o diseñadores incorrecto."});
+							}
+						}
+						else
+							return res.json({status: false, id: null, message: "No se creó el proyecto."});
+					});
 			}
 			else
-				return res.json({status: false, id: null});
+				return res.json({status: false, id: null, message: "No se creó el proyecto."});
 		});
 	}
 	else
-		return res.json({status: false, id: null});
+		return res.json({status: false, id: null, message: "Datos incompletos."});
 });
 
 router.post('/verProyectos', function(req, res) {
-	var roles = req.user.roles;
-	var nombresProyectos = [];
-	async.each(roles, function(r, callback) {
-		Proyecto.findOne({_id: r.proyecto}, function (err, p) {
-			if(!err)
-			{
-				nombresProyectos.push({nombre: p.nombre, id: p._id.toString()});
-			}
-			callback();
+	Rol.find({idUsuario: req.user._id}, function(err, roles){
+		var nombresProyectos = [];
+		async.each(roles, function(r, callback) {
+			Proyecto.findOne({_id: r.idProyecto}, function (err, p) {
+				if(!err)
+				{
+					nombresProyectos.push({nombre: p.nombre, id: p._id.toString()});
+				}
+				callback();
+			});
+		},
+		function(err)
+		{
+			res.json(nombresProyectos);
 		});
-	},
-	function(err)
-	{
-		res.json(nombresProyectos);
 	});
 });
 
 router.post('/verUltimoProyecto', function(req, res) {
 	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {
 		if(!err)
-		{
-			return res.json({status: true, proyecto: p});
+			return res.json({status: false, proyecto: p, usuarios: null});
+		else
+			return res.json({status: false, proyecto: null, usuarios: null});
+		/*
+		if(!err) {
+			Rol.find({idProyecto: req.session.idProy}, function(err, roles) {
+				if(! err) {
+					
+				}
+				else
+					return res.json({status: false, proyecto: null, usuarios: null});
+			});
 		}
 		else
-			return res.json({status: false, proyecto: null});
+			return res.json({status: false, proyecto: null, usuarios: null});
+			*/
 	});
 });
 
 // MODIFICAR - GUARDAR NUEVOS DATOS (USUARIOS, NOMBRE, ... )
-// VALIDAR ROLES DE USUARIOS ... (REPETIDOS)
 
 router.post('/guardarId', function(req, res) {
 	req.session.idProy = req.body.id;
