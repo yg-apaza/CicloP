@@ -72,13 +72,13 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	$antiguosUsuarios = {};
 	$scope.newProject = {};
 	$scope.myProject = {};
-	$scope.usuariosExistentes = {};
+	$scope.usuariosAnteriores = {};
 	
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data) { 
 			if(data.status){
 				$scope.newProject = data.proyecto;
-				$scope.usuariosExistentes = data.usuarios;
+				$scope.usuariosAnteriores = data.usuarios;
 			}
 			else{
 				alert("error Servidor");
@@ -106,12 +106,12 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	      $scope.usuarios[i].estado = $scope.estadosMsj[i].estado;
 	}
 	
-	
+	$scope.User = {nuevos: $scope.usuarios , anteriores: $scope.usuariosAnteriores};
 	
 	$scope.respuestaServidorProyecto;
 	
 	$scope.actualizarUsuarios = function (){
-		$http.post('fusuario/validate',$scope.usuarios)
+		$http.post('fusuario/validate',$scope.User)
 		.success(function(data) {
 				if(data.status){
 					$scope.estadosMsj = data.usuarios;
