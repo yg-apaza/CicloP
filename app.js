@@ -28,7 +28,7 @@ app.set('view engine', 'jade');
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/ciclopbd');
 
 /** Configuraciones Generales*/
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
