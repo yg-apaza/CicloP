@@ -241,7 +241,7 @@
 												<th>Rol</th>	
 											</tr>
 										</thead>
-										<tr ng-repeat="usuarioAnterior in usuariosAnteriores">
+										<tr ng-repeat="usuarioAnterior in User.anteriores">
 											<td>
 											{{usuarioAnterior.username}}	
 											</td>
@@ -253,7 +253,7 @@
 											</td>
 
 										</tr>
-										<tr ng-repeat="usuario in usuarios">
+										<tr ng-repeat="usuario in User.nuevos">
 											<td> 	
 												<input type="text" class="form-control" ng-model="usuario.username" >
 											</td>
@@ -268,7 +268,8 @@
 												</select>								
 											</td>
 										</tr>
-									</table>				
+									</table>	
+									{{User}}			
 								</div>
 							</div>
 						</div>

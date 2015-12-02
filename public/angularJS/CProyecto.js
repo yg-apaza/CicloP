@@ -69,23 +69,22 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	//1: existe 2: no existe 3:invalido
 	$scope.roles = [{valor: 1, nombre:'Diseñador'},{valor: 2, nombre:'Probador'}];
 	$scope.rol = ["","Diseñador","Probador"];
-	$antiguosUsuarios = {};
 	$scope.newProject = {};
-	$scope.myProject = {};
-	$scope.usuariosAnteriores = {};
-	
+	//$scope.myProject = {};
+	$scope.User = {};
+
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data) { 
 			if(data.status){
 				$scope.newProject = data.proyecto;
-				$scope.usuariosAnteriores = data.usuarios;
+				$scope.User.anteriores = data.usuarios;
 			}
 			else{
 				alert("error Servidor");
 			}
 	});	
 	
-	$scope.usuarios = [
+	$scope.User.nuevos = [
 	    {username:'', rol:''},
 		{username:'', rol:''},
 		{username:'', rol:''},
@@ -101,12 +100,11 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
 	];
 	
-	for (i = 0; i < $scope.usuarios.length; i++) { 
-	      $scope.usuarios[i].msjEstado = $scope.estadosMsj[i].msjEstado;
-	      $scope.usuarios[i].estado = $scope.estadosMsj[i].estado;
+	for (i = 0; i < $scope.User.nuevos.length; i++) { 
+	      $scope.User.nuevos[i].msjEstado = $scope.estadosMsj[i].msjEstado;
+	      $scope.User.nuevos[i].estado = $scope.estadosMsj[i].estado;
 	}
 	
-	$scope.User = {nuevos: $scope.usuarios , anteriores: $scope.usuariosAnteriores};
 	
 	$scope.respuestaServidorProyecto;
 	
@@ -115,16 +113,16 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 		.success(function(data) {
 				if(data.status){
 					$scope.estadosMsj = data.usuarios;
-					for (i = 0; i < $scope.usuarios.length; i++) { 
-					      $scope.usuarios[i].msjEstado = $scope.estadosMsj[i].msjEstado;
-					      $scope.usuarios[i].estado = $scope.estadosMsj[i].estado;
+					for (i = 0; i < $scope.User.nuevos.length; i++) { 
+					      $scope.User.nuevos[i].msjEstado = $scope.estadosMsj[i].msjEstado;
+					      $scope.User.nuevos[i].estado = $scope.estadosMsj[i].estado;
 					}
 				}
 		});
 	}
 	
 	$scope.guardarProyecto = function(){
-		$scope.newProject.usuarios = $scope.usuarios;
+		$scope.newProject.usuarios = $scope.User.nuevos;
 		$http.post('/fproyecto/modificar', $scope.newProject)
 		.success(function(data) {
 				if(data.status){
