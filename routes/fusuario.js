@@ -15,11 +15,18 @@ router.post('/', function(req, res) {
 			});
 });
 
-// 2u-r
 router.post('/validate', function(req, res)	{
 	if(req.body) {
-		var i, nuevosUsuarios = req.body;
+		var i, nuevosUsuarios = req.body.nuevos;
 		var usuariosValidos = [];
+		
+		if(req.body.anteriores)
+		{
+			var i;
+			for(i = 0; i < req.body.anteriores; i++)
+				usuariosValidos.push(req.body.anteriores[i].username);
+		}
+		
 		async.each(
 			nuevosUsuarios,
 			function(nu, callback) {
