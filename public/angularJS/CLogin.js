@@ -20,15 +20,17 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
 app.controller('myCtrlUsuarioReg',  function($scope,$http,$window) {
 	$scope.cuentaReg = {nombre:'', apellidos:'', usuario:'', correo:'', clave:''};
 	$scope.respuestaServer = '';
+	$scope.claveVerificar = '';
 	$scope.registrar = function() {
-		$http.post('/fusuario/register', $scope.cuentaReg)
-		.success(function(data) {
-				if(data.status)
-					$window.location.href = "/login";
-				else {
-					alert("fff");
-					$scope.respuestaServer =  data.message;
-				}
-		});
+		if ($scope.claveVerificar == $scope.cuentaReg.clave){ 
+			$http.post('/fusuario/register', $scope.cuentaReg)
+			.success(function(data) {
+					if(data.status)
+						$window.location.href = "/login";
+					else {
+						$scope.respuestaServer =  data.message;
+					}
+			});
+		}
 	};
 });

@@ -34,7 +34,7 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
 	  $http.post('/fproyecto/guardarId',$scope.temp)
 		.success(function(data) {
 				if(data.status)
-					$window.location.href = "/modificarProyecto";	
+					$window.location.href = "/verProyecto";	
 					
 	   });
   };

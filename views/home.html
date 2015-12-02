@@ -166,28 +166,13 @@
 								<span class="menu-hover"></span>
 							</a>
 							
-							<ul class="submenu">
-								<li class="openable open" ng-repeat="proyecto in proyectos">
+							<ul class="submenu" >
+							
+								<li class="openable open"  ng-repeat="proyecto in proyectos">
 									<a href="#"><span class="submenu-label" ng-click="enviarID(proyecto.id)">{{proyecto.nombre}}</span></a>
-									<ul class="submenu third-level">
-										<li>
-											<a href="verProyecto.html">
-												<span class="submenu-label">Ver Proyecto</span>
-											</a>
-										</li>
-										<li>
-											<a href="reporte.html">
-												<span class="submenu-label">Ver Reportes</span>
-											</a>
-										</li>
-										<li>
-											<a href="modificarProyecto.html">
-												<span class="submenu-label">Modificar Proyecto</span>
-											</a>
-										</li>
-									</ul>
-								</li>	
+								</li>
 							</ul>
+							
 						</li>
 						<li>
 							<a href="nuevoProyecto">
