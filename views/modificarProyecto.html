@@ -218,7 +218,7 @@
 			</div><!-- /sidebar-inner -->
 		</aside>
 		
-		<div id="main-container" ng-controller="myCtrlAgregarProyecto">
+		<div id="main-container" ng-controller="myCtrlModificarProyecto">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
 					 <li><i class="fa fa-home"></i><a href="index.html">Home</a></li> 
@@ -227,7 +227,7 @@
 			</div><!-- /breadcrumb-->
 			<div class="padding-md">
 				<div class="panel panel-default">
-					<form ng-submit="crearProyecto()" data-validate="parsley" novalidate>
+					<form ng-submit="guardarProyecto()" data-validate="parsley" novalidate>
 						<div class="panel-heading">Crear Proyecto</div>
 						<div class="panel-body">
 							<div class="row">
@@ -243,7 +243,7 @@
 									<div class="form-group">
 										<label for="fechaCulminacion">Fecha de Culminacion</label>
 										<div class="input-group">
-											<input type="text" ng-init="newProject.fechaCulminacion = '22/10/2015'" ng-value="newProject.fechaCulminacion" class="datepicker form-control" ng-model="newProject.fechaCulminacion">
+											<input type="text" ng-init="newProject.fCulminacion = '22/10/2015'" ng-value="newProject.fechaCulminacion" class="datepicker form-control" ng-model="newProject.fCulminacion">
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										</div>
 									</div><!-- /form-group -->
@@ -280,7 +280,7 @@
 						
 						<div class="panel-footer text-right">
 							
-							<button type="submit" class="btn btn-success">Crear</button>
+							<button type="submit" class="btn btn-success">Guardar</button>
 							<p class="text-danger">{{respuestaServidorProyecto}}</p>
 						</div>
 					</form>
