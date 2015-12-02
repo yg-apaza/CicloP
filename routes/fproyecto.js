@@ -15,14 +15,14 @@ router.post('/', function(req, res) {
 });
 
 router.post('/modificar', function(req, res) {
-
-	if(req.body._id && req.body.nombre && req.body.descripcion && req.body.fCulminacion)
+	if(req.body._id && req.body.nombre && req.body.descripcion)
 	{
 		Proyecto.update(
 			{_id: req.body._id},
 			{
 				nombre: req.body.nombre,
-				descripcion: req.body.descripcion			},
+				descripcion: req.body.descripcion
+			},
 			{runValidators: true},
 			function(err){		
 				if(!err)
@@ -45,7 +45,12 @@ router.post('/agregar', function(req, res) {
 	{
 		var proy = new Proyecto({	nombre: req.body.nombre,
 									descripcion: req.body.descripcion,
-									fCulminacion: req.body.fechaCulminacion
+									fCulminacion: req.body.fechaCulminacion,
+									etapas: [{tipo: 1, estado: true, fInicio: new Date()},
+									         {tipo: 2, estado: false, fInicio: null},
+									         {tipo: 3, estado: false, fInicio: null},
+									         {tipo: 4, estado: false, fInicio: null},
+									         {tipo: 5, estado: false, fInicio: null}]
 								});
 		proy.save(function(err) {
 			if (!err)
@@ -141,19 +146,17 @@ router.post('/verProyectos', function(req, res) {
 });
 
 router.post('/verUltimoProyecto', function(req, res) {
-
-	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {		
-
+	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {
 		if(!err) {
 			Rol.find({idProyecto: req.session.idProy}, function(err, roles) {
 				var usuarios = [];
 				if(! err) {
 					async.each(
 						roles,
-						function(r, callback){
+						function(r, callback) {
 							Usuario.findOne({_id: r.idUsuario}, function (err, u) {
-								if(!err && u)
-									usuarios.push({username: u.username, rol: r.tipo});
+								if(!err && u && r.tipo != '3')
+										usuarios.push({username: u.username, rol: r.tipo});
 								callback();
 							});
 						},

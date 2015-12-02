@@ -27,7 +27,8 @@ var Proyecto = new Schema({
     		},
     		message: '{VALUE} no es una fecha de culminación de proyecto valida'
     	}
-    }
+    },
+    etapas: Array
 });
 
 module.exports = mongoose.model('Proyecto', Proyecto);
