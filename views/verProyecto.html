@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-      <!-- Bootstrap core CSS -->
+    <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	
 	<!-- Font Awesome -->
@@ -16,27 +16,9 @@
 	<!-- Pace -->
 	<link href="css/pace.css" rel="stylesheet">
 	
-	<!-- Chosen -->
-	<link href="css/chosen/chosen.min.css" rel="stylesheet"/>
+	<!-- Color box -->
+	<link href="css/colorbox/colorbox.css" rel="stylesheet">
 
-	<!-- Datepicker -->
-	<link href="css/datepicker.css" rel="stylesheet"/>
-	
-	<!-- Timepicker -->
-	<link href="css/bootstrap-timepicker.css" rel="stylesheet"/>
-	
-	<!-- Slider -->
-	<link href="css/slider.css" rel="stylesheet"/>
-	
-	<!-- Tag input -->
-	<link href="css/jquery.tagsinput.css" rel="stylesheet"/>
-
-	<!-- WYSIHTML5 -->
-	<link href="css/bootstrap-wysihtml5.css" rel="stylesheet"/>
-	
-	<!-- Dropzone -->
-	<link href='css/dropzone/dropzone.css' rel="stylesheet"/>
-	
 	<!-- Perfect -->
 	<link href="css/app.min.css" rel="stylesheet">
 	<link href="css/app-skin.css" rel="stylesheet">
@@ -137,7 +119,7 @@
 		</div><!-- /top-nav-->
 		
 		<aside class="fixed skin-6">
-			<div class="sidebar-inner scrollable-sidebar">
+			<div class="sidebar-inner scrollable-sidebar"  ng-controller="myCtrlHome">
 				<div class="size-toggle">
 					<a class="btn btn-sm" id="sizeToggle">
 						<span class="icon-bar"></span>
@@ -204,82 +186,89 @@
 				</div><!-- /main-menu -->
 			</div><!-- /sidebar-inner -->
 		</aside>
-		
-		<div id="main-container" ng-controller="myCtrlModificarProyecto">
+
+		<div id="main-container" ng-controller="myCtrlVerProyecto">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					 <li><i class="fa fa-home"></i><a href="index.html">Home</a></li> 
-					 <li class="active">Proyecto</li>	 
+					 <li><i class="fa fa-home"></i><a href="/">Home</a></li> 
 				</ul>
 			</div><!-- /breadcrumb-->
-			<div class="padding-md">
-				<div class="panel panel-default">
-					<form ng-submit="guardarProyecto()" data-validate="parsley" novalidate>
-						<div class="panel-heading">Crear Proyecto</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="nombreProyecto">Nombre del proyecto</label>
-										<input type="text" class="form-control input-sm" id="nombreProyecto" ng-model="newProject.nombre" data-required="true">
-									</div><!-- /form-group -->
-									<div class="form-group">
-										<label for="Descripcion">Descripcion</label>
-										<textarea class="form-control" rows="9" id="Descripcion" ng-model="newProject.descripcion"></textarea>
-									</div><!-- /form-group -->
-									<div class="form-group">
-										<label for="fechaCulminacion">Fecha de Culminacion: {{newProject.fCulminacion}}</label>
-										
-									</div><!-- /form-group -->
-								</div>
-									<div class="col-md-6" ng-keyup="actualizarUsuarios()">
-									<table class="table table-bordered table-condensed table-hover table-striped">
-										<thead>
-											<tr>
-												<th>Usuarios</th>
-												<th>Estado</th>
-												<th>Rol</th>	
-											</tr>
-										</thead>
-										<tr ng-repeat="usuarioE in usuariosExistentes">
-											<td>
-											{{usuarioE.username}}	
-											</td>
-											<td>
-												
-											</td>
-											<td>
-											{{rol[usuarioE.rol]}}
-											</td>
+			
+			<div class="main-header clearfix">
+				<div class="page-title">
+					<h3 class="no-margin">{{myProject.nombre}}</h3>
+					<span> Descripcion del proyecto: {{myProject.descripcion}}</span>
 
+				</div><!-- /page-title -->
+			</div><!-- /main-header -->
+			
+			
+			<div class="padding-md">
+				<div class="panel panel-default">		
+					<div class="row">
+						<div class="col-sm-8">
+							<div class="panel-body">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Etapa</th>
+											<th>Fecha de Inicio</th>	
+											<th>Fecha Limite</th>
+											<th></th>
 										</tr>
-										<tr ng-repeat="usuario in usuarios">
-											<td> 	
-												<input type="text" class="form-control" ng-model="usuario.username" >
-											</td>
-											<td>
-												<span ng-class=classEstado(usuario.estado)>{{usuario.msjEstado}}</span>
-											</td>
-											<td> 
-												<select class="input-sm form-control inline" ng-model="usuario.rol"> 
-													<option ng-repeat="rol in roles" value="{{rol.valor}}">
-													{{rol.nombre}}
-													</option> 
-												</select>								
-											</td>
-										</tr>
-									</table>				
-								</div>
+									</thead>
+									<tr>
+										<td>1</td>
+										<td>Toma y Decisicion de Requisitos</td>
+										<td>
+										</td>
+										<td>12/10/15</td>
+										<td><a class="btn btn-danger" ng-click="listaChekeo(1)">ir <i class="fa fa-chevron-right"></i></a></td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>Analisis y Diseño</td>
+										<td>
+										</td>
+										<td>12/10/15</td>
+										<td><a class="btn btn-danger" ng-click="listaChekeo(2)">ir <i class="fa fa-chevron-right"></i></a></td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td>Codificacion</td>
+										<td>
+										</td>
+										<td>12/10/15</td>
+										<td><a class="btn btn-danger" ng-click="listaChekeo(3)">ir <i class="fa fa-chevron-right"></i></a></td>
+									</tr>
+									<tr>
+										<td>4</td>
+										<td>Pruebas</td>
+										<td>
+										</td>
+										<td>12/10/15</td>
+										<td><a class="btn btn-danger" ng-click="listaChekeo(4)">ir <i class="fa fa-chevron-right"></i></a></td>
+									</tr>
+									<tr>
+										<td>5</td>
+										<td>Implantacion y mantenimiento</td>
+										<td>
+										</td>
+										<td>12/10/15</td>
+										<td><a class="btn btn-danger" ng-click="listaChekeo(5)">ir <i class="fa fa-chevron-right"></i></a></td>
+									</tr>
+								</table>
 							</div>
 						</div>
-						
-						<div class="panel-footer text-right">
-							
-							<button type="submit" class="btn btn-success">Guardar</button>
-							<p class="text-danger">{{respuestaServidorProyecto}}</p>
+						<div class="col-sm-4">
+							<div id="donutChart" style="height: 250px;"></div>
 						</div>
-					</form>
+					</div>
 				</div><!-- /panel -->
+				<a class="btn btn-default" href="/modificarProyecto"><i class="fa fa-eye"></i> Modificar Proyecto</a>
+				<a class="btn btn-default" href="/modificarProyecto"><i class="fa fa-eye"></i> Ver Reportes</a>
+				
 			</div>
 			
 		</div><!-- /main-container -->
@@ -322,35 +311,14 @@
 	
 	<!-- Bootstrap -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    
-    <!-- Parsley -->
-	<script src="js/parsley.min.js"></script>
-    
-	<!-- Chosen -->
-	<script src='js/chosen.jquery.min.js'></script>	
+   
+	<!-- Colorbox -->
+	<script src='js/jquery.colorbox.min.js'></script>	
 
-	<!-- Mask-input -->
-	<script src='js/jquery.maskedinput.min.js'></script>	
+	<!-- Morris -->
+	<script src='js/rapheal.min.js'></script>	
+	<script src='js/morris.min.js'></script>
 
-	<!-- Datepicker -->
-	<script src='js/bootstrap-datepicker.min.js'></script>	
-
-	<!-- Timepicker -->
-	<script src='js/bootstrap-timepicker.min.js'></script>	
-	
-	<!-- Slider -->
-	<script src='js/bootstrap-slider.min.js'></script>	
-	
-	<!-- Tag input -->
-	<script src='js/jquery.tagsinput.min.js'></script>	
-
-	<!-- WYSIHTML5 -->
-	<script src='js/wysihtml5-0.3.0.min.js'></script>	
-	<script src='js/uncompressed/bootstrap-wysihtml5.js'></script>	
-
-	<!-- Dropzone -->
-	<script src='js/dropzone.min.js'></script>	
-	
 	<!-- Modernizr -->
 	<script src='js/modernizr.min.js'></script>
 	
@@ -367,20 +335,42 @@
 	<script src='js/jquery.cookie.min.js'></script>
 
 	<!-- Perfect -->
-	<script src="js/app/app_form.js"></script>
 	<script src="js/app/app.js"></script>
-
+	
 	<!-- Cargamos angular -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+	<script src="angularJS/CEtapas.js"></script>
 	<script src="angularJS/CProyecto.js"></script>
 	<script src="angularJS/CHome.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 	
-	<style type="text/css">
-		textarea {
-   			resize: none;
-		}
-	</style>
+	
+	<script >
+		$(function()	{
+			//Colorbox 
+			$('.gallery-zoom').colorbox({
+				rel:'gallery',
+				maxWidth:'90%',
+				width:'800px'
+			});
+		});
+		$('.navbar-toggle').click(function(){setTimeout(function() {donutChart.redraw();},500);});
+		
+		var donutChart = Morris.Donut({
+		  element: 'donutChart',
+		  data: [
+			{label: "Toma y Definicion \n de Requisitos", value: 5000},
+			{label: "Analisis y Diseño", value: 5000},
+			{label: "Codificacion", value: 5000},
+			{label: "Pruebas", value: 5000},
+			{label: "Implantacion \n y mantenimiento", value: 5000}
+		  ],
+		  colors: ['#f3ce85','#65CEA7' ,'#FC8675','#FC8675','#65CEA7']
+		});
+
+
+	</script>
+	
   </body>
 </html>

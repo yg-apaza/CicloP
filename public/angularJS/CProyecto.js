@@ -62,20 +62,23 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	     else if(stado==2)return "label label-danger";
 	     else if(stado==3)return "label label-warning";   
 	};	
+
 });
 
 app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	//1: existe 2: no existe 3:invalido
 	$scope.roles = [{valor: 1, nombre:'Diseñador'},{valor: 2, nombre:'Probador'}];
+	$scope.rol = ["","Diseñador","Probador"];
 	$antiguosUsuarios = {};
 	$scope.newProject = {};
 	$scope.myProject = {};
-	
+	$scope.usuariosExistentes = {};
 	
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data) { 
 			if(data.status){
 				$scope.newProject = data.proyecto;
+				$scope.usuariosExistentes = data.usuarios;
 			}
 			else{
 				alert("error Servidor");
@@ -139,8 +142,8 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	     else if(stado==2)return "label label-danger";
 	     else if(stado==3)return "label label-warning";   
 	};	
-});
 
+});
 
 app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 	
@@ -154,11 +157,6 @@ app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 				$scope.myProject = data.proyecto;
 			else 
 				alert("Problemas internos");
-	});	
-	//Morris Chart
-	
-	$scope.listaChekeo = function(num){
+	});
 
-		
-	};	
 });

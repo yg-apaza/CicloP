@@ -8,10 +8,11 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
 		.success(function(data) {
 				$scope.proyectos = data;
   });
-	
+		
   $http.post('/fusuario').success(function(data) {
 		$scope.usuario = data;
   });
+
   $http.post('/fnotificacion').success(function(data) {
 		$scope.notificaciones = data.notificaciones;
 		$scope.noleidos = data.noleidos;
