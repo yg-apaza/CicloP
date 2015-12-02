@@ -23,7 +23,7 @@ router.post('/validate', function(req, res)	{
 		if(req.body.anteriores)
 		{
 			var i;
-			for(i = 0; i < req.body.anteriores; i++)
+			for(i = 0; i < req.body.anteriores.length; i++)
 				usuariosValidos.push(req.body.anteriores[i].username);
 		}
 		

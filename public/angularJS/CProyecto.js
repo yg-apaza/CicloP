@@ -72,6 +72,7 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	$scope.newProject = {};
 	//$scope.myProject = {};
 	$scope.User = {};
+	$scope.ProyectoGeneral = {};
 
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data) { 
@@ -119,11 +120,14 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 					}
 				}
 		});
-	}
+	};
 	
 	$scope.guardarProyecto = function(){
-		$scope.newProject.usuarios = $scope.User.nuevos;
-		$http.post('/fproyecto/modificar', $scope.newProject)
+		$scope.ProyectoGeneral.datos = $scope.newProject;
+		$scope.ProyectoGeneral.nuevos = $scope.User.nuevos;
+		$scope.ProyectoGeneral.anteriores = $scope.User.anteriores;
+
+		$http.post('/fproyecto/modificar', $scope.ProyectoGeneral)
 		.success(function(data) {
 				if(data.status){
 					$scope.respuestaServidorProyecto = "";
@@ -156,5 +160,15 @@ app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 			else 
 				alert("Problemas internos");
 	});
+
+	$scope.etapa = function (id){
+		switch(id){
+			case 1: break;
+			case 2: break;
+			case 3: break;
+			case 4: break;
+			case 5: break;
+		}
+	};
 
 });
