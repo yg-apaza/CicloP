@@ -22,9 +22,7 @@ router.post('/modificar', function(req, res) {
 			{_id: req.body._id},
 			{
 				nombre: req.body.nombre,
-				descripcion: req.body.descripcion,
-				fechaCulminacion: req.body.fechaCulminacion,
-			},
+				descripcion: req.body.descripcion			},
 			{runValidators: true},
 			function(err){		
 				if(!err)
