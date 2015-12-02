@@ -1,6 +1,5 @@
 var async = require('async');
 var express = require('express');
-var passport = require('passport');
 var Usuario = require('../models/usuario');
 var Proyecto = require('../models/proyecto');
 var Rol = require('../models/rol');
@@ -53,7 +52,6 @@ router.post('/agregar', function(req, res) {
 		proy.save(function(err) {
 			if (!err)
 			{
-				var i;
 				var usuariosValidos = [];
 				var rolesValidos = [];
 				
@@ -115,7 +113,7 @@ router.post('/agregar', function(req, res) {
 						}
 						else
 							return res.json({status: false, id: null, message: "No se creó el proyecto."});
-					});
+				});
 			}
 			else
 				return res.json({status: false, id: null, message: "No se creó el proyecto."});
@@ -145,16 +143,29 @@ router.post('/verProyectos', function(req, res) {
 });
 
 router.post('/verUltimoProyecto', function(req, res) {
-	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {
-		if(!err)
-			return res.json({status: true, proyecto: p, usuarios: null});
-		else
-			return res.json({status: false, proyecto: null, usuarios: null});
-		/*
+
+	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {		
+
 		if(!err) {
 			Rol.find({idProyecto: req.session.idProy}, function(err, roles) {
+				var usuarios = [];
 				if(! err) {
-					
+					async.each(
+						roles,
+						function(r, callback){
+							Usuario.findOne({_id: r.idUsuario}, function (err, u) {
+								if(!err && u)
+									usuarios.push({username: u.username, rol: r.tipo});
+								callback();
+							});
+						},
+						function(err) {
+							if(!err)
+								return res.json({status: true, proyecto: p, usuarios: usuarios});
+							else
+								return res.json({status: false, proyecto: null, usuarios: usuarios});
+						}
+					);
 				}
 				else
 					return res.json({status: false, proyecto: null, usuarios: null});
@@ -162,7 +173,6 @@ router.post('/verUltimoProyecto', function(req, res) {
 		}
 		else
 			return res.json({status: false, proyecto: null, usuarios: null});
-			*/
 	});
 });
 

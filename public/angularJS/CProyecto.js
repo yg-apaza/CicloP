@@ -30,7 +30,7 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	$scope.respuestaServidorProyecto;
 	
 	$scope.actualizarUsuarios = function (){
-		$http.post('fusuario/validate',$scope.usuarios)
+		$http.post('fusuario/validate',{nuevos: $scope.usuarios})
 		.success(function(data) {
 				if(data.status){
 					$scope.estadosMsj = data.usuarios;
