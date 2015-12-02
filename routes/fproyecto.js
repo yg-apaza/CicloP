@@ -141,7 +141,9 @@ router.post('/verProyectos', function(req, res) {
 });
 
 router.post('/verUltimoProyecto', function(req, res) {
+
 	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {		
+
 		if(!err) {
 			Rol.find({idProyecto: req.session.idProy}, function(err, roles) {
 				var usuarios = [];

@@ -1,4 +1,4 @@
-var app = angular.module('myAppProyecto',[]);
+var app = angular.module('myAppProyecto',['myAppHome']);
 
 app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	//1: existe 2: no existe 3:invalido
@@ -78,7 +78,7 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 				$scope.newProject = data.proyecto;
 			}
 			else{
-				alert("error Servidor")
+				alert("error Servidor");
 			}
 	});	
 	
@@ -142,51 +142,23 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 });
 
 
-app.controller('myCtrlHome',  function($scope,$http,$window) {
-	  //$scope.usuario = {username:'',nombre:'', apellidos:'', correo:''};
+app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 	
-	  $http.post('/fproyecto/verProyectos')
-		.success(function(data) {
-				$scope.proyectos = data;
-	  });
-	  
-	  $scope.proyectos = {};
-	  $http.post('/fusuario').success(function(data) {
-			$scope.usuario = data;
-	  });
-	  $http.post('/fnotificacion').success(function(data) {
-			$scope.notificaciones = data.notificaciones;
-			$scope.noleidos = data.noleidos;
-	  });
-	  
-	  $scope.colorIconClass = function(tipo){
-		     if (tipo == 1)
-			  return "notification-icon bg-danger";
-		     if (tipo == 2)
-		   	  return "notification-icon bg-success";
-		     if (tipo == 3)
-		   	  return "notification-icon bg-success";
-		     if (tipo == 4)
-		   	  return "notification-icon bg-warning";
-	  };
-	  
-	  $scope.leerNotificacion = function(){
-		  $http.post('/fnotificacion/verTodo')
-			.success(function(data) {
-					if(data.status)
-						$scope.noleidos = 0;
-		   });
-	  }
-	  
-	  $scope.iconClass = function(tipo){
-	     if (tipo == 1)
-		  return "fa fa-bullhorn";
-	     if (tipo == 2)
-	   	  return "fa fa-group";
-	     if (tipo == 3)
-	   	  return "fa fa-check";
-	     if (tipo == 4)
-	   	  return "fa fa-warning";
-	  }; 
-	});
+	$scope.myProject = {};
+	
+	$scope.respuestaServidorProyecto;
 
+	$http.post('/fproyecto/verUltimoProyecto')
+	.success(function(data){
+			if(data.status)
+				$scope.myProject = data.proyecto;
+			else 
+				alert("Problemas internos");
+	});	
+	//Morris Chart
+	
+	$scope.listaChekeo = function(num){
+
+		
+	};	
+});
