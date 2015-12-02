@@ -155,8 +155,7 @@ router.post('/verUltimoProyecto', function(req, res) {
 						roles,
 						function(r, callback) {
 							Usuario.findOne({_id: r.idUsuario}, function (err, u) {
-								if(!err && u)
-									if(r.tipo != '3')
+								if(!err && u && r.tipo != '3')
 										usuarios.push({username: u.username, rol: r.tipo});
 								callback();
 							});
