@@ -121,6 +121,7 @@ db.usuarios.insert({
  */
 
 db.modelos.insert({
+	etapa: 1,
 	tipo: 1,
 	secciones: [
         {
@@ -290,6 +291,7 @@ db.modelos.insert({
 
 
 db.modelos.insert({
+	etapa: 2,
 	tipo: 2,
 	secciones: [
 		{
@@ -468,6 +470,7 @@ db.modelos.insert({
 
 
 db.modelos.insert({
+	etapa: 2,
 	tipo: 3,
 	secciones: [
 		{
@@ -771,6 +774,7 @@ db.modelos.insert({
 
 
 db.modelos.insert({
+	etapa: 3,
 	tipo: 4,
 	secciones: [
 		{
@@ -954,6 +958,7 @@ db.modelos.insert({
 
 
 db.modelos.insert({
+	etapa: 3,
 	tipo: 5,
 	secciones: [
 		{
@@ -1362,6 +1367,7 @@ db.modelos.insert({
 
 
 db.modelos.insert({
+	etapa: 4,
 	tipo: 6,
 	secciones: [
 		{
@@ -1489,6 +1495,7 @@ db.modelos.insert({
 
 
 db.modelos.insert({
+	etapa: 4,
 	tipo: 7,
 	secciones: [
 		{
@@ -1586,6 +1593,7 @@ db.modelos.insert({
 
 
 db.modelos.insert({
+	etapa: 5,
 	tipo: 8,
 	secciones: [
 		{
