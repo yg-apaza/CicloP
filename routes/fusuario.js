@@ -150,7 +150,7 @@ function enviarEmail(para, nombre, usuario) {
 		    subject: "Bienvenido a Ciclo-P",
 		    text: "",
 		    html:
-		    	'<h1 style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/yg-apaza/CicloP/master/logo.png" style="height: 100px; width: 277px;" /></h1>' +
+		    	'<h1 style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/yg-apaza/CicloP/master/public/img/logo.png" style="height: 100px; width: 277px;" /></h1>' +
 		    	'<h1><span style="font-family:verdana,geneva,sans-serif;"><strong>Bienvenido a Ciclo-P</strong></span></h1>' +
 		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Hola <strong>' + nombre + '</strong>!</span></p>' +
 		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Tu cuenta <strong><em>' + usuario + '</em></strong> ha sido creada con &eacute;xito, ya puedes empezar a crear proyectos o participar en otros, adem&aacute;s de:</span></p>' +
