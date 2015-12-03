@@ -31,11 +31,13 @@ router.post('/modificar', function(req, res) {
 					{
 						/** Inicio*/
 						var usuariosValidos = [];
+						var rolesValidos = [];
+						var anteriores = [];
 						if(req.body.anteriores)
 						{
 							var i;
 							for(i = 0; i < req.body.anteriores.length; i++)
-								usuariosValidos.push(req.body.anteriores[i].username);
+								anteriores.push(req.body.anteriores[i].username);
 						}
 						
 						async.each(
@@ -46,6 +48,7 @@ router.post('/modificar', function(req, res) {
 									{
 										if(	usuario.username != req.user.username &&
 											usuariosValidos.indexOf(usuario._id) == -1 &&
+											anteriores.indexOf(usuario.username) == -1 &&
 											(u.rol == '1' || 
 											 u.rol == '2'))
 										{
@@ -74,10 +77,11 @@ router.post('/modificar', function(req, res) {
 						});
 						/** Fin*/
 					}
-					res.json({status: true});
 				}
 				else
-					res.json({status: false, message: "No se modificó el proyecto."});
+				{
+					return res.json({status: false, message: "No se modificó el proyecto."});
+				}
 			}
 		);
 	}
@@ -125,7 +129,7 @@ router.post('/agregar', function(req, res) {
 					},
 					function(err) {
 						if(!err)
-						{
+						{	
 							if( rolesValidos.indexOf('1') > -1 &&
 								rolesValidos.indexOf('2') > -1 &&
 								rolesValidos.indexOf('2') != rolesValidos.lastIndexOf('2'))
