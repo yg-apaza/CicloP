@@ -86,6 +86,7 @@ router.post('/modificar', function(req, res) {
 
 router.post('/agregar', function(req, res) {
 	var p = false, r = false;
+	
 	if(req.body.nombre && req.body.descripcion && req.body.fechaCulminacion && req.body.usuarios)
 	{
 		var proy = new Proyecto({	nombre: req.body.nombre,
@@ -217,6 +218,7 @@ router.post('/verUltimoProyecto', function(req, res) {
 		}
 		else
 			return res.json({status: false, proyecto: null, usuarios: null});
+		//
 	});
 });
 

@@ -8,7 +8,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var path = require('path');
 var passport = require('passport');
-//var socketio = require('socket.io').listen(3000).sockets;
+//var socketio = require('socket.io').listen(3001).sockets;
 var LocalStrategy = require('passport-local' ).Strategy;
 var MongoStore = require('connect-mongo')(expressSession);
 
@@ -64,13 +64,14 @@ app.use('/fproyecto/', fproyecto);
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
-  net(err);
+  next(err);
 });
 
 // error handlers
 
 // development error handler
 // will print stacktrace
+
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);

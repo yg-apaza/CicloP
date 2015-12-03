@@ -40,7 +40,7 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 					}
 				}
 		});
-	}
+	};
 	
 	$scope.crearProyecto = function(){
 		$scope.newProject.usuarios = $scope.usuarios;
@@ -52,7 +52,7 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 					$window.location.href = "/verProyecto";	
 				}
 				else{
-					$scope.respuestaServidorProyecto = "No se creo proyecto";
+					$scope.respuestaServidorProyecto = "No se creo proyecto debido a que " + data.message;
 				}
 		});	
 	};
