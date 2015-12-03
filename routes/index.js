@@ -21,6 +21,7 @@ router.get('/register', function (req, res) {
 	else
 		res.redirect('/');
 });
+
 router.get('/login', function (req, res) {
 	if(!req.user)
 		res.sendFile(path.join(__dirname, '../views', 'login.html'));
@@ -41,6 +42,7 @@ router.get('/verProyecto', function (req, res) {
 	else
 		res.redirect('/');
 });
+
 router.get('/modificarProyecto', function (req, res) {
 	if(req.user)
 		res.sendFile(path.join(__dirname, '../views', 'modificarProyecto.html'));
