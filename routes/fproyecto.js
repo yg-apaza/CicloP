@@ -15,24 +15,71 @@ router.post('/', function(req, res) {
 });
 
 router.post('/modificar', function(req, res) {
-
-	if(req.body._id && req.body.nombre && req.body.descripcion)
+	if(req.body.datos)
 	{
 		Proyecto.update(
-			{_id: req.body._id},
+			{_id: req.body.datos._id},
 			{
-				nombre: req.body.nombre,
-				descripcion: req.body.descripcion,
+				nombre: req.body.datos.nombre,
+				descripcion: req.body.datos.descripcion
 			},
 			{runValidators: true},
-			function(err){		
+			function(err){
 				if(!err)
 				{
-					
-					res.json({status: true});
+					if(req.body.nuevos)
+					{
+						var usuariosValidos = [];
+						var rolesValidos = [];
+						var anteriores = [];
+						if(req.body.anteriores)
+						{
+							var i;
+							for(i = 0; i < req.body.anteriores.length; i++)
+								anteriores.push(req.body.anteriores[i].username);
+						}
+						
+						async.each(
+							req.body.nuevos,
+							function(u, callback){
+								Usuario.findOne({username: u.username}, function (err, usuario) {
+									if(!err && usuario)
+									{
+										if(	usuario.username != req.user.username &&
+											usuariosValidos.indexOf(usuario._id) == -1 &&
+											anteriores.indexOf(usuario.username) == -1 &&
+											(u.rol == '1' || 
+											 u.rol == '2'))
+										{
+											usuariosValidos.push(usuario._id);
+											rolesValidos.push(u.rol);
+										}
+									}
+									callback();
+								});
+							},
+							function(err) {
+								if(!err)
+								{
+									var i;
+									for(i = 0; i < rolesValidos.length; i++)
+									{
+										var rol = new Rol({	idUsuario: usuariosValidos[i],
+											idProyecto: req.body.datos._id,
+											tipo: rolesValidos[i]
+										});
+										rol.save(function(err){});
+									}
+									req.session.idProy = req.body.datos._id;
+									return res.json({status: true, message: "Proyecto modificado exitosamente."});
+								}
+						});
+					}
 				}
 				else
-					res.json({status: false});
+				{
+					return res.json({status: false, message: "No se modificó el proyecto."});
+				}
 			}
 		);
 	}
@@ -42,11 +89,17 @@ router.post('/modificar', function(req, res) {
 
 router.post('/agregar', function(req, res) {
 	var p = false, r = false;
+	
 	if(req.body.nombre && req.body.descripcion && req.body.fechaCulminacion && req.body.usuarios)
 	{
 		var proy = new Proyecto({	nombre: req.body.nombre,
 									descripcion: req.body.descripcion,
-									fCulminacion: req.body.fechaCulminacion
+									fCulminacion: req.body.fechaCulminacion,
+									etapas: [{tipo: 1, estado: true, fInicio: new Date()},
+									         {tipo: 2, estado: false, fInicio: null},
+									         {tipo: 3, estado: false, fInicio: null},
+									         {tipo: 4, estado: false, fInicio: null},
+									         {tipo: 5, estado: false, fInicio: null}]
 								});
 		proy.save(function(err) {
 			if (!err)
@@ -74,9 +127,7 @@ router.post('/agregar', function(req, res) {
 					},
 					function(err) {
 						if(!err)
-						{
-							console.log(rolesValidos.indexOf('2'));
-							console.log(rolesValidos.lastIndexOf('2'));
+						{	
 							if( rolesValidos.indexOf('1') > -1 &&
 								rolesValidos.indexOf('2') > -1 &&
 								rolesValidos.indexOf('2') != rolesValidos.lastIndexOf('2'))
@@ -102,24 +153,24 @@ router.post('/agregar', function(req, res) {
 									rol.save(function(err){});
 								}
 								req.session.idProy = proy._id;
-								return res.json({status: true, id: proy._id, message: "Proyecto creado exitosamente."});
+								return res.json({status: true, message: "Proyecto creado exitosamente."});
 							}
 							else
 							{
 								Proyecto.remove({_id: proy._id}, function(err){});
-								return res.json({status: false, id: null, message: "Número de probadores o diseñadores incorrecto."});
+								return res.json({status: false, message: "Número de probadores o diseñadores incorrecto."});
 							}
 						}
 						else
-							return res.json({status: false, id: null, message: "No se creó el proyecto."});
+							return res.json({status: false, message: "No se creó el proyecto."});
 				});
 			}
 			else
-				return res.json({status: false, id: null, message: "No se creó el proyecto."});
+				return res.json({status: false, message: "No se creó el proyecto."});
 		});
 	}
 	else
-		return res.json({status: false, id: null, message: "Datos incompletos."});
+		return res.json({status: false, message: "Datos incompletos."});
 });
 
 router.post('/verProyectos', function(req, res) {
@@ -149,10 +200,10 @@ router.post('/verUltimoProyecto', function(req, res) {
 				if(! err) {
 					async.each(
 						roles,
-						function(r, callback){
+						function(r, callback) {
 							Usuario.findOne({_id: r.idUsuario}, function (err, u) {
-								if(!err && u)
-									usuarios.push({username: u.username, rol: r.tipo});
+								if(!err && u && r.tipo != '3')
+										usuarios.push({username: u.username, rol: r.tipo});
 								callback();
 							});
 						},

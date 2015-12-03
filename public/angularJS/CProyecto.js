@@ -1,4 +1,4 @@
-var app = angular.module('myAppProyecto',[]);
+var app = angular.module('myAppProyecto',['myAppHome']);
 
 app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	//1: existe 2: no existe 3:invalido
@@ -40,7 +40,7 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 					}
 				}
 		});
-	}
+	};
 	
 	$scope.crearProyecto = function(){
 		$scope.newProject.usuarios = $scope.usuarios;
@@ -52,7 +52,7 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 					$window.location.href = "/verProyecto";	
 				}
 				else{
-					$scope.respuestaServidorProyecto = "No se creo proyecto";
+					$scope.respuestaServidorProyecto = "No se creo proyecto debido a que " + data.message;
 				}
 		});	
 	};
@@ -62,27 +62,30 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	     else if(stado==2)return "label label-danger";
 	     else if(stado==3)return "label label-warning";   
 	};	
+
 });
 
 app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	//1: existe 2: no existe 3:invalido
 	$scope.roles = [{valor: 1, nombre:'Diseñador'},{valor: 2, nombre:'Probador'}];
-	$antiguosUsuarios = {};
+	$scope.rol = ["","Diseñador","Probador"];
 	$scope.newProject = {};
-	$scope.myProject = {};
-	
-	
+	//$scope.myProject = {};
+	$scope.User = {};
+	$scope.ProyectoGeneral = {};
+
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data) { 
 			if(data.status){
 				$scope.newProject = data.proyecto;
+				$scope.User.anteriores = data.usuarios;
 			}
 			else{
-				alert("error Servidor")
+				alert("error Servidor");
 			}
 	});	
 	
-	$scope.usuarios = [
+	$scope.User.nuevos = [
 	    {username:'', rol:''},
 		{username:'', rol:''},
 		{username:'', rol:''},
@@ -98,31 +101,33 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
 	];
 	
-	for (i = 0; i < $scope.usuarios.length; i++) { 
-	      $scope.usuarios[i].msjEstado = $scope.estadosMsj[i].msjEstado;
-	      $scope.usuarios[i].estado = $scope.estadosMsj[i].estado;
+	for (i = 0; i < $scope.User.nuevos.length; i++) { 
+	      $scope.User.nuevos[i].msjEstado = $scope.estadosMsj[i].msjEstado;
+	      $scope.User.nuevos[i].estado = $scope.estadosMsj[i].estado;
 	}
-	
 	
 	
 	$scope.respuestaServidorProyecto;
 	
 	$scope.actualizarUsuarios = function (){
-		$http.post('fusuario/validate',$scope.usuarios)
+		$http.post('fusuario/validate',$scope.User)
 		.success(function(data) {
 				if(data.status){
 					$scope.estadosMsj = data.usuarios;
-					for (i = 0; i < $scope.usuarios.length; i++) { 
-					      $scope.usuarios[i].msjEstado = $scope.estadosMsj[i].msjEstado;
-					      $scope.usuarios[i].estado = $scope.estadosMsj[i].estado;
+					for (i = 0; i < $scope.User.nuevos.length; i++) { 
+					      $scope.User.nuevos[i].msjEstado = $scope.estadosMsj[i].msjEstado;
+					      $scope.User.nuevos[i].estado = $scope.estadosMsj[i].estado;
 					}
 				}
 		});
-	}
+	};
 	
 	$scope.guardarProyecto = function(){
-		$scope.newProject.usuarios = $scope.usuarios;
-		$http.post('/fproyecto/modificar', $scope.newProject)
+		$scope.ProyectoGeneral.datos = $scope.newProject;
+		$scope.ProyectoGeneral.nuevos = $scope.User.nuevos;
+		$scope.ProyectoGeneral.anteriores = $scope.User.anteriores;
+
+		$http.post('/fproyecto/modificar', $scope.ProyectoGeneral)
 		.success(function(data) {
 				if(data.status){
 					$scope.respuestaServidorProyecto = "";
@@ -139,54 +144,31 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	     else if(stado==2)return "label label-danger";
 	     else if(stado==3)return "label label-warning";   
 	};	
+
 });
 
-
-app.controller('myCtrlHome',  function($scope,$http,$window) {
-	  //$scope.usuario = {username:'',nombre:'', apellidos:'', correo:''};
+app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 	
-	  $http.post('/fproyecto/verProyectos')
-		.success(function(data) {
-				$scope.proyectos = data;
-	  });
-	  
-	  $scope.proyectos = {};
-	  $http.post('/fusuario').success(function(data) {
-			$scope.usuario = data;
-	  });
-	  $http.post('/fnotificacion').success(function(data) {
-			$scope.notificaciones = data.notificaciones;
-			$scope.noleidos = data.noleidos;
-	  });
-	  
-	  $scope.colorIconClass = function(tipo){
-		     if (tipo == 1)
-			  return "notification-icon bg-danger";
-		     if (tipo == 2)
-		   	  return "notification-icon bg-success";
-		     if (tipo == 3)
-		   	  return "notification-icon bg-success";
-		     if (tipo == 4)
-		   	  return "notification-icon bg-warning";
-	  };
-	  
-	  $scope.leerNotificacion = function(){
-		  $http.post('/fnotificacion/verTodo')
-			.success(function(data) {
-					if(data.status)
-						$scope.noleidos = 0;
-		   });
-	  }
-	  
-	  $scope.iconClass = function(tipo){
-	     if (tipo == 1)
-		  return "fa fa-bullhorn";
-	     if (tipo == 2)
-	   	  return "fa fa-group";
-	     if (tipo == 3)
-	   	  return "fa fa-check";
-	     if (tipo == 4)
-	   	  return "fa fa-warning";
-	  }; 
+	$scope.myProject = {};
+	
+	$scope.respuestaServidorProyecto;
+
+	$http.post('/fproyecto/verUltimoProyecto')
+	.success(function(data){
+			if(data.status)
+				$scope.myProject = data.proyecto;
+			else 
+				alert("Problemas internos");
 	});
 
+	$scope.etapa = function (id){
+		switch(id){
+			case 1: break;
+			case 2: break;
+			case 3: break;
+			case 4: break;
+			case 5: break;
+		}
+	};
+
+});

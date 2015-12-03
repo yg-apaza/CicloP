@@ -8,10 +8,11 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
 		.success(function(data) {
 				$scope.proyectos = data;
   });
-	
+		
   $http.post('/fusuario').success(function(data) {
 		$scope.usuario = data;
   });
+
   $http.post('/fnotificacion').success(function(data) {
 		$scope.notificaciones = data.notificaciones;
 		$scope.noleidos = data.noleidos;
@@ -34,7 +35,7 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
 	  $http.post('/fproyecto/guardarId',$scope.temp)
 		.success(function(data) {
 				if(data.status)
-					$window.location.href = "/modificarProyecto";	
+					$window.location.href = "/verProyecto";	
 					
 	   });
   };
