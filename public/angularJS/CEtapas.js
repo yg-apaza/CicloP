@@ -1,11 +1,11 @@
-var app = angular.module('myAppEtapa',['myAppHome','myAppProyecto']);
+var app = angular.module('myAppHome');
 
 
 app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 	
 	$scope.myProject = {};
-
-
+	$scope.rol = '';
+	$scope.listas = [{}];
 	$scope.respuestaServidorProyecto;
 
 	$http.post('/fproyecto/verUltimoProyecto')
@@ -15,7 +15,6 @@ app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 			else 
 				alert("Problemas internos");
 	});	
-
 
 	$http.post('/flista/rol')
 	.success(function(data){
@@ -27,6 +26,7 @@ app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 				alert("Problemas internos");
 	});	
 
+	
 
 });
 

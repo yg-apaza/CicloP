@@ -25,7 +25,7 @@
 	
   </head>
 
-  <body class="overflow-hidden" ng-app="myAppHome" ng-controller="myCtrlHome">
+  <body class="overflow-hidden" ng-app="myAppHome">
 	<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
 
@@ -56,7 +56,7 @@
 	</div><!-- /theme-setting -->
 	
 	<div id="wrapper" class="preload">
-		<div id="top-nav" class="skin-6 fixed">
+		<div id="top-nav" class="skin-6 fixed" ng-controller="myCtrlHome">
 			<div class="brand">
 				<span>CICLO</span>
 				<span class="text-toggle"> P</span>
@@ -118,7 +118,7 @@
 			</ul>
 		</div><!-- /top-nav-->
 		
-		<aside class="fixed skin-6">
+		<aside class="fixed skin-6" ng-controller="myCtrlHome">
 			<div class="sidebar-inner scrollable-sidebar">
 				<div class="size-toggle">
 					<a class="btn btn-sm" id="sizeToggle">

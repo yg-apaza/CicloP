@@ -25,7 +25,7 @@
 	
   </head>
 
-  <body class="overflow-hidden" ng-app="myAppEtapa" >
+  <body class="overflow-hidden" ng-app="myAppHome" >
 	<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
 
@@ -206,19 +206,19 @@
 			<div class="main-header clearfix">
 				<div class="page-title">
 					<h3 class="no-margin">{{myProject.nombre}}</h3>
-				</div><!-- /page-title -->
-				<br>
+				</div><!-- /page-title -->				
+			</div><!-- /main-header -->
+								
+			<div class="padding-md">
 				<div>
 					<a class="btn btn-default" href="/agregarListaChequeo">
 					<i class="fa fa-plus-circle"></i> 
 					Añadir Lista de Chequeo
 					</a>
 				</div>
-
-			</div><!-- /main-header -->
-			
-			<div class="padding-md">
-				<div class="panel panel-default">		
+					
+				<br>
+				<div class="panel panel-default">
 					<div class="panel-heading">Lista de chequeo</div>
 					<div class="panel-body">
 						<table class="table table-striped">
@@ -314,13 +314,14 @@
 	<!-- Cargamos angular -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
-	<script src="angularJS/CEtapas.js"></script>
-	<script src="angularJS/CProyecto.js"></script>
 	<script src="angularJS/CHome.js"></script>
+	<script src="angularJS/CProyecto.js"></script>
+	<script src="angularJS/CEtapas.js"></script>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 	
 	
-	<script >
+	<script>
 		$(function()	{
 			//Colorbox 
 			$('.gallery-zoom').colorbox({

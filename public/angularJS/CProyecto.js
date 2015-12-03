@@ -1,4 +1,4 @@
-var app = angular.module('myAppProyecto',['myAppHome']);
+var app = angular.module('myAppHome');
 
 app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	//1: existe 2: no existe 3:invalido
@@ -104,8 +104,7 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	for (i = 0; i < $scope.User.nuevos.length; i++) { 
 	      $scope.User.nuevos[i].msjEstado = $scope.estadosMsj[i].msjEstado;
 	      $scope.User.nuevos[i].estado = $scope.estadosMsj[i].estado;
-	}
-	
+	};
 	
 	$scope.respuestaServidorProyecto;
 	
@@ -147,28 +146,26 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 
 });
 
-app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
+app.controller('myCtrlVerProyecto',  function(ids,$scope,$http,$window) {
 	
 	$scope.myProject = {};
-	
 	$scope.respuestaServidorProyecto;
 
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data){
-			if(data.status)
-				$scope.myProject = data.proyecto;
-			else 
-				alert("Problemas internos");
+		if(data.status)
+			$scope.myProject = data.proyecto;
+		else 
+			alert("Problemas internos");
 	});
 
 	$scope.etapa = function (id){
-		switch(id){
-			case 1: break;
-			case 2: break;
-			case 3: break;
-			case 4: break;
-			case 5: break;
-		}
+		$http.post('/flista/guardarEtapa',id)
+		.success(function(data){
+			if(data.status)
+				$window.location.href = "/etapa";
+			else 
+				alert("Error del Servidor");
+		});
 	};
-
 });

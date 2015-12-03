@@ -1,6 +1,22 @@
 var app = angular.module('myAppHome',[]);
-
-app.controller('myCtrlHome',  function($scope,$http,$window) {
+app.factory('ids',function(){
+	var id = {
+		idProyecto: 0,
+		idEtapa: 0,
+		idLista: 0,
+		setIdProyecto: function (id){
+			this.idProyecto = id;
+		},
+		setIdEtapa: function (id){
+			this.idEtapa = id;
+		},
+		setIdLista: function (id){
+			this.idLista = id;
+		}
+	};
+	return id;
+});
+app.controller('myCtrlHome',  function(ids,$scope,$http,$window) {
   //$scope.usuario = {username:'',nombre:'', apellidos:'', correo:''};
   //$scope.proyectos = [{nombre: 'proyecto 1'},{nombre: 'proyecto 2'}];
   
@@ -8,7 +24,7 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
 		.success(function(data) {
 				$scope.proyectos = data;
   });
-		
+
   $http.post('/fusuario').success(function(data) {
 		$scope.usuario = data;
   });
@@ -30,6 +46,7 @@ app.controller('myCtrlHome',  function($scope,$http,$window) {
   };
   
   $scope.enviarID = function(id){
+ 		$scope.wtf = 4;
 	  $scope.temp = {};
 	  $scope.temp.id = id;
 	  $http.post('/fproyecto/guardarId',$scope.temp)

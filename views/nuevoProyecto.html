@@ -43,7 +43,7 @@
 	
   </head>
 
-  <body class="overflow-hidden" ng-app="myAppProyecto" >
+  <body class="overflow-hidden" ng-app="myAppHome" >
 	<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
 
@@ -136,7 +136,7 @@
 			</ul>
 		</div><!-- /top-nav-->
 		
-		<aside class="fixed skin-6">
+		<aside class="fixed skin-6" ng-controller="myCtrlHome">
 			<div class="sidebar-inner scrollable-sidebar">
 				<div class="size-toggle">
 					<a class="btn btn-sm" id="sizeToggle">
@@ -365,8 +365,9 @@
 	<!-- Cargamos angular -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
-	<script src="angularJS/CProyecto.js"></script>
 	<script src="angularJS/CHome.js"></script>
+	<script src="angularJS/CProyecto.js"></script>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 	
 	

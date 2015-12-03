@@ -25,7 +25,7 @@
 	
   </head>
 
-  <body class="overflow-hidden" ng-app="myAppProyecto" >
+  <body class="overflow-hidden" ng-app="myAppHome" >
 	<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
 
@@ -167,7 +167,6 @@
 							</a>
 							
 							<ul class="submenu" >
-							
 								<li class="openable open"  ng-repeat="proyecto in proyectos">
 									<a href="#"><span class="submenu-label" ng-click="enviarID(proyecto.id)">{{proyecto.nombre}}</span></a>
 								</li>
@@ -224,7 +223,7 @@
 										<td>
 										</td>
 										<td>12/10/15</td>
-										<td><a class="btn btn-danger" href="/etapa1">ir <i class="fa fa-chevron-right"></i></a></td>
+										<td><a class="btn btn-danger" ng-click="etapa(1)">ir <i class="fa fa-chevron-right"></i></a></td>
 									</tr>
 									<tr>
 										<td>2</td>
@@ -232,7 +231,7 @@
 										<td>
 										</td>
 										<td>12/10/15</td>
-										<td><a class="btn btn-danger" href="/etapa2">ir <i class="fa fa-chevron-right"></i></a></td>
+										<td><a class="btn btn-danger" ng-click="etapa(2)">ir <i class="fa fa-chevron-right"></i></a></td>
 									</tr>
 									<tr>
 										<td>3</td>
@@ -240,7 +239,7 @@
 										<td>
 										</td>
 										<td>12/10/15</td>
-										<td><a class="btn btn-danger" href="/etapa3">ir <i class="fa fa-chevron-right"></i></a></td>
+										<td><a class="btn btn-danger" ng-click="etapa(3)">ir <i class="fa fa-chevron-right"></i></a></td>
 									</tr>
 									<tr>
 										<td>4</td>
@@ -248,7 +247,7 @@
 										<td>
 										</td>
 										<td>12/10/15</td>
-										<td><a class="btn btn-danger" href="/etapa4">ir <i class="fa fa-chevron-right"></i></a></td>
+										<td><a class="btn btn-danger" ng-click="etapa(4)">ir <i class="fa fa-chevron-right"></i></a></td>
 									</tr>
 									<tr>
 										<td>5</td>
@@ -256,7 +255,7 @@
 										<td>
 										</td>
 										<td>12/10/15</td>
-										<td><a class="btn btn-danger" href="/etapa5">ir <i class="fa fa-chevron-right"></i></a></td>
+										<td><a class="btn btn-danger" ng-click="etapa(5)">ir <i class="fa fa-chevron-right"></i></a></td>
 									</tr>
 								</table>
 							</div>
@@ -340,9 +339,10 @@
 	<!-- Cargamos angular -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+	<script src="angularJS/CHome.js"></script>
 	<script src="angularJS/CEtapas.js"></script>
 	<script src="angularJS/CProyecto.js"></script>
-	<script src="angularJS/CHome.js"></script>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 	
 	
