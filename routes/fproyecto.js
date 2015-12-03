@@ -16,14 +16,13 @@ router.post('/', function(req, res) {
 
 router.post('/modificar', function(req, res) {
 
-	if(req.body._id && req.body.nombre && req.body.descripcion && req.body.fCulminacion)
+	if(req.body._id && req.body.nombre && req.body.descripcion)
 	{
 		Proyecto.update(
 			{_id: req.body._id},
 			{
 				nombre: req.body.nombre,
 				descripcion: req.body.descripcion,
-				fechaCulminacion: req.body.fechaCulminacion,
 			},
 			{runValidators: true},
 			function(err){		
@@ -143,7 +142,7 @@ router.post('/verProyectos', function(req, res) {
 });
 
 router.post('/verUltimoProyecto', function(req, res) {
-	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {		
+	Proyecto.findOne({_id: req.session.idProy}, function(err, p) {
 		if(!err) {
 			Rol.find({idProyecto: req.session.idProy}, function(err, roles) {
 				var usuarios = [];
@@ -171,6 +170,7 @@ router.post('/verUltimoProyecto', function(req, res) {
 		}
 		else
 			return res.json({status: false, proyecto: null, usuarios: null});
+		//
 	});
 });
 
