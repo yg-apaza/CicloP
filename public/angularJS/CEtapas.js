@@ -1,4 +1,9 @@
-var app = angular.module('myAppEtapa',['myAppHome']);
+var app = angular.module('myAppEtapa',['myAppHome','myAppProyecto']);
+app.service('',function(){
+
+});
+
+
 
 app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 	
