@@ -15,8 +15,7 @@ router.post('/', function(req, res) {
 });
 
 router.post('/modificar', function(req, res) {
-	if(req.body.datos)
-	{
+	if(req.body.datos) {
 		Proyecto.update(
 			{_id: req.body.datos._id},
 			{
@@ -77,9 +76,7 @@ router.post('/modificar', function(req, res) {
 					}
 				}
 				else
-				{
 					return res.json({status: false, message: "No se modificó el proyecto."});
-				}
 			}
 		);
 	}

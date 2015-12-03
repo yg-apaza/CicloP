@@ -17,7 +17,7 @@ var index = require('./routes/index');
 var fusuario = require('./routes/fusuario');
 var fnotificacion = require('./routes/fnotificacion');
 var fproyecto = require('./routes/fproyecto');
-
+var flista = require('./routes/flista');
 var app = express();
 
 /** View Engine Setup */
@@ -57,6 +57,7 @@ app.use('/', index);
 app.use('/fusuario/', fusuario);
 app.use('/fnotificacion/', fnotificacion);
 app.use('/fproyecto/', fproyecto);
+app.use('/flista', flista);
 
 /** Controladores de errores */
 
