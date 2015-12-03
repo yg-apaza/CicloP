@@ -5,8 +5,7 @@ var Lista = new Schema({
 	idProyecto: Schema.Types.ObjectId,
 	idModelo: Schema.Types.ObjectId,
 	estado: Number,
-	items: Array //[{seccion: int, item: int}]
-	
+	items: Array //[{seccion: int, item: int, estado: bool}]
 });
 
 module.exports = mongoose.model('Lista', Lista);

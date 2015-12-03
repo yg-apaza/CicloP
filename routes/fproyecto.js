@@ -15,8 +15,7 @@ router.post('/', function(req, res) {
 });
 
 router.post('/modificar', function(req, res) {
-	if(req.body.datos)
-	{
+	if(req.body.datos) {
 		Proyecto.update(
 			{_id: req.body.datos._id},
 			{
@@ -29,7 +28,6 @@ router.post('/modificar', function(req, res) {
 				{
 					if(req.body.nuevos)
 					{
-						/** Inicio*/
 						var usuariosValidos = [];
 						var rolesValidos = [];
 						var anteriores = [];
@@ -75,13 +73,10 @@ router.post('/modificar', function(req, res) {
 									return res.json({status: true, message: "Proyecto modificado exitosamente."});
 								}
 						});
-						/** Fin*/
 					}
 				}
 				else
-				{
 					return res.json({status: false, message: "No se modificó el proyecto."});
-				}
 			}
 		);
 	}
