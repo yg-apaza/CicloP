@@ -176,9 +176,7 @@ router.post('/verProyectos', function(req, res) {
 		async.each(roles, function(r, callback) {
 			Proyecto.findOne({_id: r.idProyecto}, function (err, p) {
 				if(!err)
-				{
 					nombresProyectos.push({nombre: p.nombre, id: p._id.toString()});
-				}
 				callback();
 			});
 		},

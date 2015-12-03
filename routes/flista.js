@@ -56,6 +56,8 @@ router.post('/listasDisponibles', function(req, res) {
 				var send = [true, true];
 				if(!err)
 				{
+					if(!l23)
+						l23 = [];
 					async.each(
 						l23,
 						function(l, callback)
@@ -69,7 +71,7 @@ router.post('/listasDisponibles', function(req, res) {
 							var listas = [];
 							var i;
 							for(i = 0; i < send.length; i++)
-								if(sendP[i]) listas.push(i + 2);
+								if(send[i]) listas.push(i + 2);
 							res.json({status: true, listas: listas});
 						}
 					);
@@ -84,6 +86,8 @@ router.post('/listasDisponibles', function(req, res) {
 				var send = [true, true];
 				if(!err)
 				{
+					if(!l45)
+						l45 = [];
 					async.each(
 						l45,
 						function(l, callback)
@@ -112,6 +116,8 @@ router.post('/listasDisponibles', function(req, res) {
 				var send = [true, true];
 				if(!err)
 				{
+					if(!l67)
+						l67 = [];
 					async.each(
 						l67,
 						function(l, callback)
