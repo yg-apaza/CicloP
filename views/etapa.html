@@ -119,7 +119,7 @@
 		</div><!-- /top-nav-->
 		
 		<aside class="fixed skin-6">
-			<div class="sidebar-inner scrollable-sidebar"  ng-controller="myCtrlHome">
+			<div class="sidebar-inner scrollable-sidebar"  >
 				<div class="size-toggle">
 					<a class="btn btn-sm" id="sizeToggle">
 						<span class="icon-bar"></span>
@@ -130,7 +130,7 @@
 						<i class="fa fa-power-off"></i>
 					</a>
 				</div><!-- /size-toggle -->	
-				<div class="user-block clearfix">
+				<div class="user-block clearfix" ng-controller="myCtrlHome">
 					<img src="img/user.jpg" alt="User Avatar">
 					<div class="detail">
 						<strong>{{usuario.nombre}}</strong>
@@ -147,7 +147,7 @@
 						</span>
 					</div><!-- /input-group -->
 				</div><!-- /search-block -->
-				<div class="main-menu">
+				<div class="main-menu" ng-controller="myCtrlEtapasProyecto">
 					<ul>
 						<li>
 							<a href="/">
@@ -166,19 +166,19 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li class="active">
-									<a href="#"><span class="submenu-label">Toma y definiciñón de Requisitos</span></a>
+								<li ng-class="{active: etapa == 1}">
+									<a href="#"><span class="submenu-label">Toma y definición de Requisitos</span></a>
 								</li>
-								<li>
+								<li ng-class="{active: etapa == 2}">
 									<a href="#"><span class="submenu-label">Análisis y Diseño</span></a>
 								</li>
-								<li>
+								<li ng-class="{active: etapa == 3}"> 
 									<a href="#"><span class="submenu-label">Codificación</span></a>
 								</li>
-								<li>
+								<li ng-class="{active: etapa == 4}">
 									<a href="#"><span class="submenu-label">Pruebas</span></a>
 								</li>
-								<li>
+								<li ng-class="{active: etapa == 5}">
 									<a href="#"><span class="submenu-label">Implantación y Mantenimiento</span></a>
 								</li>
 							</ul>
@@ -211,10 +211,11 @@
 								
 			<div class="padding-md">
 				<div>
-					<a class="btn btn-default" href="/agregarListaChequeo">
+					<a class="btn btn-default" href="/agregarLista" ng-show="rol == 3">
 					<i class="fa fa-plus-circle"></i> 
 					Añadir Lista de Chequeo
 					</a>
+
 				</div>
 					
 				<br>

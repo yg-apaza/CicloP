@@ -58,7 +58,13 @@ router.get('/etapa', function (req, res) {
 		res.redirect('/');
 });
 
-
+//LISTAS DE CHEQUEO
+router.get('/agregarLista', function (req, res) {
+	if(req.user)
+		res.sendFile(path.join(__dirname, '../views', 'listaChequeoAgregar.html'));
+	else
+		res.redirect('/');
+});
 
 
 module.exports = router;

@@ -7,7 +7,7 @@ app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 	$scope.rol = '';
 	$scope.listas = [{}];
 	$scope.respuestaServidorProyecto;
-
+	$scope.etapa = 0;
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data){
 			if(data.status)
@@ -26,7 +26,16 @@ app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 				alert("Problemas internos");
 	});	
 
-	
+	$http.post('/flista/verEtapa')
+	.success(function(data){
+			if(data.status){
+				alert(data.etapa);
+				$scope.etapa = data.etapa;
+			}
+			else 
+				alert("Problemas internos");
+	});	
+
 
 });
 

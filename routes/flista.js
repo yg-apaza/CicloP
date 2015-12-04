@@ -68,6 +68,7 @@ router.post('/listasDisponibles', function(req, res) {
 });
 
 router.post('/guardarEtapa', function(req, res) {
+	console.log(req.body);
 	req.session.etapa = req.body.etapa;
 	res.json({status: true});
 });

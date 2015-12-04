@@ -146,7 +146,7 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 
 });
 
-app.controller('myCtrlVerProyecto',  function(ids,$scope,$http,$window) {
+app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 	
 	$scope.myProject = {};
 	$scope.respuestaServidorProyecto;
@@ -160,7 +160,7 @@ app.controller('myCtrlVerProyecto',  function(ids,$scope,$http,$window) {
 	});
 
 	$scope.etapa = function (id){
-		$http.post('/flista/guardarEtapa',id)
+		$http.post('/flista/guardarEtapa',{etapa: id})
 		.success(function(data){
 			if(data.status)
 				$window.location.href = "/etapa";
