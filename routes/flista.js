@@ -10,15 +10,12 @@ router.post('/rol', function(req, res) {
 	Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, r){
 		if(!err)
 		{
-			console.log(req.session.etapa);
-			console.log(req.session.idProy);
 			Lista.find({etapa: req.session.etapa, idProyecto: req.session.idProy}, function(err, ls) {
 				var lista = [];
 				async.each(
 					ls,
 					function(l, callback){
-						console.log(l);
-						lista.push({nombre: l.nombre, id: l._id});
+						lista.push({numLista: l.tipo, id: l._id});
 						callback();
 					},
 					function(err)
