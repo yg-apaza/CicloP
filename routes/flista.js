@@ -198,6 +198,7 @@ router.post('/agregar', function(req, res) {
 				items: null
 			});
 			lista.save();
+			res.json({status: true});
 		});
 	}
 });
