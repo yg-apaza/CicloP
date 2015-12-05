@@ -217,14 +217,14 @@
 										</thead>
 										<tr ng-repeat="listaDisponible in listasDisponibles">
 											<td> 	
-												<input type="radio" name="stack-radio">	
+												<input type="radio" name="stack-radio" ng-model="listaAgregar.numLista" value="{{listaDisponible}}">	
 												<span class="custom-radio"></span>
 												{{arrListasDisponibles[listaDisponible]}}						
 											</td>
 										</tr>
 									</table>				
 								</div>
-								{{probadores}}
+
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="nombreProyecto">Nombre del proyecto</label>
@@ -232,15 +232,15 @@
 									</div><!-- /form-group -->
 									<div class="form-group">
 										<label for="nombreProyecto">Encargado</label>
-										<select class="input-sm form-control inline" > 
-													<option ng-repeat="probador in probadores">{{provador}}</option>
+										<select class="input-sm form-control inline" ng-model="listaAgregar.idProbador"> 
+													<option ng-repeat="probador in probadores" value="{{probador.id}}">{{probador.username}}</option>
 										</select>
 									</div><!-- /form-group -->
 									
 									<div class="form-group">
 										<label for="fechaCulminacion">Fecha de Culminacion</label>
 										<div class="input-group">
-											<input type="text" value="22/10/2015" class="datepicker form-control">
+											<input type="text" ng-model="listaAgregar.fCulminacion" value="22/10/2015" class="datepicker form-control">
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										</div>
 									</div><!-- /form-group -->

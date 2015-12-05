@@ -2,7 +2,7 @@ var app = angular.module('myAppHome');
 
 app.controller('myCtrlListas',  function(objUsuario, $scope,$http,$window) {
 	$scope.listasDisponibles = [{nombre:'2'},]
-
+	$scope.listaAgregar = {};
 	$scope.arrListasDisponibles = ['','Lista de chequeo de requisitos',
 									'Lista de chequeo de Plan de testing',
 									'Lista de chequeo de artefactos de análisis y diseño',
@@ -44,6 +44,8 @@ app.controller('myCtrlListas',  function(objUsuario, $scope,$http,$window) {
 				alert("Problemas internos");
 	});	
 
+
+
 	$http.post('/flista/rol')
 	.success(function(data){
 			if(data.status){
@@ -68,6 +70,16 @@ app.controller('myCtrlListas',  function(objUsuario, $scope,$http,$window) {
 		.success(function(data){
 			if(data.status)
 				$window.location.href = "/etapa";
+			else 
+				alert("Error del Servidor");
+		});
+	};
+
+	$scope.agregarLista = function (){
+		$http.post('/flista/agregar',$scope.listaAgregar)
+		.success(function(data){
+			if(data.status)
+				alert('success');
 			else 
 				alert("Error del Servidor");
 		});
