@@ -204,7 +204,7 @@
 			
 			<div class="padding-md">
 				<div class="panel panel-default">
-					<form>
+					<form ng-submit="agregarLista()">
 						<div class="panel-heading">Añadir Lista de Chequeo</div>
 						<div class="panel-body">
 							<div class="row">
@@ -240,7 +240,7 @@
 									<div class="form-group">
 										<label for="fechaCulminacion">Fecha de Culminacion</label>
 										<div class="input-group">
-											<input type="text" ng-model="listaAgregar.fCulminacion" value="22/10/2015" class="datepicker form-control">
+											<input type="text" ng-model="listaAgregar.fCulminacion" class="datepicker form-control">
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										</div>
 									</div><!-- /form-group -->
