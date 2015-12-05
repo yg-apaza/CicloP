@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var Lista = require('../models/lista');
 var Rol = require('../models/rol');
+var Usuario = require('../models/usuario');
 
 router.post('/rol', function(req, res) {
 	Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, r){
@@ -158,15 +159,17 @@ router.post('/listasDisponibles', function(req, res) {
 });
 
 router.post('/probadores', function(req, res){
-	Rol.find({idProyecto: req.session.idProy, tipo: 2}, function(err, usuarios){
+	Rol.find({idProyecto: req.session.idProy, tipo: 2}, function(err, roles){
 		var probadores = [];
 		if(!err){
 			async.each(
-				usuarios,
-				function(u, callback)
+				roles,
+				function(r, callback)
 				{
-					probadores.push({username: u.username, id: u._id});
-					callback();
+					Usuario.findOne({_id: r.idUsuario}, function(err, u){
+						probadores.push({username: u.username, id: r.idUsuario});
+						callback();
+					});
 				},
 				function(err)
 				{

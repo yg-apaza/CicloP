@@ -36,6 +36,7 @@ router.get('/nuevoProyecto', function (req,res) {
 	else
 		res.redirect('/');
 });
+
 router.get('/verProyecto', function (req, res) {
 	if(req.user)
 		res.sendFile(path.join(__dirname, '../views', 'proyectoVer.html'));
@@ -58,6 +59,7 @@ router.get('/etapa', function (req, res) {
 		res.redirect('/');
 });
 
+
 //LISTAS DE CHEQUEO
 router.get('/agregarLista', function (req, res) {
 	if(req.user)
@@ -65,6 +67,7 @@ router.get('/agregarLista', function (req, res) {
 	else
 		res.redirect('/');
 });
+
 
 
 module.exports = router;
