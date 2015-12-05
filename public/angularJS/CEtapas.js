@@ -1,10 +1,10 @@
 var app = angular.module('myAppHome');
 
 
-app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
-	
+app.controller('myCtrlEtapasProyecto',  function(objUsuario, $scope,$http,$window) {
+
 	$scope.myProject = {};
-	$scope.rol = '';
+	$scope.rol = 0;
 	$scope.listas = [{}];
 	$scope.respuestaServidorProyecto;
 	$scope.etapa = 0;
@@ -15,11 +15,13 @@ app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 			else 
 				alert("Problemas internos");
 	});	
-
+	
 	$http.post('/flista/rol')
 	.success(function(data){
 			if(data.status){
 				$scope.rol = data.rol;
+				objUsuario.setRol(data.rol);
+				console.log(objUsuario.rol);
 			 	$scope.listas  = data.listas;
 			}
 			else 
@@ -29,13 +31,21 @@ app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 	$http.post('/flista/verEtapa')
 	.success(function(data){
 			if(data.status){
-				alert(data.etapa);
 				$scope.etapa = data.etapa;
 			}
 			else 
 				alert("Problemas internos");
-	});	
+	});
 
+	$scope.guardarEtapa = function (id){
+		$http.post('/flista/guardarEtapa',{etapa: id})
+		.success(function(data){
+			if(data.status)
+				$window.location.href = "/etapa";
+			else 
+				alert("Error del Servidor");
+		});
+	};
 
 });
 

@@ -25,7 +25,7 @@
 	
   </head>
 
-  <body class="overflow-hidden">
+  <body class="overflow-hidden" ng-app="myAppHome" >
 	<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
 
@@ -56,7 +56,7 @@
 	</div><!-- /theme-setting -->
 	
 	<div id="wrapper" class="preload">
-		<div id="top-nav" class="skin-6 fixed">
+		<div id="top-nav" class="skin-6 fixed" ng-controller="myCtrlHome">
 			<div class="brand">
 				<span>CICLO</span>
 				<span class="text-toggle"> P</span>
@@ -73,32 +73,32 @@
 			</button>
 			<ul class="nav-notification clearfix">
 				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" >
 						<i class="fa fa-bell fa-lg"></i>
-						<span class="notification-label bounceIn animation-delay4">1</span>
+						<span ng-show="{{'noleidos'}}" class="notification-label bounceIn animation-delay4">{{noleidos}}</span>
 					</a>
-					<ul class="dropdown-menu message dropdown-1">
-						<li><a>Tienes 1 notificacion</a></li>					  
-						<li>
-							<a class="clearfix" href="#">
-								<img src="img/user.jpg" alt="User Avatar">
-								<div class="detail">
-									<strong>John Doe</strong>
-									<p class="no-margin">
-										Te designó como diseñador en Proyecto2
-									</p>
-									<small class="text-muted"><i class="fa fa-check text-success"></i> 27m ago</small>
-								</div>
-							</a>	
+					<ul class="dropdown-menu message dropdown-1" >
+						<li ng-show="{{'noleidos==0'}}"> <a>No tienes notificaciones nuevas</a></li>
+						<li ng-show="{{'noleidos==1'}}"> <a>Tiene {{noleidos}} notificacion nueva</a></li>
+						 <li ng-show="{{'noleidos>1'}}"> <a>Tienes {{noleidos}} notificaciones nuevas</a></li>			  
+						
+						<li ng-repeat="notificacion in notificaciones">
+							<a href="#">
+								<span ng-class=colorIconClass(notificacion.tipo)>
+									<i ng-class=iconClass(notificacion.tipo)></i>
+								</span>
+								<span class="m-left-xs">{{notificacion.titulo}}</span>
+								<span class="time text-muted">{{notificacion.fecha}}</span>
+							</a>
 						</li>
 						
-						<li><a href="#">Ver todos los mensajes</a></li>					  
+						<li><a href="#" ng-click="leerNotificacion()">Ver todos los mensajes</a></li>					  
 					</ul>
 				</li>
 				
 				<li class="profile dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						<strong>Anonimus</strong>
+						<strong>{{usuario.username}}</strong>
 						<span><i class="fa fa-chevron-down"></i></span>
 					</a>
 					<ul class="dropdown-menu">
@@ -106,8 +106,8 @@
 							<a class="clearfix" href="#">
 								<img src="img/user.jpg" alt="User Avatar">
 								<div class="detail">
-									<strong>Anonimus</strong>
-									<p class="grey">anonimus@gmail.com</p> 
+									<strong>{{usuario.nombre + ' ' + usuario.apellidos }}</strong>
+									<p class="grey">{{usuario.correo}}</p> 
 								</div>
 							</a>
 						</li>
@@ -119,7 +119,7 @@
 		</div><!-- /top-nav-->
 		
 		<aside class="fixed skin-6">
-			<div class="sidebar-inner scrollable-sidebar">
+			<div class="sidebar-inner scrollable-sidebar"  >
 				<div class="size-toggle">
 					<a class="btn btn-sm" id="sizeToggle">
 						<span class="icon-bar"></span>
@@ -130,12 +130,12 @@
 						<i class="fa fa-power-off"></i>
 					</a>
 				</div><!-- /size-toggle -->	
-				<div class="user-block clearfix">
+				<div class="user-block clearfix" ng-controller="myCtrlHome">
 					<img src="img/user.jpg" alt="User Avatar">
 					<div class="detail">
-						<strong>Anonimus</strong>
+						<strong>{{usuario.nombre}}</strong>
 						<ul class="list-inline">
-							<li><a href="profile.html">Profile</a></li>
+							<li><a href="profile.html">{{rolUsuario}}</a></li>
 						</ul>
 					</div>
 				</div><!-- /user-block -->
@@ -147,11 +147,10 @@
 						</span>
 					</div><!-- /input-group -->
 				</div><!-- /search-block -->
-				<div class="main-menu">
+				<div class="main-menu" ng-controller="myCtrlListas">
 					<ul>
 						<li>
-							<a href="index.html">
-								
+							<a href="/">		
 								<span class="text">
 									Inicio
 								</span>
@@ -166,25 +165,25 @@
 								<span class="menu-hover"></span>
 							</a>
 							<ul class="submenu">
-								<li>
-									<a href="#"><span class="submenu-label">Toma y decisión de Requisitos</span></a>
+								<li ng-class="{active: etapa == 1}">
+									<a href="#" ng-click="guardarEtapa(1)"><span class="submenu-label">Toma y definición de Requisitos</span></a>
 								</li>
-								<li>
-									<a href="#"><span class="submenu-label">Análisis y Diseño</span></a>
+								<li ng-class="{active: etapa == 2}">
+									<a href="#" ng-click="guardarEtapa(2)"><span class="submenu-label">Análisis y Diseño</span></a>
 								</li>
-								<li>
-									<a href="#"><span class="submenu-label">Codificación</span></a>
+								<li ng-class="{active: etapa == 3}"> 
+									<a href="#" ng-click="guardarEtapa(3)"><span class="submenu-label">Codificación</span></a>
 								</li>
-								<li>
-									<a href="#"><span class="submenu-label">Pruebas</span></a>
+								<li ng-class="{active: etapa == 4}">
+									<a href="#" ng-click="guardarEtapa(4)"><span class="submenu-label">Pruebas</span></a>
 								</li>
-								<li>
-									<a href="#"><span class="submenu-label">Implantación y Mantenimiento</span></a>
+								<li ng-class="{active: etapa == 5}">
+									<a href="#" ng-click="guardarEtapa(5)"><span class="submenu-label">Implantación y Mantenimiento</span></a>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<a href="nuevoProyecto.html">
+							<a href="nuevoProyecto">
 								<span class="text">
 									Crear Proyecto
 								</span>
@@ -196,7 +195,7 @@
 			</div><!-- /sidebar-inner -->
 		</aside>
 
-		<div id="main-container">
+		<div id="main-container" ng-controller="myCtrlListas">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
 					 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li> 
@@ -216,36 +215,16 @@
 												<th>Listas de Chequeo</th>	
 											</tr>
 										</thead>
-										<tr>
+										<tr ng-repeat="listaDisponible in listasDisponibles">
 											<td> 	
 												<input type="radio" name="stack-radio">	
 												<span class="custom-radio"></span>
-												Lista de Chaqueo de Analisis y Diseño							
-											</td>
-										</tr>
-										<tr>
-											<td> 	
-												<input type="radio" name="stack-radio">	
-												<span class="custom-radio"></span>
-												Lista de Chequeo de Casos de Prueba						
-											</td>
-										</tr>
-										<tr>
-											<td> 	
-												<input type="radio" name="stack-radio">	
-												<span class="custom-radio"></span>
-												Lista de Chequeo de Requisitos						
-											</td>
-										</tr>
-										<tr>
-											<td> 	
-												<input type="radio" name="stack-radio">	
-												<span class="custom-radio"></span>
-												Lista de Chequeo de estandares de programacion				
+												{{arrListasDisponibles[listaDisponible]}}						
 											</td>
 										</tr>
 									</table>				
 								</div>
+								{{probadores}}
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="nombreProyecto">Nombre del proyecto</label>
@@ -253,9 +232,8 @@
 									</div><!-- /form-group -->
 									<div class="form-group">
 										<label for="nombreProyecto">Encargado</label>
-										<select class="input-sm form-control inline"> 
-													<option value="0">Anonimus</option> 
-													<option value="1">Anonimus2</option> 
+										<select class="input-sm form-control inline" > 
+													<option ng-repeat="probador in probadores">{{provador}}</option>
 										</select>
 									</div><!-- /form-group -->
 									
@@ -298,12 +276,12 @@
 	<!-- Logout confirmation -->
 	<div class="custom-popup width-100" id="logoutConfirm">
 		<div class="padding-md">
-			<h4 class="m-top-none"> Do you want to logout?</h4>
+			<h4 class="m-top-none"> ¿Realmente quiere salir?</h4>
 		</div>
 
 		<div class="text-center">
-			<a class="btn btn-success m-right-sm" href="login.html">Logout</a>
-			<a class="btn btn-danger logoutConfirm_close">Cancel</a>
+			<a class="btn btn-success m-right-sm" href="fusuario/logout">Si</a>
+			<a class="btn btn-danger logoutConfirm_close">No</a>
 		</div>
 	</div>
 	
@@ -319,6 +297,10 @@
    
 	<!-- Colorbox -->
 	<script src='js/jquery.colorbox.min.js'></script>	
+
+	<!-- Morris -->
+	<script src='js/rapheal.min.js'></script>	
+	<script src='js/morris.min.js'></script>
 
 	<!-- Modernizr -->
 	<script src='js/modernizr.min.js'></script>
@@ -337,6 +319,16 @@
 
 	<!-- Perfect -->
 	<script src="js/app/app.js"></script>
+	
+	<!-- Cargamos angular -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+	<script src="angularJS/CHome.js"></script>
+	<script src="angularJS/CProyecto.js"></script>
+	<script src="angularJS/CListas.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+	
 	
 	<script>
 		$(function()	{

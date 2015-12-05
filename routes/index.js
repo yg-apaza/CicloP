@@ -32,20 +32,20 @@ router.get('/login', function (req, res) {
 //PROYECTO
 router.get('/nuevoProyecto', function (req,res) {
 	if(req.user)
-		res.sendFile(path.join(__dirname,'../views','nuevoProyecto.html'));		
+		res.sendFile(path.join(__dirname,'../views','proyectoNuevo.html'));		
 	else
 		res.redirect('/');
 });
 router.get('/verProyecto', function (req, res) {
 	if(req.user)
-		res.sendFile(path.join(__dirname, '../views', 'verProyecto.html'));
+		res.sendFile(path.join(__dirname, '../views', 'proyectoVer.html'));
 	else
 		res.redirect('/');
 });
 
 router.get('/modificarProyecto', function (req, res) {
 	if(req.user)
-		res.sendFile(path.join(__dirname, '../views', 'modificarProyecto.html'));
+		res.sendFile(path.join(__dirname, '../views', 'proyectoModificar.html'));
 	else
 		res.redirect('/');
 });

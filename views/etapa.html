@@ -135,7 +135,7 @@
 					<div class="detail">
 						<strong>{{usuario.nombre}}</strong>
 						<ul class="list-inline">
-							<li><a href="profile.html">Profile</a></li>
+							<li><a href="profile.html">{{rolUsuario}}</a></li>
 						</ul>
 					</div>
 				</div><!-- /user-block -->
@@ -150,8 +150,7 @@
 				<div class="main-menu" ng-controller="myCtrlEtapasProyecto">
 					<ul>
 						<li>
-							<a href="/">
-								
+							<a href="/">		
 								<span class="text">
 									Inicio
 								</span>
@@ -167,19 +166,19 @@
 							</a>
 							<ul class="submenu">
 								<li ng-class="{active: etapa == 1}">
-									<a href="#"><span class="submenu-label">Toma y definición de Requisitos</span></a>
+									<a href="#" ng-click="guardarEtapa(1)"><span class="submenu-label">Toma y definición de Requisitos</span></a>
 								</li>
 								<li ng-class="{active: etapa == 2}">
-									<a href="#"><span class="submenu-label">Análisis y Diseño</span></a>
+									<a href="#" ng-click="guardarEtapa(2)"><span class="submenu-label">Análisis y Diseño</span></a>
 								</li>
 								<li ng-class="{active: etapa == 3}"> 
-									<a href="#"><span class="submenu-label">Codificación</span></a>
+									<a href="#" ng-click="guardarEtapa(3)"><span class="submenu-label">Codificación</span></a>
 								</li>
 								<li ng-class="{active: etapa == 4}">
-									<a href="#"><span class="submenu-label">Pruebas</span></a>
+									<a href="#" ng-click="guardarEtapa(4)"><span class="submenu-label">Pruebas</span></a>
 								</li>
 								<li ng-class="{active: etapa == 5}">
-									<a href="#"><span class="submenu-label">Implantación y Mantenimiento</span></a>
+									<a href="#" ng-click="guardarEtapa(5)"><span class="submenu-label">Implantación y Mantenimiento</span></a>
 								</li>
 							</ul>
 						</li>
@@ -243,7 +242,6 @@
 						<div id="donutChart" style="height: 250px;"></div>
 					</div>
 				</div><!-- /panel -->
-				<a class="btn btn-default"><i class="fa fa-eye"></i> Ver Reportes</a>
 			</div>
 			
 		</div><!-- /main-container -->

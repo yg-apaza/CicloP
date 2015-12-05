@@ -7,23 +7,14 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	    {username:'', rol:''},
 		{username:'', rol:''},
 		{username:'', rol:''},
-		{username:'', rol:''},
-		{username:'', rol:''}
 	];
 	
 	$scope.estadosMsj = [
 	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
 	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
 	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
 	];
-	
-	for (i = 0; i < $scope.usuarios.length; i++) { 
-	      $scope.usuarios[i].msjEstado = $scope.estadosMsj[i].msjEstado;
-	      $scope.usuarios[i].estado = $scope.estadosMsj[i].estado;
-	}
-	
+		
 	$scope.newProject = {};
 	$scope.myProject = {};
 	
@@ -42,6 +33,11 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 		});
 	};
 	
+	$scope.agregarUsuarios = function (){
+		$scope.usuarios.push({username:'', rol:'',msjEstado:'',estado:''});
+		$scope.estadosMsj.push({username:'', msjEstado: "no existe", estado: 2, rol:''});
+	};
+
 	$scope.crearProyecto = function(){
 		$scope.newProject.usuarios = $scope.usuarios;
 		$http.post('/fproyecto/agregar', $scope.newProject)
@@ -67,12 +63,19 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 
 app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	//1: existe 2: no existe 3:invalido
+	$scope.User = {};
+	$scope.ProyectoGeneral = {};
 	$scope.roles = [{valor: 1, nombre:'Diseñador'},{valor: 2, nombre:'Probador'}];
 	$scope.rol = ["","Diseñador","Probador"];
 	$scope.newProject = {};
 	//$scope.myProject = {};
-	$scope.User = {};
-	$scope.ProyectoGeneral = {};
+	$scope.User.nuevos = [
+	    {username:'', rol:''},
+	];
+	
+	$scope.estadosMsj = [
+	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
+	];	
 
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data) { 
@@ -85,26 +88,7 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 			}
 	});	
 	
-	$scope.User.nuevos = [
-	    {username:'', rol:''},
-		{username:'', rol:''},
-		{username:'', rol:''},
-		{username:'', rol:''},
-		{username:'', rol:''}
-	];
-	
-	$scope.estadosMsj = [
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	];
-	
-	for (i = 0; i < $scope.User.nuevos.length; i++) { 
-	      $scope.User.nuevos[i].msjEstado = $scope.estadosMsj[i].msjEstado;
-	      $scope.User.nuevos[i].estado = $scope.estadosMsj[i].estado;
-	};
+
 	
 	$scope.respuestaServidorProyecto;
 	
@@ -137,7 +121,12 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 				}
 		});	
 	};
-	
+
+	$scope.agregarUsuarios = function (){
+		$scope.User.nuevos.push({username:'', rol:'',msjEstado:'',estado:''});
+		$scope.estadosMsj.push({username:'', msjEstado: "no existe", estado: 2, rol:''});
+	};	
+
 	$scope.classEstado = function(stado){
 	     if (stado==1)return "label label-success";
 	     else if(stado==2)return "label label-danger";
@@ -159,7 +148,7 @@ app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 			alert("Problemas internos");
 	});
 
-	$scope.etapa = function (id){
+	$scope.guardarEtapa = function (id){
 		$http.post('/flista/guardarEtapa',{etapa: id})
 		.success(function(data){
 			if(data.status)
