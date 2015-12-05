@@ -218,4 +218,6 @@ router.post('/verEtapa', function(req, res){
 	res.json({status: true, etapa: req.session.etapa});
 });
 
+
+
 module.exports = router;
