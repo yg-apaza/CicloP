@@ -76,10 +76,11 @@ app.controller('myCtrlListas',  function(objUsuario, $scope,$http,$window) {
 	};
 
 	$scope.agregarLista = function (){
+	
 		$http.post('/flista/agregar',$scope.listaAgregar)
 		.success(function(data){
 			if(data.status)
-				alert('success');
+				$window.location.href = "/etapa";
 			else 
 				alert("Error del Servidor");
 		});

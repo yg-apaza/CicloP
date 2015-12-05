@@ -21,7 +21,6 @@ app.controller('myCtrlEtapasProyecto',  function(objUsuario, $scope,$http,$windo
 			if(data.status){
 				$scope.rol = data.rol;
 				objUsuario.setRol(data.rol);
-				console.log(objUsuario.rol);
 			 	$scope.listas  = data.listas;
 			}
 			else 
