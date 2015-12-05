@@ -36,6 +36,7 @@ router.get('/nuevoProyecto', function (req,res) {
 	else
 		res.redirect('/');
 });
+
 router.get('/verProyecto', function (req, res) {
 	if(req.user)
 		res.sendFile(path.join(__dirname, '../views', 'verProyecto.html'));
@@ -57,8 +58,5 @@ router.get('/etapa', function (req, res) {
 	else
 		res.redirect('/');
 });
-
-
-
 
 module.exports = router;
