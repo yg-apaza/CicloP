@@ -8,14 +8,16 @@ var Usuario = require('../models/usuario');
 
 router.post('/rol', function(req, res) {
 	Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, r){
-		console.log(err);
 		if(!err)
 		{
+			console.log(req.session.etapa);
+			console.log(req.session.idProy);
 			Lista.find({etapa: req.session.etapa, idProyecto: req.session.idProy}, function(err, ls) {
 				var lista = [];
 				async.each(
 					ls,
 					function(l, callback){
+						console.log(l);
 						lista.push({nombre: l.nombre, id: l._id});
 						callback();
 					},
@@ -160,14 +162,14 @@ router.post('/listasDisponibles', function(req, res) {
 });
 
 router.post('/probadores', function(req, res) {
-	Rol.find({idProyecto: req.session.idProy, tipo: 2}, function(err, roles){
+	Rol.find({idProyecto: req.session.idProy, tipo: 2}, function(err, roles) {
 		var probadores = [];
 		if(!err){
 			async.each(
 				roles,
 				function(r, callback)
 				{
-					Usuario.findOne({_id: r.idUsuario}, function(err, u){
+					Usuario.findOne({_id: r.idUsuario}, function(err, u) {
 						probadores.push({username: u.username, id: r.idUsuario});
 						callback();
 					});
@@ -185,20 +187,26 @@ router.post('/probadores', function(req, res) {
 
 router.post('/agregar', function(req, res) {
 	if(req.body.numLista && req.body.idProbador && req.body.fCulminacion) {
-		Modelo.find({tipo: req.body.numLista}, function(err, modelo){
+		console.log(req.body.numLista);
+		Modelo.findOne({tipo: req.body.numLista}, function(err, modelo){
 			var lista = new Lista({
 				idProyecto: req.session.idProy,
 				idModelo: modelo._id,
 				tipo: modelo.tipo,
-				nombre: modelo.nombre,
 				etapa: modelo.etapa,
+				nombre: modelo.nombre,
 				fCulminacion: req.body.fCulminacion,
 				estado: 0,
 				encargado: req.body.idProbador,
 				items: null
 			});
-			lista.save();
-			res.json({status: true});
+			
+			lista.save(function(err){
+				if(!err)
+					res.json({status: true});
+				else
+					res.json({status: false});
+			});
 		});
 	}
 });
@@ -217,7 +225,5 @@ router.post('/guardarLista', function(req, res) {
 router.post('/verEtapa', function(req, res){
 	res.json({status: true, etapa: req.session.etapa});
 });
-
-
 
 module.exports = router;
