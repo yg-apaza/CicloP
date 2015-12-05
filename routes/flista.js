@@ -15,7 +15,7 @@ router.post('/rol', function(req, res) {
 				async.each(
 					ls,
 					function(l, callback){
-						lista.push({numLista: l.tipo, id: l._id});
+						lista.push({nombre: l.nombre, id: l._id});
 						callback();
 					},
 					function(err)

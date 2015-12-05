@@ -123,6 +123,7 @@ db.usuarios.insert({
 db.modelos.insert({
 	etapa: 1,
 	tipo: 1,
+	nombre: "Lista de chequeo de requisitos",
 	secciones: [
         {
 	    	nombre: "Organización del documento",
@@ -293,6 +294,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 2,
 	tipo: 2,
+	nombre: "Lista de chequeo de Plan de testing",
 	secciones: [
 		{
 			nombre: "Riesgos y contingencias",
@@ -472,6 +474,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 2,
 	tipo: 3,
+	nombre: "Lista de chequeo de artefactos de análisis y diseño",
 	secciones: [
 		{
 			nombre: "Casos de uso",
@@ -776,6 +779,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 3,
 	tipo: 4,
+	nombre: "Lista de chequeo de estándares de programación",
 	secciones: [
 		{
 			nombre: "Código en general",
@@ -960,6 +964,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 3,
 	tipo: 5,
+	nombre: "Lista de chequeo de interfaces a nivel comportamental",
 	secciones: [
 		{
 			nombre: "Organización y distribución",
@@ -1369,6 +1374,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 4,
 	tipo: 6,
+	nombre: "Lista de chequeo de casos de prueba diseñados",
 	secciones: [
 		{
 			nombre: "Calidad",
@@ -1497,6 +1503,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 4,
 	tipo: 7,
+	nombre: "Lista de chequeo de casos de prueba ejecutados y de reporte de errores",
 	secciones: [
 		{
 			nombre: "Lista de chequeo de casos de prueba ejecutados",
@@ -1595,6 +1602,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 5,
 	tipo: 8,
+	nombre: "Lista de chequeo de instalación",
 	secciones: [
 		{
 			nombre: "Implantación del sistema",
