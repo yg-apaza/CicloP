@@ -1,6 +1,7 @@
 var async = require('async');
 var express = require('express');
 var router = express.Router();
+var Modelo = require('../models/modelo');
 var Lista = require('../models/lista');
 var Rol = require('../models/rol');
 var Usuario = require('../models/usuario');
@@ -158,7 +159,7 @@ router.post('/listasDisponibles', function(req, res) {
 	}
 });
 
-router.post('/probadores', function(req, res){
+router.post('/probadores', function(req, res) {
 	Rol.find({idProyecto: req.session.idProy, tipo: 2}, function(err, roles){
 		var probadores = [];
 		if(!err){
@@ -180,6 +181,25 @@ router.post('/probadores', function(req, res){
 		else
 			res.json({status: false, probadores: null})
 	});
+});
+
+router.post('/agregar', function(req, res) {
+	if(req.body.numLista && req.body.idProbador && req.body.fCulminacion) {
+		Modelo.find({tipo: req.body.numLista}, function(err, modelo){
+			var lista = new Lista({
+				idProyecto: req.session.idProy,
+				idModelo: modelo._id,
+				tipo: modelo.tipo,
+				nombre: modelo.nombre,
+				etapa: modelo.etapa,
+				fCulminacion: req.body.fCulminacion,
+				estado: 0,
+				encargado: req.body.idProbador,
+				items: null
+			});
+			lista.save();
+		});
+	}
 });
 
 router.post('/guardarEtapa', function(req, res) {
