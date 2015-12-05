@@ -1,5 +1,6 @@
  /** Usuarios de prueba*/
 
+/*
 db.usuarios.insert({
 	salt: "57ab56ffad86c28ba30cb18bae912a85bc0f2327fa0a3ef6f302d5580fa5052d",
 	hash: "0e51015165d4fe9215f80443eddab7a8f1d097348315378df8f635f9018ae3e3e3bdd79c790c1220eab647639b4d50808054929a7acdd558b7c74d3dd082508ca2d4f4abb7f17685172e1ea3bafe779341aa11cdae08a11297b1389800681a3977b605170d1bbb3aa58816336439b45e4220f778384dcdb617fb92badabcab5b47b8910602a5b8ea18d1d8a91bd5b8a532d2b7620bb7ab21647962e2fbf153d6621c57d4ab29ea2c50fa097314cfecc4e45134860257442c2aa7880da82c1896e7672f118cd40cbe08aa1d74dd2be3f45cbb35e2320a36421d4cff261544c58c2721a94a3da6aac28ea1b148b04799e816ad8df88ead4597ff59d33ee73a02431f6ed8e42ee69d63d84569f73590469505bb1d9c254c5e7606784d3f6c86269f69ee4e92d48d4692744d192bcb0d8e281187589104be098e710238ab72b43954fc9b4eec66dfe8f7a0a41fe2fa821612b5a91265ed751b6c6bb6f025f021baa4ac32fead44243920b9c35faa14804050491332ca92b73c3b42b36336bab060406c5869101267f8be342fca2e450fab7c1e2bb4d1752be8192c57d9c2fead101f64ff9fa58d95c6e4f3f6fc28ee963c7f368e5a5fdb6578950a8aea7cc3883b0a6ab7dedb911760516543e2136027395c89d83c3d7f90e306ccad558045cb1349eee387ddc9f2b9564c32d4937d41b4a09290da8d0e2177df29275ffd3ec3c48f",
@@ -101,6 +102,7 @@ db.usuarios.insert({
 	        			}],
 	__v: 0		
 });
+*/
 
 /** Listas de Chequeo */
 
@@ -123,6 +125,7 @@ db.usuarios.insert({
 db.modelos.insert({
 	etapa: 1,
 	tipo: 1,
+	nombre: "Lista de chequeo de requisitos",
 	secciones: [
         {
 	    	nombre: "Organización del documento",
@@ -293,6 +296,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 2,
 	tipo: 2,
+	nombre: "Lista de chequeo de Plan de testing",
 	secciones: [
 		{
 			nombre: "Riesgos y contingencias",
@@ -472,6 +476,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 2,
 	tipo: 3,
+	nombre: "Lista de chequeo de artefactos de análisis y diseño",
 	secciones: [
 		{
 			nombre: "Casos de uso",
@@ -776,6 +781,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 3,
 	tipo: 4,
+	nombre: "Lista de chequeo de estándares de programación",
 	secciones: [
 		{
 			nombre: "Código en general",
@@ -960,6 +966,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 3,
 	tipo: 5,
+	nombre: "Lista de chequeo de interfaces a nivel comportamental",
 	secciones: [
 		{
 			nombre: "Organización y distribución",
@@ -1369,6 +1376,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 4,
 	tipo: 6,
+	nombre: "Lista de chequeo de casos de prueba diseñados",
 	secciones: [
 		{
 			nombre: "Calidad",
@@ -1497,6 +1505,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 4,
 	tipo: 7,
+	nombre: "Lista de chequeo de casos de prueba ejecutados y de reporte de errores",
 	secciones: [
 		{
 			nombre: "Lista de chequeo de casos de prueba ejecutados",
@@ -1595,6 +1604,7 @@ db.modelos.insert({
 db.modelos.insert({
 	etapa: 5,
 	tipo: 8,
+	nombre: "Lista de chequeo de instalación",
 	secciones: [
 		{
 			nombre: "Implantación del sistema",
