@@ -81,8 +81,8 @@ app.controller('myCtrlListas',  function(objUsuario, $scope,$http,$window) {
 			});
 	};
 
-	$scope.agregarLista = function (){
-		$http.post('/flista/agregar',$scope.listaAgregar)
+	$scope.agregarLista = function (id){
+		$http.post('/flista/guardarLista',$scope.listaAgregar)
 			.success(function(data){
 				if(data.status)
 					$window.location.href = "/etapa";

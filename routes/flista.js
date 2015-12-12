@@ -210,7 +210,7 @@ router.post('/agregar', function(req, res) {
 });
 
 router.post('/getLista', function(req, res) {
-	res.json({status: true, lista: req.session.lista.secciones});
+	res.json({status: true, lista: req.session.idLista.items});
 });
 
 router.post('/guardarEtapa', function(req, res) {
@@ -219,6 +219,7 @@ router.post('/guardarEtapa', function(req, res) {
 });
 
 router.post('/guardarLista', function(req, res) {
+	console.log(req.body);
 	req.session.lista = req.body.idLista;
 	res.json({status: true});
 });

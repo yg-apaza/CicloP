@@ -48,7 +48,14 @@ app.controller('myCtrlEtapasProyecto',  function(objUsuario, $scope,$http,$windo
 	};
 
 	$scope.listaChekeo = function (id){
-		$window.location.href = "/seccion"
+
+		$http.post('/flista/guardarLista',{idLista: id})
+		.success(function(data){
+			if(data.status)
+				$window.location.href = "/seccion";
+			else 
+				alert("Error del Servidor");
+		});
 	}
 
 });
