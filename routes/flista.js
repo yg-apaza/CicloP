@@ -14,7 +14,8 @@ router.post('/rol', function(req, res) {
 				var lista = [];
 				async.each(
 					ls,
-					function(l, callback){
+					function(l, callback)
+					{
 						lista.push({nombre: l.nombre, id: l._id});
 						callback();
 					},
@@ -185,7 +186,7 @@ router.post('/probadores', function(req, res) {
 router.post('/agregar', function(req, res) {
 	if(req.body.numLista && req.body.idProbador && req.body.fCulminacion) {
 		console.log(req.body.numLista);
-		Modelo.findOne({tipo: req.body.numLista}, function(err, modelo){
+		Modelo.findOne({tipo: req.body.numLista}, function(err, modelo) {			
 			var lista = new Lista({
 				idProyecto: req.session.idProy,
 				idModelo: modelo._id,
@@ -195,7 +196,7 @@ router.post('/agregar', function(req, res) {
 				fCulminacion: req.body.fCulminacion,
 				estado: 0,
 				encargado: req.body.idProbador,
-				items: null
+				items: modelo.secciones
 			});
 			
 			lista.save(function(err){
@@ -208,8 +209,11 @@ router.post('/agregar', function(req, res) {
 	}
 });
 
+router.post('/getLista', function(req, res) {
+	res.json({status: true, lista: req.session.lista.secciones});
+});
+
 router.post('/guardarEtapa', function(req, res) {
-	console.log(req.body);
 	req.session.etapa = req.body.etapa;
 	res.json({status: true});
 });

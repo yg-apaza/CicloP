@@ -133,6 +133,7 @@ db.modelos.insert({
     	        {
     	        	nombre: "Las referencias internas entre requisitos son todas correctas.",
     	        	obligatoriedad: true,
+    	        	seleccionado: true,
     	        	ponderacion: 2
     	        },
     	        {
