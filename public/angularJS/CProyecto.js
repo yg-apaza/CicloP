@@ -6,13 +6,13 @@ app.controller('myCtrlAgregarProyecto',  function($scope,$http,$window) {
 	$scope.usuarios = [
 	    {username:'', rol:''},
 		{username:'', rol:''},
-		{username:'', rol:''},
+		{username:'', rol:''}
 	];
 	
 	$scope.estadosMsj = [
 	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
 	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
-	    {username:'', msjEstado: "no existe", estado: 2, rol:''},
+	    {username:'', msjEstado: "no existe", estado: 2, rol:''}
 	];
 		
 	$scope.newProject = {};

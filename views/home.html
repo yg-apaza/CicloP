@@ -118,8 +118,8 @@
 			</ul>
 		</div><!-- /top-nav-->
 		
-		<aside class="fixed skin-6" ng-controller="myCtrlHome">
-			<div class="sidebar-inner scrollable-sidebar">
+		<aside class="fixed skin-6">
+			<div class="sidebar-inner scrollable-sidebar"  ng-controller="myCtrlHome">
 				<div class="size-toggle">
 					<a class="btn btn-sm" id="sizeToggle">
 						<span class="icon-bar"></span>
@@ -150,8 +150,7 @@
 				<div class="main-menu">
 					<ul>
 						<li class="active">
-							<a href="/">
-								
+							<a href="/">		
 								<span class="text">
 									Inicio
 								</span>
@@ -167,7 +166,6 @@
 							</a>
 							
 							<ul class="submenu" >
-							
 								<li class="openable open"  ng-repeat="proyecto in proyectos">
 									<a href="#" ng-click="enviarID(proyecto.id)"><span class="submenu-label">{{proyecto.nombre}}</span></a>
 								</li>
@@ -185,11 +183,13 @@
 					</ul>
 				</div><!-- /main-menu -->
 			</div><!-- /sidebar-inner -->
-		</aside>
+		</aside>		
 
-		<div id="main-container">
+		<div id="main-container" ng-controller="myCtrlHome">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
+
+					
 					 <li><i class="fa fa-home"></i><a href="/"> Home</a></li> 
 
 				</ul>

@@ -1,6 +1,5 @@
 var app = angular.module('myAppHome');
 
-
 app.controller('myCtrlEtapasProyecto',  function(objUsuario, $scope,$http,$window) {
 
 	$scope.myProject = {};
@@ -8,6 +7,8 @@ app.controller('myCtrlEtapasProyecto',  function(objUsuario, $scope,$http,$windo
 	$scope.listas = [{}];
 	$scope.respuestaServidorProyecto;
 	$scope.etapa = 0;
+	
+	
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data){
 			if(data.status)
@@ -45,6 +46,10 @@ app.controller('myCtrlEtapasProyecto',  function(objUsuario, $scope,$http,$windo
 				alert("Error del Servidor");
 		});
 	};
+
+	$scope.listaChekeo = function (id){
+		$window.location.href = "/seccion"
+	}
 
 });
 

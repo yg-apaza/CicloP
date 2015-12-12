@@ -67,4 +67,11 @@ router.get('/agregarLista', function (req, res) {
 		res.redirect('/');
 });
 
+//SECCION
+router.get('/seccion',function(req,res){
+	if(req.user)
+		res.sendFile(path.join(__dirname,'../views','seccion.html'));
+	else 
+		res.redirect('/');
+})
 module.exports = router;

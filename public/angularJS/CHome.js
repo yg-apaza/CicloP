@@ -5,7 +5,7 @@ app.factory('objUsuario',function(){
 		nombre: '',
 		rol: 0,
 		setNombre: function (nombre){ this.nombre = nombre; },
-		setRol: function (rol){ this.rol = rol; },
+		setRol: function (rol){ this.rol = rol; }
 	};
 
 	return usuario;
@@ -14,6 +14,7 @@ app.factory('objUsuario',function(){
 app.controller('myCtrlHome',  function(objUsuario,$scope,$http,$window) {
   //$scope.usuario = {username:'',nombre:'', apellidos:'', correo:''};
   //$scope.proyectos = [{nombre: 'proyecto 1'},{nombre: 'proyecto 2'}];
+
   var rolesUsuarios = ['','Diseñador','Probador',''];
   $scope.rolUsuario = rolesUsuarios[objUsuario.rol];
 
@@ -64,8 +65,6 @@ app.controller('myCtrlHome',  function(objUsuario,$scope,$http,$window) {
 	   });
   };
 
-
-  
   $scope.iconClass = function(tipo){
      if (tipo == 1)
 	  return "fa fa-bullhorn";

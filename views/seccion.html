@@ -147,7 +147,7 @@
 						</span>
 					</div><!-- /input-group -->
 				</div><!-- /search-block -->
-				<div class="main-menu" ng-controller="myCtrlEtapasProyecto">
+				<div class="main-menu" ng-controller="myCtrlListas">
 					<ul>
 						<li>
 							<a href="/">		
@@ -195,66 +195,86 @@
 			</div><!-- /sidebar-inner -->
 		</aside>
 
-		<div id="main-container" ng-controller="myCtrlEtapasProyecto">
+		<div id="main-container" ng-controller="myCtrlSeccion">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					 <li><i class="fa fa-home"></i><a href="/">Home</a></li> 
+					 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li> 
 				</ul>
 			</div><!-- /breadcrumb-->
 			
-			<div class="main-header clearfix">
-				<div class="page-title">
-					<h3 class="no-margin">{{myProject.nombre}}</h3>
-				</div><!-- /page-title -->				
-			</div><!-- /main-header -->
-								
 			<div class="padding-md">
-				<div>
-					<a class="btn btn-default" href="/agregarLista" ng-show="rol == 3">
-					<i class="fa fa-plus-circle"></i> 
-					Añadir Lista de Chequeo
-					</a>
-
-				</div>
-					
-				<br>
 				<div class="panel panel-default">
-					<div class="panel-heading">Lista de chequeo</div>
-					<div class="panel-body">
-						{{listas}}
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>Lista de Chequeo</th>
-									<th>Fecha Limite de Evaluacion</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tr ng-repeat="lista in listas">
-								<td>1</td>
-								<td>{{lista.nombre}}</td>
-								<td>12/10/15</td>
-								<td>
-								<a class="btn btn-success" ng-click="listaChekeo(lista.id)" ng-show="rol == 3">editar <i class="fa fa-edit fa-lg"></i></a></td>
-							</tr>
-
-						</table>
-
-						<div id="donutChart" style="height: 250px;"></div>
-					</div>
+					<form>
+						<div class="panel-heading">Seccion: Organizacion del documento</div>
+						<div class="panel-body">
+							{{items}}
+							<table class="table table-striped" id="responsiveTable">
+								<thead>
+									<tr>
+										<th>Marque
+										</th>
+										<th width="50"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in items">
+										<td>
+										{{item.nombre}}
+										</td>
+										<td>
+											<label class="label-checkbox">
+												<input type="checkbox" class="chk-row" ng-model='item.selec'>
+												<span class="custom-checkbox"></span>
+											</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="panel-footer text-right">
+							<button data-toggle="modal" data-target="#msjReutilizar" class="btn btn-success">Guardar Cambios</button>
+						</div>
+					</form>
 				</div><!-- /panel -->
 			</div>
 			
+			<div id="msjReutilizar" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">
+			      <!-- CONTENIDO -->
+			      <div class="modal-body"  >
+			      	<center>
+			      	<h3> Deseas reutilizar</h3>
+			      	<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+		  			<button type="button"  data-toggle="modal" data-target="#msjConfirmacion" ng-click="" data-dismiss="modal" class="btn btn-success">Si</button>
+			      	</center>
+			      </div>
+			      <!-- FIN CONTENIDO-->
+			      
+			      <!-- FIN PIE -->
+			</div></div></div>
+
+			<div id="msjConfirmacion" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">
+			      <!-- CONTENIDO -->
+			      <div class="modal-body"  >
+			      	<center>
+			      	<h3> Mensaje de Confirmacion</h3>
+			      	<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+		  			<button type="button"  ng-click="agregarLista()" data-dismiss="modal" class="btn btn-success">Si</button>
+			      	</center>
+			      </div>
+			      <!-- FIN CONTENIDO-->
+			      
+			      <!-- FIN PIE -->
+			</div></div></div>			
+
 		</div><!-- /main-container -->
 		<!-- Footer
 		================================================== -->
 		<footer>
 			<div class="row">
-				<div class="col-sm-6">
-					<span class="footer-brand">
-						<strong class="text-danger">Ciclo</strong>-P
+				<div class="col-sm-6">						<strong class="text-danger">Ciclo</strong>-P
 					</span>
+
+					<span class="footer-brand">
 					<p class="no-margin">
 						&copy; 2015 <strong>Ciclo-P</strong>. Todo los derechos reservados.
 					</p>
@@ -265,6 +285,10 @@
 
 	<a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
 	
+
+
+
+
 	<!-- Logout confirmation -->
 	<div class="custom-popup width-100" id="logoutConfirm">
 		<div class="padding-md">
@@ -277,6 +301,9 @@
 		</div>
 	</div>
 	
+
+
+
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -317,8 +344,8 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
 	<script src="angularJS/CHome.js"></script>
 	<script src="angularJS/CProyecto.js"></script>
-	<script src="angularJS/CEtapas.js"></script>
-
+	<script src="angularJS/CSeccion.js"></script>
+	<script src="angularJS/CListas.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 	
 	
