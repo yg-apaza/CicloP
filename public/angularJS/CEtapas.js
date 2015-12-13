@@ -49,7 +49,7 @@ app.controller('myCtrlEtapasProyecto',  function(objUsuario, $scope,$http,$windo
 
 	$scope.listaChekeo = function (id){
 
-		$http.post('/flista/guardarLista',{idLista: id})
+		$http.post('/flista/guardarIdLista',{idLista: id})
 		.success(function(data){
 			if(data.status)
 				$window.location.href = "/seccion";
