@@ -211,6 +211,9 @@ router.post('/agregar', function(req, res) {
 
 router.post('/getLista', function(req, res) {
 	res.json({status: true, lista: req.session.idLista.items});
+	Lista.findOne({_id: req.session.idLista}, function(err, lista) {
+		res.json({status: true, lista: lista.items});
+	});
 });
 
 router.post('/guardarEtapa', function(req, res) {
@@ -218,9 +221,8 @@ router.post('/guardarEtapa', function(req, res) {
 	res.json({status: true});
 });
 
-router.post('/guardarLista', function(req, res) {
-	console.log(req.body);
-	req.session.lista = req.body.idLista;
+router.post('/guardarIdLista', function(req, res) {
+	req.session.idLista = req.body.idLista;
 	res.json({status: true});
 });
 
