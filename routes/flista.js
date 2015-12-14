@@ -185,7 +185,6 @@ router.post('/probadores', function(req, res) {
 
 router.post('/agregar', function(req, res) {
 	if(req.body.numLista && req.body.idProbador && req.body.fCulminacion) {
-		console.log(req.body.numLista);
 		Modelo.findOne({tipo: req.body.numLista}, function(err, modelo) {			
 			var lista = new Lista({
 				idProyecto: req.session.idProy,
@@ -230,7 +229,20 @@ router.post('/verEtapa', function(req, res){
 });
 
 router.post('/reutilizar', function(req, res){
-	
+	if(req.body.numLista)
+	{
+		Lista.findOne({tipo: req.body.numLista, estado: 4}, function(err, lista){
+			if(!err)
+			{
+				if(lista)
+					return res.json({status: true, reutilizar: true});
+				else
+					return res.json({status: true, reutilizar: false});
+			}
+			else
+				return res.json({status: false, reutilizar: false});
+		});
+	}
 });
 
 module.exports = router;
