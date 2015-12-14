@@ -210,7 +210,6 @@ router.post('/agregar', function(req, res) {
 });
 
 router.post('/getLista', function(req, res) {
-	res.json({status: true, lista: req.session.idLista.items});
 	Lista.findOne({_id: req.session.idLista}, function(err, lista) {
 		res.json({status: true, lista: lista.items});
 	});
