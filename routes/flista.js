@@ -41,7 +41,7 @@ router.post('/listasDisponibles', function(req, res) {
 	switch(req.session.etapa)
 	{
 		case 1: 
-			Lista.findOne({tipo: 1}, function(err, l1) {
+			Lista.findOne({tipo: 1, idProyecto: req.session.idProy}, function(err, l1) {
 				if(!err)
 				{
 					if(!l1 || l1.estado == 4)
@@ -55,12 +55,13 @@ router.post('/listasDisponibles', function(req, res) {
 		break;
 
 		case 2:
-			Lista.findOne({$or:[{tipo: 2}, {tipo: 3}]}, function(err, l23) {
+			Lista.find({$or:[{tipo: 2}, {tipo: 3}], idProyecto: req.session.idProy}, function(err, l23) {
 				var send = [true, true];
 				if(!err)
 				{
 					if(!l23)
 						l23 = [];
+					console.log(l23);
 					async.each(
 						l23,
 						function(l, callback)
@@ -85,7 +86,7 @@ router.post('/listasDisponibles', function(req, res) {
 		break;
 		
 		case 3:
-			Lista.findOne({$or:[{tipo: 4}, {tipo: 5}]}, function(err, l45) {
+			Lista.find({$or:[{tipo: 4}, {tipo: 5}], idProyecto: req.session.idProy}, function(err, l45) {
 				var send = [true, true];
 				if(!err)
 				{
@@ -115,7 +116,7 @@ router.post('/listasDisponibles', function(req, res) {
 		break;
 		
 		case 4:
-			Lista.findOne({$or:[{tipo: 6}, {tipo: 7}]}, function(err, l67) {
+			Lista.find({$or:[{tipo: 6}, {tipo: 7}], idProyecto: req.session.idProy}, function(err, l67) {
 				var send = [true, true];
 				if(!err)
 				{
@@ -145,7 +146,7 @@ router.post('/listasDisponibles', function(req, res) {
 		break;
 		
 		case 5: 
-			Lista.findOne({tipo: 8}, function(err, l8) {
+			Lista.findOne({tipo: 8, idProyecto: req.session.idProy}, function(err, l8) {
 				if(!err)
 				{
 					if(!l8 || l8.estado == 4)
@@ -199,15 +200,22 @@ router.post('/agregar', function(req, res) {
 				secciones: modelo.secciones
 			});
 			
-			lista.save(function(err){
-				if(!err)
-				{
-					req.session.idLista = modelo._id;
-					res.json({status: true});
-				}
-				else
-					res.json({status: false});
-			});
+			if(!req.body.reutilizar)
+			{
+				lista.save(function(err){
+					if(!err)
+					{
+						req.session.idLista = modelo._id;
+						res.json({status: true});
+					}
+					else
+						res.json({status: false});
+				});
+			}
+			else
+			{
+				
+			}
 		});
 	}
 });
