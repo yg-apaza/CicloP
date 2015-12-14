@@ -211,7 +211,7 @@ router.post('/agregar', function(req, res) {
 
 router.post('/getLista', function(req, res) {
 	Lista.findOne({_id: req.session.idLista}, function(err, lista) {
-		res.json({status: true, lista: lista.items});
+		res.json({status: true, secciones: lista.items});
 	});
 });
 
@@ -227,6 +227,10 @@ router.post('/guardarIdLista', function(req, res) {
 
 router.post('/verEtapa', function(req, res){
 	res.json({status: true, etapa: req.session.etapa});
+});
+
+router.post('/reutilizar', function(req, res){
+	
 });
 
 module.exports = router;
