@@ -330,7 +330,7 @@ db.modelos.insert({
     	        	ponderacion: 1
     	        },
     	        {
-    	        	nombre: "",
+    	        	nombre: "Se ha tenido en cuenta los estándares, las leyes aplicables y las imposiciones posibles de entidades certificadoras.",
     	        	obligatoriedad: true,
     	        	seleccionado: true,
     	        	estado: false,

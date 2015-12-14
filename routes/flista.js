@@ -16,6 +16,7 @@ router.post('/rol', function(req, res) {
 					ls,
 					function(l, callback)
 					{
+						// Implementar bloquear
 						lista.push({nombre: l.nombre, id: l._id});
 						callback();
 					},
@@ -200,7 +201,10 @@ router.post('/agregar', function(req, res) {
 			
 			lista.save(function(err){
 				if(!err)
+				{
+					req.session.idLista = modelo._id;
 					res.json({status: true});
+				}
 				else
 					res.json({status: false});
 			});
@@ -231,7 +235,7 @@ router.post('/verEtapa', function(req, res){
 router.post('/reutilizar', function(req, res){
 	if(req.body.numLista)
 	{
-		Lista.findOne({tipo: req.body.numLista, estado: 4}, function(err, lista){
+		Lista.findOne({idProyecto: req.session.idProy, tipo: req.body.numLista, estado: 4}, function(err, lista) {
 			if(!err)
 			{
 				if(lista)
@@ -243,6 +247,35 @@ router.post('/reutilizar', function(req, res){
 				return res.json({status: false, reutilizar: false});
 		});
 	}
+});
+
+router.post('/reutilizar/confirmar', function(req, res){
+	Lista.findOne({_id: req.session.idLista}, function(err, lista1){
+		if(!err)
+		{
+			Lista.findOne({idProyecto: req.session.idProy, tipo: lista1.tipo, estado: 4}, {sort: { 'fCreacion' : -1 }},function(err, lista2) {
+				if(!err)
+				{
+					var i, j;
+					for(i = 0; i < lista2.secciones.length; i++)
+					{
+						for(j = 0; j < lista2.secciones[i].items.length; j++)
+						{
+							lista1.secciones[i].items[j].seleccionado = lista2.secciones[i].items[j].seleccionado;
+						}
+					}
+				}
+				else
+					return res.json({status: false});
+			});
+		}
+		else
+			return res.json({status: false});
+	});
+});
+
+router.post('/guardarLista', function(req, res) {
+	
 });
 
 module.exports = router;
