@@ -14,7 +14,7 @@ var Lista = new Schema({
 	fCulminacion: String,
 	estado: Number, // 0: No publicado, 1: Publicado, 2: En proceso, 3: Aprobada, 4: Desaprobada
 	encargado: Schema.Types.ObjectId,
-	items: Array //[{seccion: int, item: int, estado: bool}]
+	secciones: Array //[{seccion: int, item: int, estado: bool}]
 });
 
 module.exports = mongoose.model('Lista', Lista);

@@ -196,7 +196,7 @@ router.post('/agregar', function(req, res) {
 				fCulminacion: req.body.fCulminacion,
 				estado: 0,
 				encargado: req.body.idProbador,
-				items: modelo.secciones
+				secciones: modelo.secciones
 			});
 			
 			lista.save(function(err){
@@ -211,7 +211,7 @@ router.post('/agregar', function(req, res) {
 
 router.post('/getLista', function(req, res) {
 	Lista.findOne({_id: req.session.idLista}, function(err, lista) {
-		res.json({status: true, secciones: lista.items});
+		res.json({status: true, secciones: lista.secciones});
 	});
 });
 
