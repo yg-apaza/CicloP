@@ -67,6 +67,24 @@ router.post('/validate', function(req, res)	{
 		res.json({status: false, usuarios: null});
 });
 
+
+router.post('/recuperar', function(req,res){
+	console.log(req.body);
+	Usuario.findOne({correo:req.body.correo},function(err, user){
+		if(!err && user){
+			
+			enviarEmailRecuperacion(	req.body.correo,
+					user.nombre + " " + user.apellidos,
+					user.username);
+			
+			
+			return res.json({status: true , nombre: user.nombre});
+		}
+		else 
+			return res.json({status: false, nombre: null});
+	});
+});
+
 /** Registro */
 router.post('/register', function(req, res) {
 	Usuario.register(
@@ -135,6 +153,35 @@ router.get('/logout', function(req, res) {
 	res.redirect('/');
 });
 
+function enviarEmailRecuperacion(para, nombre, usuario) {
+	var transporter = nodemailer.createTransport({
+	    service: 'Gmail',
+	    auth: {
+	        user: 'motsa.software@gmail.com',
+	        pass: 'motonmatoamotita'
+	    }
+	});
+	
+	var mailOptions = {
+		    from: 'MOT S.A. <kefer15@gmail.com>',
+		    to: para,
+		    subject: "Mensaje de Recuperacion de Ciclo-P",
+		    text: "",
+		    html:
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Hola <strong>' + nombre + '</strong>!</span></p>' +
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Para iniciar sesi&oacute;n recuerde los siguientes datos:</span></p>' +
+		    	'<ul>' +
+		    		'<li><span style="font-family:verdana,geneva,sans-serif;">Nombre de Usuario: <strong>' + usuario + '</strong></span></li>' +
+		    	'</ul>' + 
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Cualquier consulta o recomendaci&oacute;n, comun&iacute;quese a este mismo correo.</span></p>' +
+		    	'<hr />' +
+		    	'<p style="text-align: center;"><span style="font-family:verdana,geneva,sans-serif;"><small><span class="marker">MOT S.A. - Copyright 2015</span></small></span></p>'
+	};
+	
+	transporter.sendMail(mailOptions, function(err, info) {});
+};
+
+
 function enviarEmail(para, nombre, usuario) {
 	var transporter = nodemailer.createTransport({
 	    service: 'Gmail',
@@ -170,6 +217,7 @@ function enviarEmail(para, nombre, usuario) {
 	};
 	
 	transporter.sendMail(mailOptions, function(err, info) {});
-}
+};
 
+////
 module.exports = router;
