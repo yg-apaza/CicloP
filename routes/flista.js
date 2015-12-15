@@ -200,7 +200,10 @@ router.post('/agregar', function(req, res) {
 			
 			lista.save(function(err){
 				if(!err)
+				{
+					req.session.idLista = lista._id;
 					res.json({status: true});
+				}
 				else
 					res.json({status: false});
 			});
@@ -243,6 +246,10 @@ router.post('/reutilizar', function(req, res){
 				return res.json({status: false, reutilizar: false});
 		});
 	}
+});
+
+router.post('/reutilizar/confirmar', function(req, res){
+	
 });
 
 module.exports = router;
