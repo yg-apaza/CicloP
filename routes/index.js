@@ -73,6 +73,14 @@ router.get('/agregarLista', function (req, res) {
 	else
 		res.redirect('/');
 });
+//NOTIFICACIONES
+router.get('/notificaciones', function (req, res) {
+	if(req.user)
+		res.sendFile(path.join(__dirname, '../views', 'notificaciones.html'));
+	else
+		res.redirect('/');
+});
+
 
 //SECCION
 router.get('/seccion',function(req,res){
