@@ -205,19 +205,19 @@
 			<div class="padding-md">
 				<div class="panel panel-default">
 					<form>
-						<div class="panel-heading">Seccion: Organizacion del documento</div>
+						<div class="panel-heading">Secciones</div>
 						<div class="panel-body">
-							{{items}}
+							<div ng-repeat="seccion in secciones"> 
+							<b>{{seccion.nombre}}</b><br><br>
 							<table class="table table-striped" id="responsiveTable">
 								<thead>
 									<tr>
-										<th>Marque
-										</th>
+										<th></th>
 										<th width="50"></th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="item in items">
+									<tr ng-repeat="item in seccion.items">
 										<td>
 										{{item.nombre}}
 										</td>
@@ -230,6 +230,10 @@
 									</tr>
 								</tbody>
 							</table>
+							</div>
+
+
+
 						</div>
 						<div class="panel-footer text-right">
 							<button data-toggle="modal" data-target="#msjReutilizar" class="btn btn-success">Guardar Cambios</button>

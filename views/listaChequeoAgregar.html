@@ -217,7 +217,7 @@
 										</thead>
 										<tr ng-repeat="listaDisponible in listasDisponibles">
 											<td> 	
-												<input type="radio" name="stack-radio" ng-click="verificarLista()" ng-model="listaAgregar.numLista" value="{{listaDisponible}}">	
+												<input type="radio" name="stack-radio" ng-click="verificarLista(listaDisponible)" ng-model="listaAgregar.numLista" value="{{listaDisponible}}">	
 												<span class="custom-radio"></span>
 												{{arrListasDisponibles[listaDisponible]}}						
 											</td>
@@ -236,20 +236,18 @@
 									
 									<div class="form-group">
 										<label for="fechaCulminacion">Fecha de Culminacion</label>
-										<div class="input-group">
-											<input type="text" ng-model="listaAgregar.fCulminacion" class="datepicker form-control">
-											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										</div>
+										<input type="date" class="form-control" id="fechaCulminacion" name="input" ng-model="listaAgregar.fCulminacion" placeholder="yyyy-MM-dd" min="2015-12-20" max="2050-12-12" required />
 									</div><!-- /form-group -->
 								</div>
 							</div>
 						</div>
 						<div class="panel-footer text-right">
 							<button data-toggle="modal" data-target="#msjReutilizar" class="btn btn-success" ng-show='reutilizar==1'>Aceptar</button>
-							<button ng-click="agregarLista()" class="btn btn-success" ng-show='reutilizar==0'>Aceptar</button>
+							<button ng-click="agregarLista(0)" class="btn btn-success" ng-show='reutilizar==0'>Aceptar</button>
 						</div>
 					</form>
 				</div><!-- /panel -->
+
 			</div>
 			
 			<div id="msjReutilizar" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">

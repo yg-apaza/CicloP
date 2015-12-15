@@ -227,14 +227,13 @@
 										<textarea class="form-control" rows="3" id="Descripcion" ng-model="newProject.descripcion"></textarea>
 									</div><!-- /form-group -->
 									<div class="form-group">
-										<label for="fechaCulminacion">Fecha de Culminacion</label>
-										<div class="input-group">
-											<input type="text" ng-init="newProject.fechaCulminacion = '22/10/2015'" ng-value="newProject.fechaCulminacion" class="datepicker form-control" ng-model="newProject.fechaCulminacion">
-											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										</div>
+										<label for="fechaCulminacion">Fecha de Culminacion</label>	
+
+
+											<input type="date" class="form-control" id="fechaCulminacion" name="input" ng-model="newProject.fechaCulminacion" placeholder="yyyy-MM-dd" min="2015-12-14" max="2020-12-12" required />
 									</div><!-- /form-group -->
 								</div>
-								
+								{{newProject}}
 								<div class="col-md-6" ng-keyup="actualizarUsuarios()">
 
 								

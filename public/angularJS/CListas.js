@@ -67,8 +67,6 @@ app.controller('myCtrlListas',  function(objUsuario, $scope,$http,$window) {
 				alert("Problemas internos");
 	});
 
-
-
 	//FUNCIONES 
 
 	$scope.guardarEtapa = function (id){
@@ -81,7 +79,9 @@ app.controller('myCtrlListas',  function(objUsuario, $scope,$http,$window) {
 			});
 	};
 
-	$scope.agregarLista = function (id){
+	$scope.agregarLista = function (reut){
+		$scope.listaAgregar.reutilizar = reut;
+		alert(JSON.stringify($scope.listaAgregar));
 		$http.post('/flista/agregar',$scope.listaAgregar)
 			.success(function(data){
 				if(data.status)
@@ -91,9 +91,22 @@ app.controller('myCtrlListas',  function(objUsuario, $scope,$http,$window) {
 			});
 	};
 
-	$scope.verificarLista = function (){
+	$scope.verificarLista = function (id){
 		//$scope.reutilizar = 1;
-
+		$http.post('/flista/reutilizar',{numLista: id})
+			.success(function(data){
+				if(data.status)
+				{
+					if(data.reutilizar){
+						$scope.reutilizar = 1;
+					}
+					else{
+						$scope.reutilizar = 0;
+					}
+				}
+				else 
+					alert("Error del Servidor");
+			});
 	};
 
 });
