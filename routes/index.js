@@ -29,6 +29,13 @@ router.get('/login', function (req, res) {
 		res.redirect('/');
 });
 
+router.get('/recuperar', function (req, res) {
+	if(!req.user)
+		res.sendFile(path.join(__dirname, '../views', 'recuperarCuenta.html'));
+	else
+		res.redirect('/');
+});
+
 //PROYECTO
 router.get('/nuevoProyecto', function (req,res) {
 	if(req.user)

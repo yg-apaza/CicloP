@@ -17,6 +17,9 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
   	};
 });
 
+
+
+
 app.controller('myCtrlUsuarioReg',  function($scope,$http,$window) {
 	$scope.cuentaReg = {nombre:'', apellidos:'', usuario:'', correo:'', clave:''};
 	$scope.respuestaServer = '';
@@ -35,4 +38,23 @@ app.controller('myCtrlUsuarioReg',  function($scope,$http,$window) {
 		}
 	};
 
+});
+
+
+app.controller('myCtrlRecuperarCuenta', function($scope,$http){
+	
+	$scope.correoUsuario="";
+
+	$scope.recuperarCuenta = function (){
+			$http.post('/fusuario/recuperar', {correo: $scope.correoUsuario})
+			.success(function(data) {
+				if(data.status){
+					$scope.mensajeRecuperacion = "Hola "+ data.nombre + ", se te envio un correo de recuperacion.";
+				}
+				else{
+					$scope.mensajeRecuperacion = "Correo no se encuentra asociado a ninguna cuenta";
+				}
+				
+			});
+	};
 });
