@@ -1,4 +1,5 @@
 var async = require('async');
+var crypto = require('crypto');
 var express = require('express');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
@@ -7,11 +8,14 @@ var Usuario = require('../models/usuario');
 var router = express.Router();
 
 router.post('/', function(req, res) {
+	var hashImagen = crypto.createHash('md5').update(req.user.correo).digest('hex');
+	console.log(hashImagen);
 	res.json({
 				nombre: req.user.nombre,
 				apellidos: req.user.apellidos,
 				correo: req.user.correo,
-				username: req.user.username
+				username: req.user.username,
+				hashImagen: hashImagen
 			});
 });
 
@@ -148,6 +152,30 @@ router.post('/login', function(req, res, next) {
 router.get('/logout', function(req, res) {
 	req.logout();
 	res.redirect('/');
+});
+
+router.post('/cambiarContrasena', function(req, res) {
+	Usuario.findOne({correo: req.body.correo}, function(err, u) {
+		if(!err)
+		{
+			u.setPassword(req.body.password, function(err){
+				if (!err) {
+                    doc.save(function(err) {
+                        if (err) {
+                        	res.json({status: false});
+                        }
+                        else
+                        	res.json({status: true});
+                    });
+                }
+                else {
+                	res.json({status: false});
+                }
+			});
+		}
+		else
+			res.json({status: false});
+	});
 });
 
 function enviarEmailRecuperacion(para, nombre, usuario) {
