@@ -272,31 +272,6 @@ router.post('/reutilizar', function(req, res){
 	}
 });
 
-router.post('/reutilizar/confirmar', function(req, res){
-	Lista.findOne({_id: req.session.idLista}, function(err, lista1){
-		if(!err)
-		{
-			Lista.findOne({idProyecto: req.session.idProy, tipo: lista1.tipo, estado: 4}, {sort: { 'fCreacion' : -1 }},function(err, lista2) {
-				if(!err)
-				{
-					var i, j;
-					for(i = 0; i < lista2.secciones.length; i++)
-					{
-						for(j = 0; j < lista2.secciones[i].items.length; j++)
-						{
-							lista1.secciones[i].items[j].seleccionado = lista2.secciones[i].items[j].seleccionado;
-						}
-					}
-				}
-				else
-					return res.json({status: false});
-			});
-		}
-		else
-			return res.json({status: false});
-	});
-});
-
 router.post('/guardarLista', function(req, res) {
 	
 });
