@@ -198,16 +198,7 @@ router.post('/agregar', function(req, res) {
 				encargado: req.body.idProbador,
 				secciones: modelo.secciones
 			});
-			
-			lista.save(function(err){
-				if(!err)
-				{
-					req.session.idLista = lista._id;
-					res.json({status: true});
-				}
-				else
-					res.json({status: false});
-			});
+
 			if(!req.body.reutilizar)
 			{
 				lista.save(function(err){
@@ -222,7 +213,23 @@ router.post('/agregar', function(req, res) {
 			}
 			else
 			{
-				
+				Lista.findOne({idProyecto: req.session.idProy, tipo: modelo.tipo, estado: 4}, {sort: { 'fCreacion' : -1 }}, function(err, lista2) {
+					if(!err)
+					{
+						var i, j;
+						for(i = 0; i < lista2.secciones.length; i++)
+						{
+							for(j = 0; j < lista2.secciones[i].items.length; j++)
+							{
+								lista.secciones[i].items[j].seleccionado = lista2.secciones[i].items[j].seleccionado;
+							}
+						}
+						req.session.idLista = modelo._id;
+						res.json({status: true});
+					}
+					else
+						return res.json({status: false});
+				});
 			}
 		});
 	}
@@ -263,10 +270,6 @@ router.post('/reutilizar', function(req, res){
 				return res.json({status: false, reutilizar: false});
 		});
 	}
-});
-
-router.post('/reutilizar/confirmar', function(req, res){
-	
 });
 
 router.post('/reutilizar/confirmar', function(req, res){

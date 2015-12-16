@@ -67,17 +67,13 @@ router.post('/validate', function(req, res)	{
 		res.json({status: false, usuarios: null});
 });
 
-
 router.post('/recuperar', function(req,res){
 	console.log(req.body);
 	Usuario.findOne({correo:req.body.correo},function(err, user){
-		if(!err && user){
-			
+		if(!err && user) {
 			enviarEmailRecuperacion(	req.body.correo,
 					user.nombre + " " + user.apellidos,
 					user.username);
-			
-			
 			return res.json({status: true , nombre: user.nombre});
 		}
 		else 
