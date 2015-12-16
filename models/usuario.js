@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var passportLocalMongoose = require('passport-local-mongoose');
-//var uniqueValidation = require('mongoose-beautiful-unique-validation');
 var Schema = mongoose.Schema;
 
 // Notificaciones: tipo: 1: Sistema, 2: Proyecto, 3: Check, 4: Warning
@@ -48,15 +47,4 @@ var Usuario = new Schema ({
 });
 
 Usuario.plugin(passportLocalMongoose);
-UsuarioModelo = mongoose.model('Usuario', Usuario);
-
-
-UsuarioModelo.schema.path('correo').validate(function (value, respond) {                                                                                           
-	UsuarioModelo.findOne({ correo: value }, function (err, user) {                                                                                                
-        if(user)
-        	respond(false);                                                                                                                         
-    });                                                                                                                                                  
-}, 'Este correo ya se encuentra registrado.');
-
-
-module.exports = UsuarioModelo;
+module.exports = mongoose.model('Usuario', Usuario);
