@@ -9,7 +9,6 @@ var router = express.Router();
 
 router.post('/', function(req, res) {
 	var hashImagen = crypto.createHash('md5').update(req.user.correo).digest('hex');
-	console.log(hashImagen);
 	res.json({
 				nombre: req.user.nombre,
 				apellidos: req.user.apellidos,
@@ -160,7 +159,8 @@ router.post('/cambiarContrasena', function(req, res) {
 		{
 			u.setPassword(req.body.password, function(err){
 				if (!err) {
-                    doc.save(function(err) {
+                    u.save(function(err) {
+                    	console.log(err);
                         if (err) {
                         	res.json({status: false});
                         }

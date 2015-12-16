@@ -50,12 +50,13 @@ var Usuario = new Schema ({
 Usuario.plugin(passportLocalMongoose);
 UsuarioModelo = mongoose.model('Usuario', Usuario);
 
+/*
 UsuarioModelo.schema.path('correo').validate(function (value, respond) {                                                                                           
 	UsuarioModelo.findOne({ correo: value }, function (err, user) {                                                                                                
         if(user)
         	respond(false);                                                                                                                         
     });                                                                                                                                                  
 }, 'Este correo ya se encuentra registrado.');
+*/
 
-//Usuario.plugin(uniqueValidation);
 module.exports = UsuarioModelo;
