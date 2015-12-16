@@ -26,13 +26,15 @@
   </head>
 
   <body class="overflow-hidden" ng-app="myAppHome">
-	<!-- Overlay Div -->
+
+ 	<!-- COLOR -->
+
 	<div id="overlay" class="transparent"></div>
 
 	<a href="" id="theme-setting-icon"><i class="fa fa-cog fa-lg"></i></a>
 	<div id="theme-setting">
 		<div class="title">
-			<strong class="no-margin">Skin Color</strong>
+			<strong class="no-margin">Color</strong>
 		</div>
 		<div class="theme-box">
 			<a class="theme-color" style="background:#323447" id="default"></a>
@@ -43,19 +45,15 @@
 			<a class="theme-color" style="background:#3a3a3a" id="skin-5"></a>
 			<a class="theme-color" style="background:#495B6C" id="skin-6"></a>
 		</div>
-		<div class="title">
-			<strong class="no-margin">Sidebar Menu</strong>
-		</div>
-		<div class="theme-box">
-			<label class="label-checkbox">
-				<input type="checkbox" checked id="fixedSidebar">
-				<span class="custom-checkbox"></span>
-				Fixed Sidebar
-			</label>
-		</div>
 	</div><!-- /theme-setting -->
 	
+	<!-- /COLOR -->
+
 	<div id="wrapper" class="preload">
+
+
+		<!-- CABECERA -->
+
 		<div id="top-nav" class="skin-6 fixed" ng-controller="myCtrlHome">
 			<div class="brand">
 				<span>CICLO</span>
@@ -118,6 +116,10 @@
 			</ul>
 		</div><!-- /top-nav-->
 		
+		<!-- /CABECERA -->
+
+		<!-- MENU -->
+
 		<aside class="fixed skin-6">
 			<div class="sidebar-inner scrollable-sidebar"  ng-controller="myCtrlHome">
 				<div class="size-toggle">
@@ -183,7 +185,9 @@
 					</ul>
 				</div><!-- /main-menu -->
 			</div><!-- /sidebar-inner -->
-		</aside>		
+		</aside>	
+
+		<!-- /MENU -->	
 
 		<div id="main-container" ng-controller="myCtrlHome">
 			<div id="breadcrumb">

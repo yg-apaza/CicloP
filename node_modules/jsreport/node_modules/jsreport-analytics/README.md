@@ -1,0 +1,2 @@
+# jsreport-analytics
+jsreport extension collecting some grouped information about usage
