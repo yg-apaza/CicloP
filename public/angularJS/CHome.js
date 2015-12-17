@@ -11,28 +11,14 @@ app.factory('objUsuario',function(){
 	return usuario;
 });
 
-app.controller('myCtrlHome',  function(objUsuario,$scope,$http,$window) {
+app.controller('myCtrlHome',  function($scope,$http,$window) {
   //$scope.usuario = {username:'',nombre:'', apellidos:'', correo:''};
   //$scope.proyectos = [{nombre: 'proyecto 1'},{nombre: 'proyecto 2'}];
-
-  var rolesUsuarios = ['','Diseñador','Probador',''];
-  $scope.rolUsuario = rolesUsuarios[objUsuario.rol];
-
-  $http.post('/fproyecto/verProyectos')
-		.success(function(data) {
-				$scope.proyectos = data;
-  });
-
-  $http.post('/fusuario').success(function(data) {
-		$scope.usuario = data;
-  });
 
   $http.post('/fnotificacion').success(function(data) {
 		$scope.notificaciones = data.notificaciones;
 		$scope.noleidos = data.noleidos;
   });
-
-
 
   $scope.leerNotificacion = function(){
 	  $http.post('/fnotificacion/verTodo')
@@ -53,18 +39,6 @@ app.controller('myCtrlHome',  function(objUsuario,$scope,$http,$window) {
 	   	  return "notification-icon bg-warning";
   };
   
-  $scope.enviarID = function(id){
- 	$scope.wtf = 4;
-	  $scope.temp = {};
-	  $scope.temp.id = id;
-	  $http.post('/fproyecto/guardarId',$scope.temp)
-		.success(function(data) {
-				if(data.status)
-					$window.location.href = "/verProyecto";	
-					
-	   });
-  };
-
   $scope.iconClass = function(tipo){
      if (tipo == 1)
 	  return "fa fa-bullhorn";

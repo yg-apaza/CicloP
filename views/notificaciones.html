@@ -26,13 +26,15 @@
   </head>
 
   <body class="overflow-hidden" ng-app="myAppHome">
-	<!-- Overlay Div -->
+
+ 	<!-- COLOR -->
+
 	<div id="overlay" class="transparent"></div>
 
 	<a href="" id="theme-setting-icon"><i class="fa fa-cog fa-lg"></i></a>
 	<div id="theme-setting">
 		<div class="title">
-			<strong class="no-margin">Skin Color</strong>
+			<strong class="no-margin">Color</strong>
 		</div>
 		<div class="theme-box">
 			<a class="theme-color" style="background:#323447" id="default"></a>
@@ -43,23 +45,18 @@
 			<a class="theme-color" style="background:#3a3a3a" id="skin-5"></a>
 			<a class="theme-color" style="background:#495B6C" id="skin-6"></a>
 		</div>
-		<div class="title">
-			<strong class="no-margin">Sidebar Menu</strong>
-		</div>
-		<div class="theme-box">
-			<label class="label-checkbox">
-				<input type="checkbox" checked id="fixedSidebar">
-				<span class="custom-checkbox"></span>
-				Fixed Sidebar
-			</label>
-		</div>
 	</div><!-- /theme-setting -->
 	
+	<!-- /COLOR -->
+	
 	<div id="wrapper" class="preload">
+
+		<!-- CABECERA -->
+
 		<div id="top-nav" class="skin-6 fixed" ng-controller="myCtrlHome">
 			<div class="brand">
-				<span>CICLO</span>
-				<span class="text-toggle"> P</span>
+				<span><a href="/"><img src="http://i.picasion.com/resize81/09f10781b992c513178397830b9036ee.png"></a></span>
+				
 			</div><!-- /brand -->
 			<button type="button" class="navbar-toggle pull-left" id="sidebarToggle">
 				<span class="icon-bar"></span>
@@ -80,9 +77,9 @@
 					<ul class="dropdown-menu message dropdown-1" >
 						<li ng-show="{{'noleidos==0'}}"> <a>No tienes notificaciones nuevas</a></li>
 						<li ng-show="{{'noleidos==1'}}"> <a>Tiene {{noleidos}} notificacion nueva</a></li>
-						 <li ng-show="{{'noleidos>1'}}"> <a>Tienes {{noleidos}} notificaciones nuevas</a></li>			  
+						<li ng-show="{{'noleidos>1'}}"> <a>Tienes {{noleidos}} notificaciones nuevas</a></li>			  
 						
-						<li ng-repeat="notificacion in notificaciones">
+						<li ng-repeat="notificacion in notificaciones | limitTo: 5">
 							<a href="#">
 								<span ng-class=colorIconClass(notificacion.tipo)>
 									<i ng-class=iconClass(notificacion.tipo)></i>
@@ -92,7 +89,7 @@
 							</a>
 						</li>
 						
-						<li><a href="#" ng-click="leerNotificacion()">Ver todos los mensajes</a></li>					  
+						<li><a href="/notificaciones">Ver todos los mensajes</a></li>					  
 					</ul>
 				</li>
 				
@@ -104,7 +101,7 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a class="clearfix" href="#">
-								<img src="img/user.jpg" alt="User Avatar">
+								<img src="http://www.gravatar.com/avatar/{{usuario.hashImagen}}" alt="User Avatar">
 								<div class="detail">
 									<strong>{{usuario.nombre + ' ' + usuario.apellidos }}</strong>
 									<p class="grey">{{usuario.correo}}</p> 
@@ -118,6 +115,10 @@
 			</ul>
 		</div><!-- /top-nav-->
 		
+		<!-- /CABECERA -->
+
+		<!-- MENU -->
+
 		<aside class="fixed skin-6">
 			<div class="sidebar-inner scrollable-sidebar"  ng-controller="myCtrlHome">
 				<div class="size-toggle">
@@ -131,11 +132,11 @@
 					</a>
 				</div><!-- /size-toggle -->	
 				<div class="user-block clearfix">
-					<img src="img/user.jpg" alt="User Avatar">
+					<img src="http://www.gravatar.com/avatar/{{usuario.hashImagen}}" alt="User Avatar">
 					<div class="detail">
-						<strong>{{usuario.nombre}}</strong>
+						<strong>{{usuario.username}}</strong>
 						<ul class="list-inline">
-							<li><a href="profile.html">Profile</a></li>
+							<li>{{usuario.correo}}</li>
 						</ul>
 					</div>
 				</div><!-- /user-block -->
@@ -183,15 +184,15 @@
 					</ul>
 				</div><!-- /main-menu -->
 			</div><!-- /sidebar-inner -->
-		</aside>		
+		</aside>	
+
+		<!-- /MENU -->		
 
 		<div id="main-container" ng-controller="myCtrlHome">
 			<div id="breadcrumb">
-				<ul class="breadcrumb">
-
-					
-					 <li><i class="fa fa-home"></i><a href="/"> Home</a></li> 
-
+				<ul class="breadcrumb">	
+					 <li><i class="fa fa-home"></i><a href="/"> Inicio</a></li>
+					 <li>Notificaciones</li> 
 				</ul>
 			</div><!-- /breadcrumb-->
 			
@@ -201,36 +202,24 @@
 						<h4>Tus notificaciones</h4>
 						</div>
 						<div class="panel-body">
-							<label class="label-checkbox inline">
-								<input type="checkbox" id="chk-all">
-								 <span class="custom-checkbox"></span>
-							</label>
-							<a class="btn btn-sm btn-default"><i class="fa fa-trash-o"></i> Eliminar</a>
-					
-							<div class="pull-right">
-								<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-refresh"></i></a>
-							</div>
-						</div>
-						<ul class="list-group">
-							<li ng-repeat="notificacion in notificaciones" class="list-group-item clearfix inbox-item">
-								<label class="label-checkbox inline">
-									<input type="checkbox" class="chk-item">
-									<span class="custom-checkbox"></span>
-								</label>
-								
-								<span ng-class=colorIconClass(notificacion.tipo)>
-									<i ng-class=iconClass(notificacion.tipo)></i>
-								</span>
+										
+							<ul class="list-group">
+								<li ng-repeat="notificacion in notificaciones" class="list-group-item clearfix inbox-item">
+									
+									<span ng-class=colorIconClass(notificacion.tipo)>
+										<i ng-class=iconClass(notificacion.tipo)></i>
+									</span>
 
-								<span class="detail">	
-									<strong>{{notificacion.titulo+'   '}}</strong> {{notificacion.descripcion}}
-								</span>
-	
-								<span class="inline-block pull-right">						
-									<span class="time">{{notificacion.fecha}}</span>		
-								</span>
-							</li>
-						</ul><!-- /list-group -->
+									<span class="detail">	
+										<strong>{{notificacion.titulo+'   '}}</strong> {{notificacion.descripcion}}
+									</span>
+		
+									<span class="inline-block pull-right">						
+										<span class="time">{{notificacion.fecha}}</span>		
+									</span>
+								</li>
+							</ul><!-- /list-group -->
+						</div>
 						<div class="panel-footer clearfix">
 							<div class="pull-left">{{'cantidad de notifiaciones: '+ notificaciones.length }}</div>
 						</div>

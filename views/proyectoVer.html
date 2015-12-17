@@ -26,13 +26,15 @@
   </head>
 
   <body class="overflow-hidden" ng-app="myAppHome" >
-	<!-- Overlay Div -->
+
+ 	<!-- COLOR -->
+
 	<div id="overlay" class="transparent"></div>
 
 	<a href="" id="theme-setting-icon"><i class="fa fa-cog fa-lg"></i></a>
 	<div id="theme-setting">
 		<div class="title">
-			<strong class="no-margin">Skin Color</strong>
+			<strong class="no-margin">Color</strong>
 		</div>
 		<div class="theme-box">
 			<a class="theme-color" style="background:#323447" id="default"></a>
@@ -43,23 +45,17 @@
 			<a class="theme-color" style="background:#3a3a3a" id="skin-5"></a>
 			<a class="theme-color" style="background:#495B6C" id="skin-6"></a>
 		</div>
-		<div class="title">
-			<strong class="no-margin">Sidebar Menu</strong>
-		</div>
-		<div class="theme-box">
-			<label class="label-checkbox">
-				<input type="checkbox" checked id="fixedSidebar">
-				<span class="custom-checkbox"></span>
-				Fixed Sidebar
-			</label>
-		</div>
 	</div><!-- /theme-setting -->
 	
+	<!-- /COLOR -->
+	
 	<div id="wrapper" class="preload">
+
+		<!-- CABECERA -->
+
 		<div id="top-nav" class="skin-6 fixed" ng-controller="myCtrlHome">
 			<div class="brand">
-				<span>CICLO</span>
-				<span class="text-toggle"> P</span>
+				<span><a href="/"><img src="http://i.picasion.com/resize81/09f10781b992c513178397830b9036ee.png"></a></span>
 			</div><!-- /brand -->
 			<button type="button" class="navbar-toggle pull-left" id="sidebarToggle">
 				<span class="icon-bar"></span>
@@ -80,9 +76,9 @@
 					<ul class="dropdown-menu message dropdown-1" >
 						<li ng-show="{{'noleidos==0'}}"> <a>No tienes notificaciones nuevas</a></li>
 						<li ng-show="{{'noleidos==1'}}"> <a>Tiene {{noleidos}} notificacion nueva</a></li>
-						 <li ng-show="{{'noleidos>1'}}"> <a>Tienes {{noleidos}} notificaciones nuevas</a></li>			  
+						<li ng-show="{{'noleidos>1'}}"> <a>Tienes {{noleidos}} notificaciones nuevas</a></li>			  
 						
-						<li ng-repeat="notificacion in notificaciones">
+						<li ng-repeat="notificacion in notificaciones | limitTo: 5">
 							<a href="#">
 								<span ng-class=colorIconClass(notificacion.tipo)>
 									<i ng-class=iconClass(notificacion.tipo)></i>
@@ -92,7 +88,7 @@
 							</a>
 						</li>
 						
-						<li><a href="#" ng-click="leerNotificacion()">Ver todos los mensajes</a></li>					  
+						<li><a href="/notificaciones">Ver todos los mensajes</a></li>					  
 					</ul>
 				</li>
 				
@@ -104,7 +100,7 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a class="clearfix" href="#">
-								<img src="img/user.jpg" alt="User Avatar">
+								<img src="http://www.gravatar.com/avatar/{{usuario.hashImagen}}" alt="User Avatar">
 								<div class="detail">
 									<strong>{{usuario.nombre + ' ' + usuario.apellidos }}</strong>
 									<p class="grey">{{usuario.correo}}</p> 
@@ -118,8 +114,12 @@
 			</ul>
 		</div><!-- /top-nav-->
 		
+		<!-- /CABECERA -->
+
+		<!-- MENU -->
+
 		<aside class="fixed skin-6">
-			<div class="sidebar-inner scrollable-sidebar"  ng-controller="myCtrlHome">
+			<div class="sidebar-inner scrollable-sidebar"  ng-controller="myCtrlMenu">
 				<div class="size-toggle">
 					<a class="btn btn-sm" id="sizeToggle">
 						<span class="icon-bar"></span>
@@ -131,11 +131,11 @@
 					</a>
 				</div><!-- /size-toggle -->	
 				<div class="user-block clearfix">
-					<img src="img/user.jpg" alt="User Avatar">
+					<img src="http://www.gravatar.com/avatar/{{usuario.hashImagen}}" alt="User Avatar">
 					<div class="detail">
-						<strong>{{usuario.nombre}}</strong>
+						<strong>{{usuario.username}}</strong>
 						<ul class="list-inline">
-							<li><a href="profile.html">Profile</a></li>
+							<li>{{rolUsuario}}</li>
 						</ul>
 					</div>
 				</div><!-- /user-block -->
@@ -183,12 +183,15 @@
 					</ul>
 				</div><!-- /main-menu -->
 			</div><!-- /sidebar-inner -->
-		</aside>
+		</aside>	
+
+		<!-- /MENU -->	
 
 		<div id="main-container" ng-controller="myCtrlVerProyecto">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					 <li><i class="fa fa-home"></i><a href="/">Home</a></li> 
+					 <li><i class="fa fa-home"></i><a href="/">Inicio</a></li> 
+					 <li>Proyecto</li>
 				</ul>
 			</div><!-- /breadcrumb-->
 			
@@ -341,6 +344,7 @@
 	<script src="angularJS/CHome.js"></script>
 	<script src="angularJS/CEtapas.js"></script>
 	<script src="angularJS/CProyecto.js"></script>
+	<script src="angularJS/CMenu.js"></script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 	

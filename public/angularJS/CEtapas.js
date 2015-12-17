@@ -1,7 +1,7 @@
 var app = angular.module('myAppHome');
 
 app.controller('myCtrlEtapasProyecto',  function(objUsuario, $scope,$http,$window) {
-
+	alert('Et');
 	$scope.myProject = {};
 	$scope.rol = 0;
 	$scope.listas = [{}];
@@ -16,12 +16,12 @@ app.controller('myCtrlEtapasProyecto',  function(objUsuario, $scope,$http,$windo
 			else 
 				alert("Problemas internos");
 	});	
-	
 	$http.post('/flista/rol')
 	.success(function(data){
 			if(data.status){
 				$scope.rol = data.rol;
 				objUsuario.setRol(data.rol);
+				alert(objUsuario.rol);
 			 	$scope.listas  = data.listas;
 			}
 			else 
