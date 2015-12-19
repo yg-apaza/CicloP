@@ -170,6 +170,7 @@ router.post('/recuperar', function(req, res) {
 });
 
 router.post('/cambiarContrasena', function(req, res) {
+	console.log(req.body);
 	Token.findOne({token: req.body.token}, function(err, t) {
 		if(!err && t)
 		{
@@ -189,12 +190,17 @@ router.post('/cambiarContrasena', function(req, res) {
 		                	res.json({status: false});
 					});
 				}
-				else
+				else{
+					console.log('hola1');
 					res.json({status: false});
+				}
+					
 			});
 		}
-		else
+		else{
 			res.json({status: false});
+		}
+			
 	});
 });
 

@@ -30,7 +30,7 @@ app.controller('myCtrlUsuarioReg',  function($scope,$http,$window) {
 			$http.post('/fusuario/register', $scope.cuentaReg)
 			.success(function(data) {
 					if(data.status)
-						$window.location.href = "/login";
+						$window.location.href = "/ingresar";
 					else {
 						$scope.respuestaServer =  data.message;
 					}
@@ -41,20 +41,38 @@ app.controller('myCtrlUsuarioReg',  function($scope,$http,$window) {
 });
 
 
-app.controller('myCtrlRecuperarCuenta', function($scope,$http){
+app.controller('myCtrlRecuperarCuenta', function($scope,$http,$window){
 	
 	$scope.correoUsuario="";
 
 	$scope.recuperarCuenta = function (){
-			$http.post('/fusuario/recuperar', {correo: $scope.correoUsuario})
+		$http.post('/fusuario/recuperar', {correo: $scope.correoUsuario})
+		.success(function(data) {
+			if(data.status){
+				$window.location.href= "/cambiarClave";
+			}
+			else{
+				$('#msjRespuesta').modal('show');
+				$scope.mensajeRecuperacion = "Correo no se encuentra asociado a ninguna cuenta";
+			}
+			
+		});
+	};
+});
+
+app.controller('myCtrlCambiarClave', function($scope,$http,$window){
+	
+	$scope.cambiarClave = function (){
+		if($scope.clave == $scope.claveVerificar){
+			$http.post('/fusuario/cambiarContrasena', {token: $scope.codigo, password: $scope.clave})
 			.success(function(data) {
 				if(data.status){
-					$scope.mensajeRecuperacion = "Hola "+ data.nombre + ", se te envio un correo de recuperacion.";
+					$('#msjRespuestaCambioClaveExito').modal('show');
+					$window.location.href="/ingresar";
 				}
-				else{
-					$scope.mensajeRecuperacion = "Correo no se encuentra asociado a ninguna cuenta";
-				}
-				
+				else
+					$('#msjRespuestaCambioClaveFracaso').modal('show');
 			});
+		}
 	};
 });
