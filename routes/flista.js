@@ -292,7 +292,7 @@ router.post('/guardarCambios', function(req, res) {
 		res.json({status: false});
 });
 
-router.post('/publicar', f);
+//router.post('/publicar', f);
 
 function rolActual()
 {

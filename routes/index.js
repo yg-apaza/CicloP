@@ -14,24 +14,31 @@ router.get('/home', function (req, res) {
 	res.redirect('/');
 });
 
-//LOGIN
+//CUENTA
 router.get('/register', function (req, res) {
 	if(!req.user)
-		res.sendFile(path.join(__dirname, '../views', 'register.html'));
+		res.sendFile(path.join(__dirname, '../views', 'cuentaRegistrar.html'));
 	else
 		res.redirect('/');
 });
 
-router.get('/login', function (req, res) {
+router.get('/ingresar', function (req, res) {
 	if(!req.user)
-		res.sendFile(path.join(__dirname, '../views', 'login.html'));
+		res.sendFile(path.join(__dirname, '../views', 'cuentaIngresar.html'));
 	else
 		res.redirect('/');
 });
 
 router.get('/recuperar', function (req, res) {
 	if(!req.user)
-		res.sendFile(path.join(__dirname, '../views', 'recuperarCuenta.html'));
+		res.sendFile(path.join(__dirname, '../views', 'cuentaRecuperar.html'));
+	else
+		res.redirect('/');
+});
+
+router.get('/cambiarClave', function (req, res) {
+	if(!req.user)
+		res.sendFile(path.join(__dirname, '../views', 'cuentaCambiarClave.html'));
 	else
 		res.redirect('/');
 });

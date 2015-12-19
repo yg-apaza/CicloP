@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Font Awesome -->
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	
+	<!-- Perfect -->
+	<link href="css/app.min.css" rel="stylesheet">
+	
+	<!-- Pace -->
+	<link href="css/pace.css" rel="stylesheet">
+	
+  </head>
+
+  <body ng-app="myAppUsuario" ng-controller="myCtrlRecuperarCuenta">
+  
+	<div class="login-wrapper">
+		<div class="text-center">
+			<h2 class="fadeInUp animation-delay10" style="font-weight:bold">
+				<span class="text-success"><img src="img/logo.png"></span>
+			</h2>
+	    </div>
+		<div class="login-widget animation-delay1">	
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-lock fa-lg"></i> ¿Has olvidado tu contraseña?
+				</div>
+				<div class="panel-body">
+					<form class="form-login" data-validate="parsley" ng-submit="recuperarCuenta()" novalidate>
+						<div class="form-group">
+							<label>Correo Electrónico</label>
+							<input type="text" placeholder="Correo Electrónico" class="form-control input-sm bounceIn animation-delay6" data-required="true" data-type="email" ng-model="correoUsuario">
+						</div><!-- /form-group -->
+						<hr/>
+						<div class="form-group">
+							<div class="controls text-right">
+								<button type="submit" class="btn btn-success animation-delay7"><i class="fa fa-plus-circle"></i> Enviar</button>	
+							</div>
+						</div><!-- /form-group -->
+					</form>
+				</div>
+			</div><!-- /panel -->
+		</div><!-- /login-widget -->
+	</div><!-- /login-wrapper -->
+	
+	<div id="msjRespuesta" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">
+	      <!-- CONTENIDO -->
+	      <div class="modal-body"  >
+	      	<center>
+	      	<h4>Correo no se encuentra asociado a ninguna cuenta<h4>
+	      	<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+	      	</center>
+	      </div>
+	      <!-- FIN CONTENIDO-->
+	      
+	      <!-- FIN PIE -->
+	</div></div></div>		
+
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <!-- Jquery -->
+	<script src="js/jquery-1.10.2.min.js"></script>
+    
+    <!--Bootstrap-->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    
+    <!-- Parsley -->
+	<script src="js/parsley.min.js"></script>
+   
+	<!-- Modernizr -->
+	<script src='js/modernizr.min.js'></script>
+	
+	<!-- Pace -->
+	<script src='js/pace.min.js'></script>
+	
+	<!-- Popup Overlay -->
+	<script src='js/jquery.popupoverlay.min.js'></script>
+	
+	<!-- Slimscroll -->
+	<script src='js/jquery.slimscroll.min.js'></script>
+	
+	<!--Cookie-->
+	<script src='js/jquery.cookie.min.js'></script>
+
+	<!--Perfect-->
+	<script src="js/app/app.js"></script>
+
+	<!-- Cargamos angular -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+	<script src="angularJS/CLogin.js"></script>
+  </body>
+</html>
