@@ -8,16 +8,15 @@ var Usuario = require('../models/usuario');
 
 router.post('/rol', function(req, res) {
 	Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, rol) {
-		if(rol != '0')
+		if(rol.tipo != '0')
 		{
 			Lista.find({etapa: req.session.etapa, idProyecto: req.session.idProy}, function(err, ls) {
 				var lista = [];
-				console.log("asdasdasdasd");
 				async.each(
 					ls,
 					function(l, callback)
 					{
-						switch(rol)
+						switch(rol.tipo)
 						{
 							case '1':
 								if(req.user._id == l.disenador)
@@ -38,7 +37,7 @@ router.post('/rol', function(req, res) {
 					function(err)
 					{
 						if(!err)
-							res.json({status: true, rol: rol, listas: lista});
+							res.json({status: true, rol: rol.tipo, listas: lista});
 						else
 							res.json({status: false, rol: null, listas: null});
 					}
@@ -293,7 +292,7 @@ router.post('/guardarCambios', function(req, res) {
 		Lista.findOne({_id: req.session.idLista}, function(err, lista) {
 			lista.secciones = req.body.secciones;
 			Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, rol) {
-				if(rol == '2')
+				if(rol.tipo == '2')
 				{
 					lista.estado = 2;
 					lista.puntaje = puntajeActual(lista.secciones);
@@ -311,11 +310,11 @@ router.post('/guardarCambios', function(req, res) {
 router.post('/publicar', function(req, res) {
 	Rol.findOne({idUsuario: user._id, idProyecto: idProy}, function(err, rol) {
 		Lista.findOne({_id: req.session.idLista}, function(err, lista) {
-			if(rol == '1')
+			if(rol.tipo == '1')
 			{
 				lista.estado = 1;
 			}
-			else if(rol == '2')
+			else if(rol.tipo == '2')
 			{
 				var puntaje = puntajeActual(lista.secciones);
 				if(verificarObligarias(lista.secciones) && puntaje >= (lista.puntajeMinimo/lista.puntajeMaximo))
