@@ -10,8 +10,9 @@ var Lista = new Schema({
 	estado: Number, // 0: No publicado, 1: Publicado, 2: En proceso, 3: Aprobada, 4: Desaprobada
 	disenador: Schema.Types.ObjectId,
 	probador: Schema.Types.ObjectId,
-	total:	Number,
 	puntaje: Number,
+	puntajeMinimo: Number,
+	total:	Number,
 	fCreacion: {
 		type: Date,
 		default: Date.now()

@@ -7,7 +7,7 @@ var Rol = require('../models/rol');
 var Usuario = require('../models/usuario');
 
 router.post('/rol', function(req, res) {
-	var rol = rolActual();
+	var rol = rolActual(req.user, req.session.idProy);
 	if(rol != 0)
 	{
 		Lista.find({etapa: req.session.etapa, idProyecto: req.session.idProy}, function(err, ls) {
@@ -206,15 +206,16 @@ router.post('/agregar', function(req, res) {
 				estado: 		0,
 				disenador: 		req.user._id,
 				probador: 		req.body.idProbador,
-				total:			puntajeMaximo(modelo.secciones),
 				puntaje:		0,
+				puntajeMinimo:	puntajeActual(modelo.secciones),
+				total:			puntajeMaximo(modelo.secciones),
 				fCulminacion:	req.body.fCulminacion,
 				secciones:		modelo.secciones
 			});
 
 			if(!req.body.reutilizar)
 			{
-				lista.save(function(err){
+				lista.save(function(err) {
 					if(!err)
 					{
 						req.session.idLista = modelo._id;
@@ -233,6 +234,9 @@ router.post('/agregar', function(req, res) {
 						for(i = 0; i < lista2.secciones.length; i++)
 							for(j = 0; j < lista2.secciones[i].items.length; j++)
 								lista.secciones[i].items[j].seleccionado = lista2.secciones[i].items[j].seleccionado;
+						lista.total = puntajeMaximo(lista.secciones);
+						lista.puntajeMinimo = puntajeActual(lista.secciones);
+						lista.save();
 						req.session.idLista = modelo._id;
 						res.json({status: true});
 					}
@@ -286,8 +290,11 @@ router.post('/guardarCambios', function(req, res) {
 	{
 		Lista.findOne({_id: req.session.idLista}, function(err, lista) {
 			lista.secciones = req.body.secciones;
-			if(rolActual() == 2)
+			if(rolActual(req.user, req.session.idProy) == 2)
+			{
+				lista.estado = 2;
 				lista.puntaje = puntajeActual(lista.secciones);
+			}
 			lista.save();
 			res.json({status: true});
 			
@@ -298,28 +305,29 @@ router.post('/guardarCambios', function(req, res) {
 });
 
 router.post('/publicar', function(req, res) {
-	var rolActual = rolActual();
+	var rolActual = rolActual(req.user, req.session.idProy);
 	Lista.findOne({_id: req.session.idLista}, function(err, lista) {
 		if(rolActual == 1)
 		{
 			lista.estado = 1;
-			lista.save();
 		}
 		else if(rolActual == 2)
 		{
 			var puntaje = puntajeActual(lista.secciones);
-			//if(verificarObligarias(lista.secciones) && puntaje >= ());
+			if(verificarObligarias(lista.secciones) && puntaje >= (lista.puntajeMinimo/lista.puntajeMaximo))
+				lista.estado = 3;
+			else
+				lista.estado = 4;
 		}
+		lista.save();
 	});
 });
 
-function rolActual()
+function rolActual(user, idProy)
 {
-	Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, r) {
+	Rol.findOne({idUsuario: user._id, idProyecto: idProy}, function(err, r) {
 		if(!err && r)
-		{
 			return r.tipo;
-		}
 		else
 			return 0;
 	});
