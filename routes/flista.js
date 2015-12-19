@@ -7,43 +7,45 @@ var Rol = require('../models/rol');
 var Usuario = require('../models/usuario');
 
 router.post('/rol', function(req, res) {
-	var rol = rolActual(req.user, req.session.idProy);
-	if(rol != 0)
-	{
-		Lista.find({etapa: req.session.etapa, idProyecto: req.session.idProy}, function(err, ls) {
-			var lista = [];
-			async.each(
-				ls,
-				function(l, callback)
-				{
-					switch(rol)
+	Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, rol) {
+		if(rol != '0')
+		{
+			Lista.find({etapa: req.session.etapa, idProyecto: req.session.idProy}, function(err, ls) {
+				var lista = [];
+				console.log("asdasdasdasd");
+				async.each(
+					ls,
+					function(l, callback)
 					{
-						case 1:
-							if(req.user._id == l.disenador)
-								lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje, pertenece: true});
-							else
-								lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje, pertenece: false});
-							break;
-						case 2:
-							if(req.user._id == l.probador)
+						switch(rol)
+						{
+							case '1':
+								if(req.user._id == l.disenador)
+									lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje, pertenece: true});
+								else
+									lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje, pertenece: false});
+								break;
+							case '2':
+								if(req.user._id == l.probador)
+									lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje});
+								break;
+							case '3':
 								lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje});
-							break;
-						case 3:
-							lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje});
-							break;
+								break;
+						}
+						callback();
+					},
+					function(err)
+					{
+						if(!err)
+							res.json({status: true, rol: rol, listas: lista});
+						else
+							res.json({status: false, rol: null, listas: null});
 					}
-					callback();
-				},
-				function(err)
-				{
-					if(!err)
-						res.json({status: true, rol: rol, listas: lista});
-					else
-						res.json({status: false, rol: null, listas: null});
-				}
-			);
-		});
-	}
+				);
+			});
+		}
+	});
 });
 
 router.post('/listasDisponibles', function(req, res) {
@@ -171,7 +173,7 @@ router.post('/listasDisponibles', function(req, res) {
 });
 
 router.post('/probadores', function(req, res) {
-	Rol.find({idProyecto: req.session.idProy, tipo: 2}, function(err, roles) {
+	Rol.find({idProyecto: req.session.idProy, tipo: '2'}, function(err, roles) {
 		var probadores = [];
 		if(!err){
 			async.each(
@@ -290,13 +292,15 @@ router.post('/guardarCambios', function(req, res) {
 	{
 		Lista.findOne({_id: req.session.idLista}, function(err, lista) {
 			lista.secciones = req.body.secciones;
-			if(rolActual(req.user, req.session.idProy) == 2)
-			{
-				lista.estado = 2;
-				lista.puntaje = puntajeActual(lista.secciones);
-			}
-			lista.save();
-			res.json({status: true});
+			Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, rol) {
+				if(rol == '2')
+				{
+					lista.estado = 2;
+					lista.puntaje = puntajeActual(lista.secciones);
+				}
+				lista.save();
+				res.json({status: true});
+			});
 			
 		});
 	}
@@ -305,33 +309,24 @@ router.post('/guardarCambios', function(req, res) {
 });
 
 router.post('/publicar', function(req, res) {
-	var rolActual = rolActual(req.user, req.session.idProy);
-	Lista.findOne({_id: req.session.idLista}, function(err, lista) {
-		if(rolActual == 1)
-		{
-			lista.estado = 1;
-		}
-		else if(rolActual == 2)
-		{
-			var puntaje = puntajeActual(lista.secciones);
-			if(verificarObligarias(lista.secciones) && puntaje >= (lista.puntajeMinimo/lista.puntajeMaximo))
-				lista.estado = 3;
-			else
-				lista.estado = 4;
-		}
-		lista.save();
+	Rol.findOne({idUsuario: user._id, idProyecto: idProy}, function(err, rol) {
+		Lista.findOne({_id: req.session.idLista}, function(err, lista) {
+			if(rol == '1')
+			{
+				lista.estado = 1;
+			}
+			else if(rol == '2')
+			{
+				var puntaje = puntajeActual(lista.secciones);
+				if(verificarObligarias(lista.secciones) && puntaje >= (lista.puntajeMinimo/lista.puntajeMaximo))
+					lista.estado = 3;
+				else
+					lista.estado = 4;
+			}
+			lista.save();
+		});
 	});
 });
-
-function rolActual(user, idProy)
-{
-	Rol.findOne({idUsuario: user._id, idProyecto: idProy}, function(err, r) {
-		if(!err && r)
-			return r.tipo;
-		else
-			return 0;
-	});
-};
 
 function puntajeMaximo(secciones){
 	var count = 0;
