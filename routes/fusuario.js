@@ -99,7 +99,6 @@ router.post('/register', function(req, res) {
 					else
 					{
 						if(err) {
-							console.log(err);
 							if((err.name) == "UserExistsError")
 								return res.json({status: false, messageUsuario: true});
 							if(err.errors) {
@@ -170,7 +169,6 @@ router.post('/recuperar', function(req, res) {
 });
 
 router.post('/cambiarContrasena', function(req, res) {
-	console.log(req.body);
 	Token.findOne({token: req.body.token}, function(err, t) {
 		if(!err && t)
 		{
@@ -190,11 +188,8 @@ router.post('/cambiarContrasena', function(req, res) {
 		                	res.json({status: false});
 					});
 				}
-				else{
-					console.log('hola1');
-					res.json({status: false});
-				}
-					
+				else
+					res.json({status: false});					
 			});
 		}
 		else{
