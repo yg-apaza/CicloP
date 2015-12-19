@@ -51,8 +51,9 @@
 	
 	<div id="wrapper" class="preload">
 	
-		<!-- CABECERA -->	
-		<div id="top-nav" class="skin-6 fixed" ng-controller="myCtrlHome">
+		<!-- CABECERA -->
+
+		<div id="top-nav" class="skin-6 fixed">
 			<div class="brand">
 				<span><a href="/"><img src="http://i.picasion.com/resize81/09f10781b992c513178397830b9036ee.png"></a></span>
 				
@@ -68,7 +69,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<ul class="nav-notification clearfix">
-				<li class="dropdown">
+				<li class="dropdown" ng-controller="myCtrlNotificacion">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" >
 						<i class="fa fa-bell fa-lg"></i>
 						<span ng-show="{{'noleidos'}}" class="notification-label bounceIn animation-delay4">{{noleidos}}</span>
@@ -92,7 +93,7 @@
 					</ul>
 				</li>
 				
-				<li class="profile dropdown">
+				<li class="profile dropdown" ng-controller="myCtrlMenu">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 						<strong>{{usuario.username}}</strong>
 						<span><i class="fa fa-chevron-down"></i></span>
@@ -115,6 +116,8 @@
 		</div><!-- /top-nav-->
 		
 		<!-- /CABECERA -->
+
+		<!-- MENU -->
 		
 		<aside class="fixed skin-6">
 			<div class="sidebar-inner scrollable-sidebar"  >
@@ -128,16 +131,17 @@
 						<i class="fa fa-power-off"></i>
 					</a>
 				</div><!-- /size-toggle -->	
-				<div class="user-block clearfix" ng-controller="myCtrlMenu">
-					<img src="img/user.jpg" alt="User Avatar">
-					<div class="detail">
 
-						<strong>{{usuario.nombre}}</strong>
+				<div class="user-block clearfix" ng-controller="myCtrlMenuSec">
+					<img src="http://www.gravatar.com/avatar/{{usuario.hashImagen}}" alt="User Avatar">
+					<div class="detail">
+						<strong>{{usuario.username}}</strong>
 						<ul class="list-inline">
 							<li>{{rolUsuario}}</li>
 						</ul>
 					</div>
 				</div><!-- /user-block -->
+
 				<div class="search-block">
 					<div class="input-group">
 						<input type="text" class="form-control input-sm" placeholder="Busca tus proyectos">
@@ -146,6 +150,7 @@
 						</span>
 					</div><!-- /input-group -->
 				</div><!-- /search-block -->
+
 				<div class="main-menu" ng-controller="myCtrlEtapasProyecto">
 					<ul>
 						<li>
@@ -193,6 +198,8 @@
 				</div><!-- /main-menu -->
 			</div><!-- /sidebar-inner -->
 		</aside>
+	
+		<!-- /MENU -->
 
 		<div id="main-container" ng-controller="myCtrlEtapasProyecto">
 			<div id="breadcrumb">
@@ -209,7 +216,7 @@
 								
 			<div class="padding-md">
 				<div>
-					<a class="btn btn-default" href="/agregarLista" ng-show="rol == 3">
+					<a class="btn btn-default" href="/agregarLista" ng-show="rol == 1">
 					<i class="fa fa-plus-circle"></i> 
 					Añadir Lista de Chequeo
 					</a>
@@ -233,7 +240,7 @@
 								<td>{{lista.nombre}}</td>
 								<td>12/10/15</td>
 								<td>
-								<a class="btn btn-success" ng-click="listaChekeo(lista.id)" ng-show="rol == 3">editar <i class="fa fa-edit fa-lg"></i></a></td>
+								<a class="btn btn-success" ng-click="listaChekeo(lista.id)" ng-show="rol == 1">editar <i class="fa fa-edit fa-lg"></i></a></td>
 							</tr>
 
 						</table>
@@ -316,6 +323,7 @@
 	<script src="angularJS/CProyecto.js"></script>
 	<script src="angularJS/CEtapas.js"></script>
 	<script src="angularJS/CMenu.js"></script>
+	<script src="angularJS/CNotificacion.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 	
 	

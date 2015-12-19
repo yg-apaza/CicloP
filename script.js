@@ -1,4 +1,18 @@
- /** Usuarios de prueba*/
+/** Eliminar datos anteriores */
+db.usuarios.remove({});
+db.proyectos.remove({});
+db.rols.remove({});
+db.listas.remove({});
+db.modelos.remove({});
+db.tokens.remove({});
+db.usuarios.drop();
+db.proyectos.drop();
+db.rols.drop();
+db.listas.drop();
+db.modelos.drop();
+db.tokens.drop();
+
+/** Usuarios de prueba*/
 
 db.usuarios.insert({
 	salt: "57ab56ffad86c28ba30cb18bae912a85bc0f2327fa0a3ef6f302d5580fa5052d",
@@ -102,6 +116,14 @@ db.usuarios.insert({
 	__v: 0		
 });
 
+
+/** Coleccion Token */
+
+/*
+ * Coleccion TTL especial, los datos insertados expiran en una hora (3600 s)
+ */
+
+db.tokens.ensureIndex({"fCreacion" : 1}, {expireAfterSeconds: 3600});
 
 /** Listas de Chequeo */
 

@@ -1,6 +1,6 @@
 var app = angular.module('myAppHome');
 
-app.controller('myCtrlListas',  function(objUsuario, $scope,$http,$window) {
+app.controller('myCtrlListas',  function($scope,$http,$window) {
 	$scope.listasDisponibles = [{nombre:'2'}];
 	$scope.listaAgregar = {};
 	$scope.reutilizar = 0;

@@ -89,7 +89,6 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 	});	
 	
 
-	
 	$scope.respuestaServidorProyecto;
 	
 	$scope.actualizarUsuarios = function (){
@@ -139,7 +138,7 @@ app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 	
 	$scope.myProject = {};
 	$scope.respuestaServidorProyecto;
-
+	
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data){
 		if(data.status)
