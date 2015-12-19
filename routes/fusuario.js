@@ -152,7 +152,7 @@ router.get('/logout', function(req, res) {
 router.post('/recuperar', function(req, res) {
 	Usuario.findOne({correo: req.body.correo}, function(err, user) {
 		if(!err && user) {
-			crypto.randomBytes(12, function(ex, buf) {
+			crypto.randomBytes(4, function(ex, buf) {
 				var tokenGen = buf.toString('hex');
 				var token = new Token({	idUsuario: user._id,
 										token: tokenGen
@@ -179,18 +179,14 @@ router.post('/cambiarContrasena', function(req, res) {
 					u.setPassword(req.body.password, function(err){
 						if (!err) {
 		                    u.save(function(err) {
-		                    	console.log(err);
-		                        if (err) {
-		                        	
+		                        if (err)
 		                        	res.json({status: false});
-		                        }
 		                        else
 		                        	res.json({status: true});
 		                    });
 		                }
-		                else {
+		                else
 		                	res.json({status: false});
-		                }
 					});
 				}
 				else

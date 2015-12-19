@@ -18,14 +18,18 @@ router.post('/rol', function(req, res) {
 				{
 					switch(rol)
 					{
-						case 0:
-							lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje});
-							break;
 						case 1:
-							
+							if(req.user._id == l.disenador)
+								lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje, pertenece: true});
+							else
+								lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje, pertenece: false});
 							break;
 						case 2:
-							
+							if(req.user._id == l.probador)
+								lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje});
+							break;
+						case 3:
+							lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje});
 							break;
 					}
 					callback();
@@ -202,6 +206,8 @@ router.post('/agregar', function(req, res) {
 				estado: 		0,
 				disenador: 		req.user._id,
 				probador: 		req.body.idProbador,
+				total:			puntajeMaximo(modelo.secciones),
+				puntaje:		0,
 				fCulminacion:	req.body.fCulminacion,
 				secciones:		modelo.secciones
 			});
@@ -225,12 +231,8 @@ router.post('/agregar', function(req, res) {
 					{
 						var i, j;
 						for(i = 0; i < lista2.secciones.length; i++)
-						{
 							for(j = 0; j < lista2.secciones[i].items.length; j++)
-							{
 								lista.secciones[i].items[j].seleccionado = lista2.secciones[i].items[j].seleccionado;
-							}
-						}
 						req.session.idLista = modelo._id;
 						res.json({status: true});
 					}
@@ -284,15 +286,32 @@ router.post('/guardarCambios', function(req, res) {
 	{
 		Lista.findOne({_id: req.session.idLista}, function(err, lista) {
 			lista.secciones = req.body.secciones;
+			if(rolActual() == 2)
+				lista.puntaje = puntajeActual(lista.secciones);
 			lista.save();
 			res.json({status: true});
+			
 		});
 	}
 	else
 		res.json({status: false});
 });
 
-router.post('/publicar', f);
+router.post('/publicar', function(req, res) {
+	var rolActual = rolActual();
+	Lista.findOne({_id: req.session.idLista}, function(err, lista) {
+		if(rolActual == 1)
+		{
+			lista.estado = 1;
+			lista.save();
+		}
+		else if(rolActual == 2)
+		{
+			var puntaje = puntajeActual(lista.secciones);
+			//if(verificarObligarias(lista.secciones) && puntaje >= ());
+		}
+	});
+});
 
 function rolActual()
 {
@@ -305,5 +324,41 @@ function rolActual()
 			return 0;
 	});
 };
+
+function puntajeMaximo(secciones){
+	var count = 0;
+	for(var i = 0; i < secciones.length; i++)
+		for(var j = 0; j < secciones[i].items.length; j++)
+		{
+			if(secciones[i].items[j].seleccionado)
+				count += secciones[i].items[j].ponderacion;
+		}
+	return count;
+}
+
+function puntajeActual(secciones) {
+	var count = 0;
+	for(var i = 0; i < secciones.length; i++)
+		for(var j = 0; j < secciones[i].items.length; j++)
+		{
+			if(secciones[i].items[j].seleccionado && secciones[i].items[j].estado)
+				count += secciones[i].items[j].ponderacion;
+		}
+	return count;
+}
+
+function verificarObligatorias(secciones) {
+	var check = true;
+	for(var i = 0; i < secciones.length; i++)
+		for(var j = 0; j < secciones[i].items.length; j++)
+		{
+			if(secciones[i].items[j].obligatoriedad && !secciones[i].items[j].estado)
+			{
+				check = false;
+				break;
+			}
+		}
+	return check;
+}
 
 module.exports = router;
