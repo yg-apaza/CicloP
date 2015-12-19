@@ -74,7 +74,6 @@ router.post('/validate', function(req, res)	{
 /** Registro */
 router.post('/register', function(req, res) {
 	Usuario.findOne({correo: req.body.correo}, function (err, u) {
-		console.log(u);
 		if(!u)
 		{
 			Usuario.register(
@@ -104,11 +103,12 @@ router.post('/register', function(req, res) {
 							if((err.name) == "UserExistsError")
 								return res.json({status: false, messageUsuario: true});
 							if(err.errors) {
-								if(	err.errors.nombre ||
-									err.errors.apellidos ||
-									err.errors.username ||
-									err.errors.correo)
-									return res.json({status: false, message: ""});
+								if(	err.errors.nombre 		||
+									err.errors.apellidos 	||
+									err.errors.username 	||
+									err.errors.correo		||
+									err.errors.password)
+									return res.json({status: false, message: "Datos invalidos"});
 							}
 						}
 						else {
@@ -125,6 +125,7 @@ router.post('/register', function(req, res) {
 			return res.json({status: false, messageCorreo: true});
 	});
 });
+
 /** Login */
 router.post('/login', function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
@@ -209,7 +210,6 @@ function enviarEmail(para, nombre, usuario) {
 	        pass: 'motonmatoamotita'
 	    }
 	});
-	
 	var mailOptions = {
 		    from: 'MOT S.A. <kefer15@gmail.com>',
 		    to: para,
@@ -234,13 +234,7 @@ function enviarEmail(para, nombre, usuario) {
 		    	'<hr />' +
 		    	'<p style="text-align: center;"><span style="font-family:verdana,geneva,sans-serif;"><small><span class="marker">MOT S.A. - Copyright 2015</span></small></span></p>'
 	};
-	
-	transporter.sendMail(mailOptions, function(err, info) {
-		console.log(err);
-		console.log("info abajo");
-		console.log(info);
-	});
-	
+	transporter.sendMail(mailOptions, function(err, info) {});
 };
 
 function enviarEmailRecuperacion(para, nombre, token) {
@@ -251,7 +245,6 @@ function enviarEmailRecuperacion(para, nombre, token) {
 	        pass: 'motonmatoamotita'
 	    }
 	});
-	
 	var mailOptions = {
 		    from: 'MOT S.A. <kefer15@gmail.com>',
 		    to: para,
@@ -261,9 +254,9 @@ function enviarEmailRecuperacion(para, nombre, token) {
 		    	'<h1 style="text-align: center;"><img alt="" src="https://raw.githubusercontent.com/yg-apaza/CicloP/master/public/img/logo.png" style="height: 100px; width: 277px;" /></h1>' +
 		    	'<h1><span style="font-family:verdana,geneva,sans-serif;"><strong>Cambio de contraseña</strong></span></h1>' +
 		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Hola <strong>' + nombre + '</strong>!</span></p>' +
-		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Has solicitado un cambio de contraseña, tu c&oacute;digo generado es:</span></p>' +
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Has solicitado restablecer tu contraseña, tu c&oacute;digo generado es:</span></p>' +
 		    	'<h2 style="text-align: center;">' + token + '</h2>' +
-		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Este código expirará en una hora, sino solicitaste un cambio de contraseña ignora este mensaje.</span></p>' +
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Este código expirará en una hora, sino lo solicitaste esto, ignora este mensaje.</span></p>' +
 		    	'<hr />' +
 		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Ciclo-P es una metodolog&iacute;a para el desarrollo de software. MOT S.A. propone una herramienta para su validaci&oacute;n y verificaci&oacute;n de cada etapa propuesta.</span></p>' +
 		    	'<p><span style="font-family:verdana,geneva,sans-serif;">Para mayor informaci&oacute;n acerca de esta metodolog&iacute;a consulte el siguiente art&iacute;culo:</span></p>' +
@@ -271,7 +264,6 @@ function enviarEmailRecuperacion(para, nombre, token) {
 		    	'<hr />' +
 		    	'<p style="text-align: center;"><span style="font-family:verdana,geneva,sans-serif;"><small><span class="marker">MOT S.A. - Copyright 2015</span></small></span></p>'
 	};
-	
 	transporter.sendMail(mailOptions, function(err, info) {});
 };
 
