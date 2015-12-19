@@ -7,35 +7,41 @@ var Rol = require('../models/rol');
 var Usuario = require('../models/usuario');
 
 router.post('/rol', function(req, res) {
-	Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, r){
-		if(!err)
-		{
-			Lista.find({etapa: req.session.etapa, idProyecto: req.session.idProy}, function(err, ls) {
-				var lista = [];
-				async.each(
-					ls,
-					function(l, callback)
+	var rol = rolActual();
+	if(rol != 0)
+	{
+		Lista.find({etapa: req.session.etapa, idProyecto: req.session.idProy}, function(err, ls) {
+			var lista = [];
+			async.each(
+				ls,
+				function(l, callback)
+				{
+					switch(rol)
 					{
-						// Implementar bloquear
-						lista.push({nombre: l.nombre, id: l._id});
-						callback();
-					},
-					function(err)
-					{
-						if(!err)
-							res.json({status: true, rol: r.tipo, listas: lista});
-						else
-							res.json({status: false, rol: null, listas: null});
+						case 0:
+							lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje});
+							break;
+						case 1:
+							
+							break;
+						case 2:
+							
+							break;
 					}
-				);
-			});
-		}
-		else
-			res.json({status: false, rol: null, listas: null});
-	});
+					callback();
+				},
+				function(err)
+				{
+					if(!err)
+						res.json({status: true, rol: rol, listas: lista});
+					else
+						res.json({status: false, rol: null, listas: null});
+				}
+			);
+		});
+	}
 });
 
-//prueba
 router.post('/listasDisponibles', function(req, res) {
 	var total = [false, false];
 	switch(req.session.etapa)
@@ -188,15 +194,16 @@ router.post('/agregar', function(req, res) {
 	if(req.body.numLista && req.body.idProbador && req.body.fCulminacion) {
 		Modelo.findOne({tipo: req.body.numLista}, function(err, modelo) {			
 			var lista = new Lista({
-				idProyecto: req.session.idProy,
-				idModelo: modelo._id,
-				tipo: modelo.tipo,
-				etapa: modelo.etapa,
-				nombre: modelo.nombre,
-				fCulminacion: req.body.fCulminacion,
-				estado: 0,
-				encargado: req.body.idProbador,
-				secciones: modelo.secciones
+				idProyecto: 	req.session.idProy,
+				idModelo: 		modelo._id,
+				tipo: 			modelo.tipo,
+				etapa: 			modelo.etapa,
+				nombre: 		modelo.nombre,
+				estado: 		0,
+				disenador: 		req.user._id,
+				probador: 		req.body.idProbador,
+				fCulminacion:	req.body.fCulminacion,
+				secciones:		modelo.secciones
 			});
 
 			if(!req.body.reutilizar)
@@ -235,15 +242,13 @@ router.post('/agregar', function(req, res) {
 	}
 });
 
-router.post('/getLista', function(req, res) {
-	Lista.findOne({_id: req.session.idLista}, function(err, lista) {
-		res.json({status: true, secciones: lista.secciones});
-	});
-});
-
 router.post('/guardarEtapa', function(req, res) {
 	req.session.etapa = req.body.etapa;
 	res.json({status: true});
+});
+
+router.post('/verEtapa', function(req, res){
+	res.json({status: true, etapa: req.session.etapa});
 });
 
 router.post('/guardarIdLista', function(req, res) {
@@ -251,8 +256,10 @@ router.post('/guardarIdLista', function(req, res) {
 	res.json({status: true});
 });
 
-router.post('/verEtapa', function(req, res){
-	res.json({status: true, etapa: req.session.etapa});
+router.post('/getLista', function(req, res) {
+	Lista.findOne({_id: req.session.idLista}, function(err, lista) {
+		res.json({status: true, secciones: lista.secciones});
+	});
 });
 
 router.post('/reutilizar', function(req, res){
@@ -272,8 +279,31 @@ router.post('/reutilizar', function(req, res){
 	}
 });
 
-router.post('/guardarLista', function(req, res) {
-	
+router.post('/guardarCambios', function(req, res) {
+	if(req.body.secciones)
+	{
+		Lista.findOne({_id: req.session.idLista}, function(err, lista) {
+			lista.secciones = req.body.secciones;
+			lista.save();
+			res.json({status: true});
+		});
+	}
+	else
+		res.json({status: false});
 });
+
+router.post('/publicar', f);
+
+function rolActual()
+{
+	Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, r) {
+		if(!err && r)
+		{
+			return r.tipo;
+		}
+		else
+			return 0;
+	});
+};
 
 module.exports = router;

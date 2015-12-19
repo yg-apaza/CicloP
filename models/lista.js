@@ -7,14 +7,17 @@ var Lista = new Schema({
 	tipo: Number,
 	etapa: Number,
 	nombre: String,
+	estado: Number, // 0: No publicado, 1: Publicado, 2: En proceso, 3: Aprobada, 4: Desaprobada
+	disenador: Schema.Types.ObjectId,
+	probador: Schema.Types.ObjectId,
+	total:	Number,
+	puntaje: Number,
 	fCreacion: {
 		type: Date,
 		default: Date.now()
 	},
 	fCulminacion: String,
-	estado: Number, // 0: No publicado, 1: Publicado, 2: En proceso, 3: Aprobada, 4: Desaprobada
-	encargado: Schema.Types.ObjectId,
-	secciones: Array //[{seccion: int, item: int, estado: bool}]
+	secciones: Array
 });
 
 module.exports = mongoose.model('Lista', Lista);

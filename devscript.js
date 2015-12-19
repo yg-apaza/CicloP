@@ -1,3 +1,124 @@
+/** Eliminar datos anteriores */
+
+db.usuarios.remove({});
+db.proyectos.remove({});
+db.rols.remove({});
+db.listas.remove({});
+db.modelos.remove({});
+db.tokens.remove({});
+
+db.usuarios.drop();
+db.proyectos.drop();
+db.rols.drop();
+db.listas.drop();
+db.modelos.drop();
+db.tokens.drop();
+
+/** Usuarios de prueba*/
+
+db.usuarios.insert({
+	salt: "57ab56ffad86c28ba30cb18bae912a85bc0f2327fa0a3ef6f302d5580fa5052d",
+	hash: "0e51015165d4fe9215f80443eddab7a8f1d097348315378df8f635f9018ae3e3e3bdd79c790c1220eab647639b4d50808054929a7acdd558b7c74d3dd082508ca2d4f4abb7f17685172e1ea3bafe779341aa11cdae08a11297b1389800681a3977b605170d1bbb3aa58816336439b45e4220f778384dcdb617fb92badabcab5b47b8910602a5b8ea18d1d8a91bd5b8a532d2b7620bb7ab21647962e2fbf153d6621c57d4ab29ea2c50fa097314cfecc4e45134860257442c2aa7880da82c1896e7672f118cd40cbe08aa1d74dd2be3f45cbb35e2320a36421d4cff261544c58c2721a94a3da6aac28ea1b148b04799e816ad8df88ead4597ff59d33ee73a02431f6ed8e42ee69d63d84569f73590469505bb1d9c254c5e7606784d3f6c86269f69ee4e92d48d4692744d192bcb0d8e281187589104be098e710238ab72b43954fc9b4eec66dfe8f7a0a41fe2fa821612b5a91265ed751b6c6bb6f025f021baa4ac32fead44243920b9c35faa14804050491332ca92b73c3b42b36336bab060406c5869101267f8be342fca2e450fab7c1e2bb4d1752be8192c57d9c2fead101f64ff9fa58d95c6e4f3f6fc28ee963c7f368e5a5fdb6578950a8aea7cc3883b0a6ab7dedb911760516543e2136027395c89d83c3d7f90e306ccad558045cb1349eee387ddc9f2b9564c32d4937d41b4a09290da8d0e2177df29275ffd3ec3c48f",
+	nombre: "aaaaaa",
+	apellidos: "aaaaaa",
+	username: "aaaaaa",
+	correo: "aaaaaa@aaaaaa.aaa",
+	notificaciones:  	[{
+		        			leido : false,
+		        			fecha : "11-29",
+		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
+		        			titulo : "Bienvenido a Ciclo P",
+		        			tipo : 1
+	        			}],
+	__v: 0		
+});
+
+db.usuarios.insert({
+	salt: "e5cb527f8966a79408a6792413afa42a4b8133a8a5368ba400d407a13ccac07d",
+	hash: "5302d4c55862859a16c9dbb254eb56cbb8414f417759621fbfe09626e4138ce828cd8ca4b7b82dee4d8ae4e7652c36c6ad13d5c5d8b2b38e581debcc5b4b2ff2020a05e4a0984334eeb35032413630d65ef7ee2018fb70342631f1b3121bb5d6480a5f189c3e38c24e56939b4b3922a9196d254367387d7fcbfe7d03ca05adccadbc6eb9c5da77ec1ed7d854665a293cddbdb1965791dd2a50be12b175d54199c8e7f0ff4290083e0163f1da57bc28b96bdd1a4caafb411da2ddc132d4d34498011bac5e310c84cbc2b14a499d475cd07c85d0b9893379a375f44f64e359afc5445fe7c6984752ce642eb238333f1d48eab116f12c079a76ceb485b5c833a63e9b88e874a21033c5cc7ef76e4ac57b1b25c95c46e0b2875181c35aaa6ffa8e80c5d8f203d93d0fa54573da078bc584e7eb295a89a6912257a5b4ad123ed713c7bb043007981e8b11f1e3588642a022743eda3b600c6605ab5a928ffff98f95d18baf60c8745a22a0299fe6378c1335696d3f3c2519360dcad302d85a88f6e053ef6a80c792cf834b86f1ddf874089fb30976e79c2122888abe1463316ed5601e4067b05b642cabf5ea7792eb1cd9a1fcff888851770f4aff555fc31bbd19007c1821557f42dcf0367add38f5781088699d79ad822ba65e6c0c528031927b92859f0f9d397175d3d0b782c3ba7fbd7d1c0716f4d266da26e21fdccee26a6baa6e",
+	nombre: "bbbbbb",
+	apellidos: "bbbbbb",
+	username: "bbbbbb",
+	correo: "bbbbbb@bbbbbb.bbb",
+	notificaciones:  	[{
+		        			leido : false,
+		        			fecha : "11-29",
+		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
+		        			titulo : "Bienvenido a Ciclo P",
+		        			tipo : 1
+	        			}],
+	__v: 0		
+});
+
+db.usuarios.insert({
+	salt: "ba20e78fda7e2889aa4dfe81f4aed71114cd891b0ad4d3831d5ec8641946ad14",
+	hash: "bde8912edb8b4c2ac56da654dbe6476e8ddc181244fbe2c1f153e1eb4e5a27116a5383df0fe31c0a7f757d5b8057a1983722e8f95e4fba5ca0f29f13e34a39f6ee4498cf102dd9ad31ff0c59fa0729be92b02f5515a5e8a9164e228ef42b1b8c8c90d398093642423c4cad4be4349cf01aa11014a37ef4d7d417db8ecea646e22baf1854549158314c3fe3de0950dcb2275273b36a3f2f6ad57e321628de4ab445c6922c67e067d3bdff3fd87a6cedb3960693c2072b7e65dd891657747a607795085221979a2e7b46b4e6385aa7b76449ba7e7187aba04c1cb4df2c98476475016d73ab7277b37fbfd2722fd7d8d272d8d2d2bb9431b8b29e04bbf83f07ea8e23b49c50601a602d0b2bd6bf69afaa24c24cf98e0ff5e09e4cfb6e5038c6f33202af02bfb6f729b96ed66ab1214b72e0c438f3797006d193f81955414bb79d9194c267351135e0a1fb8cccfca1ff37b5b99358fc66e18aafa25cf676807f0717f7371ea4ead64e028e39c5295de26b0e00797ea3d08c7c7af4edfcbb8357888b1cddc81e067acbc93a0471070ee6dc1690b6f1e90821e27696010bad13c531f357726bdf61a03da11aa1814ca19e7e093fec32cf652e6a3e680632544f722792e9a3707e8e63898257e5545d4bafb2cd8cc2e0b6543df07c8d2759122a58831c93e0cac7802c136a099a4011958ae9592da3a589a2554437b2e9ce239fe410d5",
+	nombre: "cccccc",
+	apellidos: "cccccc",
+	username: "cccccc",
+	correo: "cccccc@cccccc.ccc",
+	notificaciones:  	[{
+		        			leido : false,
+		        			fecha : "11-29",
+		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
+		        			titulo : "Bienvenido a Ciclo P",
+		        			tipo : 1
+	        			}],
+	__v: 0		
+});
+
+db.usuarios.insert({
+	salt: "7c1a009bfdb34de0405e8f21ff349d367295bb415637391a1f18c1370dff188b",
+	hash: "e9d1194b6fa82e1fa4a22cc3e8ab399864659a72c217f23b2017c6bdc20d1e9c9bfb61c8dc7316ab2f001cf234b53022db9b6bc6ca7cd98fd0e92b70771ec05caace710234f39cf04f3f8584af48fa6e61d23c5eee149a96d3eb756dbf36f466dada82c09d17d9c0063ebe60ed5c98cc52b0dc9a2f88455735f4e4a7c53ff1ebfdf003cd8c7e0489299fd50a348cb6350ca8a6ec339f30a4c823f2edf815c061e9504a2c8de9c2a5976496c8bcb6764c0e1f810a815915c505727f263dcdbd1a0e95e11ef49c37d875276800adb1057cce1db07ec25f5f19d8290aa36d99382bf02f7e08910f155e24e9d0b652f75d1e748808277f0ddc885db8b7dffae06dd4cadbaab8b983c283ebcde2bbee78d266d35b197f0b69e1c54c1992573325fc7deed5b30197f45fa0060cd9ecb0336b19cc54b9a9668af7535c8b7253a12917777080a7a9f9302515eabf5111a5ff330dff28c7dd678ecaebfa2805eedcd77c2ee1365dcc5e556e1e53b40d28e8ef4943d49b28a72083afae995e9995a6dd8f9e3046d707161735f6f7543a348f75ec3842b1df24554bc7f394f7138c3b867734f73704c7dc14dfd51f16835976482b27240ad128df16f586806bc762c83f531af3507b3d83c19b6170f432050f8f0dc3c6c19495672034e78a606f4b96e0f81da265b9e53b8e84f374690954d20851fc425daf2f81ceb279f8a507c4a0d4416f",
+	nombre: "dddddd",
+	apellidos: "dddddd",
+	username: "dddddd",
+	correo: "dddddd@dddddd.ddd",
+	notificaciones:  	[{
+		        			leido : false,
+		        			fecha : "11-29",
+		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
+		        			titulo : "Bienvenido a Ciclo P",
+		        			tipo : 1
+	        			}],
+	__v: 0		
+});
+
+db.usuarios.insert({
+	salt: "565489b9bc93988cf6fa04f8fc9cf5e73180afdab81a951f938f514eba865a78",
+	hash: "bbf3411e3de30d9bdba8df61136e576b3464d8e2118b9624590a9518d738e843a348ca6de31e845ea6d3e19f949c20401b8c87520cbe4d3554f3d7238a0bd16481600d227a79b06379b888de3dbf80dfbc060a2ac71b9b6e5e97e48d43dfabf99447661a6949e37c545070204798188ce0d8955cd8a609b5e692bb8142a8c8829768c1bdf0919a8244f21ff24686b29b965b87ab705442e6b72f4e41b8ebf88a2424c9bace14874b37569a4f3cd71c86bcf8a567f9672dacf44b0eed421af5ab2a11609dd1194a1282d143d4b2d613f6fe8efa67394a76186adce8cc001bf73293ebf37dd1b5e1f745f32832504d1e213d4c7bd67bedc5b1f75fa9bb8b9759b6a6a1f410371b63aeb1b031f5d15fa06163a99b5abc98194df605e56556e3fa0cf361f0f8cbefc309e81f8a5fa0ae6d0ce07ee50ae7c4cd345f0a91490b3691c84eb130db1441d750f90dae8b47f8e0bbe38e51d8150f0890e269515219432461c8b28dad486f7766c185ea4626fe5d1f798972883e6d700a6aa70e510459c6791442f0c6feed60e6f337f7c7a4a35d38a709a7d35bca0c630cb094286b014f1a2bd9a858086c24c81b5d0bb8affc39e453fafddc01603efa8d94657af44b9c9063b3749fc83129353f43009d79c0cebb7644694ac58f77de2cb30dd864dacc224106722e1684c9d2bbb66f471c0eed7cbb55bec56350dec9bd44350d18111544",
+	nombre: "eeeeee",
+	apellidos: "eeeeee",
+	username: "eeeeee",
+	correo: "eeeeee@eeeeee.eee",
+	notificaciones:  	[{
+		        			leido : false,
+		        			fecha : "11-29",
+		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
+		        			titulo : "Bienvenido a Ciclo P",
+		        			tipo : 1
+	        			}],
+	__v: 0		
+});
+
+db.usuarios.insert({
+	salt: "bd96ca7f388d87bb350b12e981b8097f853e1e3cf3d9deb1c09a6e1d4dbb4444",
+	hash: "71276098c7b85aefbe88696a6491df8aa4d31a41710965733b618cb75926cd532ca43a0b1e58b51486ca0a4878017ad1906c2f1932cf9f6c41066612943d482b031df6179140287ef60670e00df815b5492183f341e80430bee53a7671614f9fcb7c264e41b1a3be75db3cae87d1ddf14358bee99472bb568a084e1f074efa5ed67848e98bbad9976f4cf3b2c8b521f6eea73441018d803de10eeee6143ce50f0a4389a206a5a375ab730e69b59c9bf800ef1106631d6914cec403d65881255a1c85eee075be25ab4963a5d5d20ab7a9f24b761a7415e8a73613ab55dccd6ea9c5dd4f317323e82756103c44b95b8c4f074d44cbf1ed8e10796d6d714ac5c2efa6f562ebaca22a866b2fd0a90b29365f233da143e7afe73eeaf82482970c6e55b492f3f8470b14f4b71878be8a8e10d25ae63f5d5448b7c81ea0d8c6964c3354fcf8d0c73aafe6b929e7323ba1782a9073e0124fe5cfa7e0eb07be2f56e94632bd2d7bb741e23ac00261a2faba7e6f60d00d46f254e8d41a15094413988b6db3f971064a792405570941a212f10708ed0d61db6fc0732bfee457954b446b5140ac5aabec652d40535b490e5b25c59e846d69086e426bf714264625aa5c7736e5b33338d41cce90e88e7dfc17cee80d66313887ae60065ec3090ba319bc46a3178f851c01190afda0e933529b8df2976c4d938f230bc41fcb4d9d3854426070ca",
+	nombre: "ffffff",
+	apellidos: "ffffff",
+	username: "ffffff",
+	correo: "ffffff@ffffff.fff",
+	notificaciones:  	[{
+		        			leido : false,
+		        			fecha : "11-29",
+		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
+		        			titulo : "Bienvenido a Ciclo P",
+		        			tipo : 1
+	        			}],
+	__v: 0		
+});
+
+
 /** Coleccion Token */
 
 /*
