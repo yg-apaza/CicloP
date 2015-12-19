@@ -68,6 +68,7 @@ app.controller('myCtrlCambiarClave', function($scope,$http,$window){
 			.success(function(data) {
 				if(data.status){
 					$('#msjRespuestaCambioClaveExito').modal('show');
+					$window.location.href="/ingresar";
 				}
 				else
 					$('#msjRespuestaCambioClaveFracaso').modal('show');
