@@ -315,24 +315,33 @@ router.post('/guardarCambios', function(req, res) {
 });
 
 router.post('/publicar', function(req, res) {
-	Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, rol) {
+	if(req.body.secciones)
+	{
 		Lista.findOne({_id: req.session.idLista}, function(err, lista) {
-			if(rol.tipo == '1')
-			{
-				lista.estado = 1;
-			}
-			else if(rol.tipo == '2')
-			{
-				var puntaje = puntajeActual(lista.secciones);
-				if(verificarObligatorias(lista.secciones) && puntaje >= (lista.puntajeMinimo/lista.puntajeMaximo))
-					lista.estado = 3;
-				else
-					lista.estado = 4;
-			}
-			lista.save();
-			res.json({status: true});
+			lista.secciones = req.body.secciones;
+			Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, rol) {
+				if(rol.tipo == '1')
+				{
+					lista.estado = 1;
+					lista.puntaje = 0;
+					lista.puntajeMinimo = puntajeMinimo(req.body.secciones);
+					lista.puntajeMaximo = puntajeMaximo(req.body.secciones);
+				}
+				else if(rol.tipo == '2')
+				{
+					lista.puntaje = puntajeActual(req.body.secciones);
+					if(verificarObligatorias(req.body.secciones) && lista.puntaje >= (lista.puntajeMinimo/lista.puntajeMaximo))
+						lista.estado = 3;
+					else
+						lista.estado = 4;
+				}
+				lista.save();
+				res.json({status: true});
+			});
 		});
-	});
+	}
+	else
+		res.json({status: false});
 });
 
 function puntajeActual(secciones) {
