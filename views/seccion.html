@@ -202,7 +202,8 @@
 		<div id="main-container" ng-controller="myCtrlSeccion">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li> 
+					 <li><i class="fa fa-home"></i><a href="/"> Inicio</a></li> 
+					 <li><a href="/"> Secciones</a></li> 
 				</ul>
 			</div><!-- /breadcrumb-->
 			
@@ -210,9 +211,12 @@
 				<div class="panel panel-default">
 					<form>
 						<div class="panel-heading">Secciones</div>
+
 						<div class="panel-body">
+
 							<div ng-repeat="seccion in secciones"> 
 							<b>{{seccion.nombre}}</b><br><br>
+
 							<table class="table table-striped" id="responsiveTable">
 								<thead>
 									<tr>
@@ -227,7 +231,7 @@
 										</td>
 										<td>
 											<label class="label-checkbox">
-												<input type="checkbox" class="chk-row" ng-model='item.selec'>
+												<input type="checkbox" class="chk-row" ng-model='item.seleccionado' ng-disabled="item.obligatoriedad">
 												<span class="custom-checkbox"></span>
 											</label>
 										</td>
@@ -235,12 +239,10 @@
 								</tbody>
 							</table>
 							</div>
-
-
-
 						</div>
 						<div class="panel-footer text-right">
-							<button data-toggle="modal" data-target="#msjReutilizar" class="btn btn-success">Guardar Cambios</button>
+							<button ng-click="guardarSecciones(0)" class="btn btn-success">Guardar Cambios</button>
+							<button data-toggle="modal" data-target="#msjReutilizar" class="btn btn-danger">Publicar Lista</button>
 						</div>
 					</form>
 				</div><!-- /panel -->
@@ -252,27 +254,26 @@
 			      	<center>
 			      	<h3> Deseas reutilizar</h3>
 			      	<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-		  			<button type="button"  data-toggle="modal" data-target="#msjConfirmacion" ng-click="" data-dismiss="modal" class="btn btn-success">Si</button>
+		  			<button type="button"  ng-click="guardarSecciones(1)" data-dismiss="modal" class="btn btn-success">Si</button>
 			      	</center>
 			      </div>
 			      <!-- FIN CONTENIDO-->
 			      
 			      <!-- FIN PIE -->
-			</div></div></div>
+			</div></div></div>	
 
-			<div id="msjConfirmacion" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">
+			<div id="msjRespuesta" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">
 			      <!-- CONTENIDO -->
 			      <div class="modal-body"  >
 			      	<center>
-			      	<h3> Mensaje de Confirmacion</h3>
-			      	<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-		  			<button type="button"  ng-click="agregarLista()" data-dismiss="modal" class="btn btn-success">Si</button>
+			      	<h4> {{respuestaServidor}}</h4>
+			      	<button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
 			      	</center>
 			      </div>
 			      <!-- FIN CONTENIDO-->
 			      
 			      <!-- FIN PIE -->
-			</div></div></div>			
+			</div></div></div>					
 
 		</div><!-- /main-container -->
 
