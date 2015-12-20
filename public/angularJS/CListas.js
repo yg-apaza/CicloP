@@ -82,7 +82,7 @@ app.controller('myCtrlListas',  function($scope,$http,$window) {
 
 	$scope.agregarLista = function (reut){
 		$scope.listaAgregar.reutilizar = reut;
-		alert(JSON.stringify($scope.listaAgregar));
+		
 		$http.post('/flista/agregar',$scope.listaAgregar)
 			.success(function(data){
 				if(data.status)
