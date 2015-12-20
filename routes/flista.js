@@ -19,17 +19,17 @@ router.post('/rol', function(req, res) {
 						switch(rol.tipo)
 						{
 							case '1':
-								if(req.user._id == l.disenador)
-									lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje, pertenece: true});
+								if(req.user._id.toString() == l.disenador)
+									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100, pertenece: true});
 								else
-									lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje, pertenece: false});
+									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100, pertenece: false});
 								break;
 							case '2':
-								if(req.user._id == l.probador)
-									lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje});
+								if(req.user._id.toString() == l.probador && l.estado != 0)
+									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100});
 								break;
 							case '3':
-								lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje});
+								lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100});
 								break;
 						}
 						callback();
@@ -234,7 +234,10 @@ router.post('/agregar', function(req, res) {
 						var i, j;
 						for(i = 0; i < lista2.secciones.length; i++)
 							for(j = 0; j < lista2.secciones[i].items.length; j++)
+							{
+								
 								lista.secciones[i].items[j].seleccionado = lista2.secciones[i].items[j].seleccionado;
+							}
 						lista.total = puntajeMaximo(lista.secciones);
 						lista.puntajeMinimo = puntajeActual(lista.secciones);
 						lista.save();
@@ -292,7 +295,12 @@ router.post('/guardarCambios', function(req, res) {
 		Lista.findOne({_id: req.session.idLista}, function(err, lista) {
 			lista.secciones = req.body.secciones;
 			Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, rol) {
-				if(rol.tipo == '2')
+				if(rol.tipo == '1')
+				{
+					lista.total = puntajeMaximo(req.body.secciones);
+					lista.puntajeMinimo = puntajeActual(req.body.secciones)
+				}
+				else if(rol.tipo == '2')
 				{
 					lista.estado = 2;
 					lista.puntaje = puntajeActual(lista.secciones);
@@ -361,6 +369,16 @@ function verificarObligatorias(secciones) {
 			}
 		}
 	return check;
+}
+
+function fechaString(fecha)
+{
+	var yyyy = fecha.getFullYear().toString();
+	var mm = (fecha.getMonth()+1).toString();
+	var dd  = fecha.getDate().toString();
+	return	(dd[1]?dd:"0"+dd[0]) + '/' + 
+	 		(mm[1]?mm:"0"+mm[0]) + '/' +
+	 		 yyyy;
 }
 
 module.exports = router;
