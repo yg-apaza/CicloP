@@ -23,11 +23,11 @@ app.controller('myCtrlSeccion',  function($scope,$http,$window) {
 		$http.post(urlGuardarSecciones,{secciones: $scope.secciones})
 			.success(function(data){
 				if(data.status){	
-					$scope.respuestaServidor = "Se guardaron correctamente";
+					$scope.respuestaServidor = "Operacion realizado con exito";
 					$('#msjRespuesta').modal('show');
 				}
 				else{
-					$scope.respuestaServidor = "No se guardaron correctamente";
+					$scope.respuestaServidor = "No se pudo realizar la operacion";
 					$('#msjRespuesta').modal('show');
 				}
 		});
