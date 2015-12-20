@@ -17,7 +17,7 @@ var Lista = new Schema({
 		type: Date,
 		default: Date.now()
 	},
-	fCulminacion: String,
+	fCulminacion: Date,
 	secciones: Array
 });
 

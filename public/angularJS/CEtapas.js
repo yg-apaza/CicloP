@@ -12,6 +12,7 @@ app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 	$http.post('/flista/rol')
 	.success(function(data){
 			if(data.status){
+				alert(JSON.stringify(data));
 				$scope.rol = data.rol;
 			 	$scope.listas  = data.listas;
 			}
@@ -27,8 +28,6 @@ app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 			else 
 				alert("Problemas internos");
 	});
-
-
 
 	//FUNCIONES
 	

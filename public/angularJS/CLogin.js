@@ -17,9 +17,6 @@ app.controller('myCtrlUsuario',  function($scope,$http,$window) {
   	};
 });
 
-
-
-
 app.controller('myCtrlUsuarioReg',  function($scope,$http,$window) {
 	$scope.cuentaReg = {nombre:'', apellidos:'', usuario:'', correo:'', clave:''};
 	$scope.respuestaServer = '';
@@ -39,7 +36,6 @@ app.controller('myCtrlUsuarioReg',  function($scope,$http,$window) {
 	};
 
 });
-
 
 app.controller('myCtrlRecuperarCuenta', function($scope,$http,$window){
 	
@@ -75,4 +71,5 @@ app.controller('myCtrlCambiarClave', function($scope,$http,$window){
 			});
 		}
 	};
+	
 });
