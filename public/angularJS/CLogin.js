@@ -2,7 +2,6 @@ var app = angular.module('myAppUsuario',[]);
 
 app.controller('myCtrlUsuario',  function($scope,$http,$window) {
   	$scope.cuenta = {username:'',password:''};
-  	$scope.respuestaServerIngreso = '';
   	
   	$scope.ingresar = function(){
 		$http.post('/fusuario/login', $scope.cuenta)

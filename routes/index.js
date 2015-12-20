@@ -5,9 +5,9 @@ var router = express.Router();
 //HOME
 router.get('/', function (req, res) {
 	if(req.user)
-		res.sendFile(path.join(__dirname, '../views', 'home.html'));
+		res.sendFile(path.join(__dirname, '../views', 'principal.html'));
 	else
-		res.sendFile(path.join(__dirname, '../views', 'index.html'));
+		res.sendFile(path.join(__dirname, '../views', 'principalPortal.html'));
 });
 
 router.get('/home', function (req, res) {
@@ -76,7 +76,7 @@ router.get('/etapa', function (req, res) {
 //LISTAS DE CHEQUEO
 router.get('/agregarLista', function (req, res) {
 	if(req.user)
-		res.sendFile(path.join(__dirname, '../views', 'listaChequeoAgregar.html'));
+		res.sendFile(path.join(__dirname, '../views', 'etapaSeccionAgregarLista.html'));
 	else
 		res.redirect('/');
 });
@@ -92,7 +92,7 @@ router.get('/notificaciones', function (req, res) {
 //SECCION
 router.get('/seccion',function(req,res){
 	if(req.user)
-		res.sendFile(path.join(__dirname,'../views','seccion.html'));
+		res.sendFile(path.join(__dirname,'../views','etapaSeccionEditar.html'));
 	else 
 		res.redirect('/');
 })
@@ -100,15 +100,16 @@ module.exports = router;
 
 router.get('/seccionProbador',function(req,res){
 	if(req.user)
-		res.sendFile(path.join(__dirname,'../views','seccionProbador.html'));
+		res.sendFile(path.join(__dirname,'../views','etapaSeccionProbar.html'));
 	else 
 		res.redirect('/');
 })
 module.exports = router;
+
 //REPORTE
 router.get('/reporte',function(req,res){
 	if(req.user)
-		res.sendFile(path.join(__dirname,'../views','reporte.html'));
+		res.sendFile(path.join(__dirname,'../views','proyectoReporte.html'));
 	else 
 		res.redirect('/');
 })
