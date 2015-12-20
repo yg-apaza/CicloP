@@ -243,7 +243,7 @@
 								<td>{{lista.nombre}}</td>
 								<td>{{lista.fecha}}</td>
 								<td>{{lista.estado}}</td>
-								<td>{{lista.puntaje+'%'}}</td>
+								<td>{{lista.puntaje | number:2}}%</td>
 								<td>
 
 								<a class="btn btn-success" ng-click="listaChekeo(lista.id,1)" ng-show="lista.pertenece && lista.estado==0">editar <i class="fa fa-edit fa-lg"></i></a>
