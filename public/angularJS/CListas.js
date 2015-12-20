@@ -51,6 +51,7 @@ app.controller('myCtrlListas',  function($scope,$http,$window) {
 	$http.post('/flista/rol')
 		.success(function(data){
 			if(data.status){
+				
 				$scope.rol = data.rol;
 			 	$scope.listas  = data.listas;
 			}

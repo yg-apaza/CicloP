@@ -21,7 +21,6 @@ app.controller('myCtrlMenuSec',  function($scope,$http,$window) {
           $scope.rolUsuario = rolesUsuarios[data.rol];    
           $scope.rol = data.rol;    
       }
-
       else 
         alert("Problemas internos");
   });
