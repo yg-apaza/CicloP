@@ -20,16 +20,16 @@ router.post('/rol', function(req, res) {
 						{
 							case '1':
 								if(req.user._id == l.disenador)
-									lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje, pertenece: true});
+									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100, pertenece: true});
 								else
-									lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje, pertenece: false});
+									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100, pertenece: false});
 								break;
 							case '2':
 								if(req.user._id == l.probador)
-									lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje});
+									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100});
 								break;
 							case '3':
-								lista.push({id: l._id, nombre: l.nombre, fecha: l.fCulminacion, estado: l.estado, puntaje: l.puntaje});
+								lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100});
 								break;
 						}
 						callback();
@@ -361,6 +361,16 @@ function verificarObligatorias(secciones) {
 			}
 		}
 	return check;
+}
+
+function fechaString(fecha)
+{
+	var yyyy = fecha.getFullYear().toString();
+	var mm = (fecha.getMonth()+1).toString(); // getMonth() is zero-based
+	var dd  = fecha.getDate().toString();
+	return	(dd[1]?dd:"0"+dd[0]) + '/' + 
+	 		(mm[1]?mm:"0"+mm[0]) + '/' +
+	 		yyyy;
 }
 
 module.exports = router;
