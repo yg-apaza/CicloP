@@ -16,10 +16,10 @@ app.controller('myCtrlSeccion',  function($scope,$http,$window) {
 		
 		var urlGuardarSecciones = '/flista/guardarCambios';
 
-		if(tipo=1)
+		if(tipo==1){
 			urlGuardarSecciones = '/flista/publicar';
+		}
 		
-
 		$http.post(urlGuardarSecciones,{secciones: $scope.secciones})
 			.success(function(data){
 				if(data.status){	
