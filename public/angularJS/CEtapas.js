@@ -40,11 +40,19 @@ app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 		});
 	};
 
-	$scope.listaChekeo = function (id){
+	$scope.listaChekeo = function (id,rol){
+
 		$http.post('/flista/guardarIdLista',{idLista: id})
 		.success(function(data){
-			if(data.status)
-				$window.location.href = "/seccion";
+			if(data.status){
+				if(rol==1){
+					$window.location.href = "/seccion";
+				}
+				else if(rol==2){
+					$window.location.href = "/seccionProbador";
+				}
+				
+			}
 			else 
 				alert("Error del Servidor");
 		});

@@ -98,7 +98,13 @@ router.get('/seccion',function(req,res){
 })
 module.exports = router;
 
-
+router.get('/seccionProbador',function(req,res){
+	if(req.user)
+		res.sendFile(path.join(__dirname,'../views','seccionProbador.html'));
+	else 
+		res.redirect('/');
+})
+module.exports = router;
 //REPORTE
 router.get('/reporte',function(req,res){
 	if(req.user)
