@@ -228,7 +228,8 @@ router.post('/agregar', function(req, res) {
 			}
 			else
 			{
-				Lista.findOne({idProyecto: req.session.idProy, tipo: modelo.tipo, estado: 4}, {sort: { 'fCreacion' : -1 }}, function(err, lista2) {
+				Lista.findOne({idProyecto: req.session.idProy, tipo: modelo.tipo, estado: 4}).sort({fCreacion : -1}).exec( function(err, lista2) {
+					console.log(err);
 					if(!err)
 					{
 						var i, j;
