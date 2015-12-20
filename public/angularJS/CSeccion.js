@@ -25,6 +25,7 @@ app.controller('myCtrlSeccion',  function($scope,$http,$window) {
 				if(data.status){	
 					$scope.respuestaServidor = "Operacion realizado con exito";
 					$('#msjRespuesta').modal('show');
+					$window.location.href="/etapa";
 				}
 				else{
 					$scope.respuestaServidor = "No se pudo realizar la operacion";
