@@ -315,7 +315,7 @@ router.post('/guardarCambios', function(req, res) {
 });
 
 router.post('/publicar', function(req, res) {
-	Rol.findOne({idUsuario: user._id, idProyecto: idProy}, function(err, rol) {
+	Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, rol) {
 		Lista.findOne({_id: req.session.idLista}, function(err, lista) {
 			if(rol.tipo == '1')
 			{
@@ -324,12 +324,13 @@ router.post('/publicar', function(req, res) {
 			else if(rol.tipo == '2')
 			{
 				var puntaje = puntajeActual(lista.secciones);
-				if(verificarObligarias(lista.secciones) && puntaje >= (lista.puntajeMinimo/lista.puntajeMaximo))
+				if(verificarObligatorias(lista.secciones) && puntaje >= (lista.puntajeMinimo/lista.puntajeMaximo))
 					lista.estado = 3;
 				else
 					lista.estado = 4;
 			}
 			lista.save();
+			res.json({status: true});
 		});
 	});
 });
