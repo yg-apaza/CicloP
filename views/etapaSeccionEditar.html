@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CICLO-P</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Font Awesome -->
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	
+	<!-- Pace -->
+	<link href="css/pace.css" rel="stylesheet">
+	
+	<!-- Color box -->
+	<link href="css/colorbox/colorbox.css" rel="stylesheet">
+
+	<!-- Perfect -->
+	<link href="css/app.min.css" rel="stylesheet">
+	<link href="css/app-skin.css" rel="stylesheet">
+	
+  </head>
+
+  <body class="overflow-hidden" ng-app="myAppHome" >
+ 	<!-- COLOR -->
+ 	
+	<div id="overlay" class="transparent"></div>
+
+	<a href="" id="theme-setting-icon"><i class="fa fa-cog fa-lg"></i></a>
+	<div id="theme-setting">
+		<div class="title">
+			<strong class="no-margin">Color</strong>
+		</div>
+		<div class="theme-box">
+			<a class="theme-color" style="background:#323447" id="default"></a>
+			<a class="theme-color" style="background:#efefef" id="skin-1"></a>
+			<a class="theme-color" style="background:#a93922" id="skin-2"></a>
+			<a class="theme-color" style="background:#3e6b96" id="skin-3"></a>
+			<a class="theme-color" style="background:#635247" id="skin-4"></a>
+			<a class="theme-color" style="background:#3a3a3a" id="skin-5"></a>
+			<a class="theme-color" style="background:#495B6C" id="skin-6"></a>
+		</div>
+	</div><!-- /theme-setting -->
+	
+	<!-- /COLOR -->
+	
+	<div id="wrapper" class="preload">
+		<!-- CABECERA -->
+
+		<div id="top-nav" class="skin-6 fixed">
+			<div class="brand">
+				<span><a href="/"><img src="http://i.picasion.com/resize81/09f10781b992c513178397830b9036ee.png"></a></span>
+				
+			</div><!-- /brand -->
+			<button type="button" class="navbar-toggle pull-left" id="sidebarToggle">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<button type="button" class="navbar-toggle pull-left hide-menu" id="menuToggle">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<ul class="nav-notification clearfix">
+				<li class="dropdown" ng-controller="myCtrlNotificacion">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" >
+						<i class="fa fa-bell fa-lg"></i>
+						<span ng-show="{{'noleidos'}}" class="notification-label bounceIn animation-delay4">{{noleidos}}</span>
+					</a>
+					<ul class="dropdown-menu message dropdown-1" >
+						<li ng-show="{{'noleidos==0'}}"> <a>No tienes notificaciones nuevas</a></li>
+						<li ng-show="{{'noleidos==1'}}"> <a>Tiene {{noleidos}} notificacion nueva</a></li>
+						<li ng-show="{{'noleidos>1'}}"> <a>Tienes {{noleidos}} notificaciones nuevas</a></li>			  
+						
+						<li ng-repeat="notificacion in notificaciones | limitTo: 5">
+							<a href="#">
+								<span ng-class=colorIconClass(notificacion.tipo)>
+									<i ng-class=iconClass(notificacion.tipo)></i>
+								</span>
+								<span class="m-left-xs">{{notificacion.titulo}}</span>
+								<span class="time text-muted">{{notificacion.fecha}}</span>
+							</a>
+						</li>
+						
+						<li><a href="/notificaciones" ng-click="leerNotificacion()">Ver todos los mensajes</a></li>					  
+					</ul>
+				</li>
+				
+				<li class="profile dropdown" ng-controller="myCtrlMenu">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						<strong>{{usuario.username}}</strong>
+						<span><i class="fa fa-chevron-down"></i></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a class="clearfix" href="#">
+								<img src="http://www.gravatar.com/avatar/{{usuario.hashImagen}}" alt="User Avatar">
+								<div class="detail">
+									<strong>{{usuario.nombre + ' ' + usuario.apellidos }}</strong>
+									<p class="grey">{{usuario.correo}}</p> 
+								</div>
+							</a>
+						</li>
+						
+						<li><a tabindex="-1" class="main-link logoutConfirm_open" href="#logoutConfirm"><i class="fa fa-lock fa-lg"></i> Salir</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div><!-- /top-nav-->
+		
+		<!-- /CABECERA -->
+		
+		<!-- MENU -->
+		
+		<aside class="fixed skin-6">
+			<div class="sidebar-inner scrollable-sidebar"  >
+				<div class="size-toggle">
+					<a class="btn btn-sm" id="sizeToggle">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a class="btn btn-sm pull-right logoutConfirm_open"  href="#logoutConfirm">
+						<i class="fa fa-power-off"></i>
+					</a>
+				</div><!-- /size-toggle -->	
+
+				<div class="user-block clearfix" ng-controller="myCtrlMenuSec">
+					<img src="http://www.gravatar.com/avatar/{{usuario.hashImagen}}" alt="User Avatar">
+					<div class="detail">
+						<strong>{{usuario.username}}</strong>
+						<ul class="list-inline">
+							<li>{{rolUsuario}}</li>
+						</ul>
+					</div>
+				</div><!-- /user-block -->
+
+				<div class="search-block">
+					<div class="input-group">
+						<input type="text" class="form-control input-sm" placeholder="Busca tus proyectos">
+						<span class="input-group-btn">
+							<button class="btn btn-default btn-sm" type="button"><i class="fa fa-search"></i></button>
+						</span>
+					</div><!-- /input-group -->
+				</div><!-- /search-block -->
+
+				<div class="main-menu" ng-controller="myCtrlListas">
+					<ul>
+						<li>
+							<a href="/">		
+								<span class="text">
+									Inicio
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+						</li>
+						<li class="active openable open">
+							<a href="#">
+								<span class="text">
+									Etapas
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+							<ul class="submenu">
+								<li ng-class="{active: etapa == 1}">
+									<a href="#" ng-click="guardarEtapa(1)"><span class="submenu-label">Toma y definición de Requisitos</span></a>
+								</li>
+								<li ng-class="{active: etapa == 2}">
+									<a href="#" ng-click="guardarEtapa(2)"><span class="submenu-label">Análisis y Diseño</span></a>
+								</li>
+								<li ng-class="{active: etapa == 3}"> 
+									<a href="#" ng-click="guardarEtapa(3)"><span class="submenu-label">Codificación</span></a>
+								</li>
+								<li ng-class="{active: etapa == 4}">
+									<a href="#" ng-click="guardarEtapa(4)"><span class="submenu-label">Pruebas</span></a>
+								</li>
+								<li ng-class="{active: etapa == 5}">
+									<a href="#" ng-click="guardarEtapa(5)"><span class="submenu-label">Implantación y Mantenimiento</span></a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="nuevoProyecto">
+								<span class="text">
+									Crear Proyecto
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+						</li>
+					</ul>
+				</div><!-- /main-menu -->
+			</div><!-- /sidebar-inner -->
+		</aside>
+	
+		<!-- /MENU -->
+
+		<div id="main-container" ng-controller="myCtrlSeccion">
+			<div id="breadcrumb">
+				<ul class="breadcrumb">
+					 <li><i class="fa fa-home"></i><a href="/"> Inicio</a></li> 
+					 <li><a href="/"> Secciones</a></li> 
+				</ul>
+			</div><!-- /breadcrumb-->
+			
+			<div class="padding-md">
+				<div class="panel panel-default">
+					<form>
+						<div class="panel-heading">Secciones</div>
+
+						<div class="panel-body">
+
+							<div ng-repeat="seccion in secciones"> 
+							<b>{{seccion.nombre}}</b><br><br>
+
+							<table class="table table-striped" id="responsiveTable">
+								<thead>
+									<tr>
+										<th></th>
+										<th width="50"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in seccion.items">
+										<td>
+										{{item.nombre}}
+										</td>
+										<td>
+											<label class="label-checkbox">
+												<input type="checkbox" class="chk-row" ng-model='item.seleccionado' ng-disabled="item.obligatoriedad">
+												<span class="custom-checkbox"></span>
+											</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							</div>
+						</div>
+						<div class="panel-footer text-right">
+							<button ng-click="guardarSecciones(0)" class="btn btn-success">Guardar Cambios</button>
+							<button data-toggle="modal" data-target="#msjReutilizar" class="btn btn-danger">Publicar Lista</button>
+						</div>
+					</form>
+				</div><!-- /panel -->
+			</div>
+			
+			<div id="msjReutilizar" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">
+			      <!-- CONTENIDO -->
+			      <div class="modal-body"  >
+			      	<center>
+			      	<h4>¿Deseas publicar?</h4>
+			      	<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+		  			<button type="button"  ng-click="guardarSecciones(1)" data-dismiss="modal" class="btn btn-success">Si</button>
+			      	</center>
+			      </div>
+			      <!-- FIN CONTENIDO-->
+			      
+			      <!-- FIN PIE -->
+			</div></div></div>	
+
+			<div id="msjRespuesta" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">
+			      <!-- CONTENIDO -->
+			      <div class="modal-body"  >
+			      	<center>
+			      	<h4> {{respuestaServidor}}</h4>
+			      	<button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+			      	</center>
+			      </div>
+			      <!-- FIN CONTENIDO-->
+			      
+			      <!-- FIN PIE -->
+			</div></div></div>					
+
+		</div><!-- /main-container -->
+
+		<!-- PIE DE PAGINA -->
+		<footer>
+			<div class="row">
+				<div class="col-sm-6">
+					<p class="no-margin">
+						MOT Derechos Reservados Copyright &copy; 2015
+					</p>
+				</div><!-- /.col -->
+			</div><!-- /.row-->
+		</footer>
+		<!-- /PIE DE PAGINA -->
+		
+	</div><!-- /wrapper -->
+
+	<a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
+	
+
+
+
+
+	<!-- Logout confirmation -->
+	<div class="custom-popup width-100" id="logoutConfirm">
+		<div class="padding-md">
+			<h4 class="m-top-none"> ¿Realmente quiere salir?</h4>
+		</div>
+
+		<div class="text-center">
+			<a class="btn btn-success m-right-sm" href="fusuario/logout">Si</a>
+			<a class="btn btn-danger logoutConfirm_close">No</a>
+		</div>
+	</div>
+	
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+	<!-- Jquery -->
+	<script src="js/jquery-1.10.2.min.js"></script>
+	
+	<!-- Bootstrap -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+   
+	<!-- Colorbox -->
+	<script src='js/jquery.colorbox.min.js'></script>	
+
+	<!-- Morris -->
+	<script src='js/rapheal.min.js'></script>	
+	<script src='js/morris.min.js'></script>
+
+	<!-- Modernizr -->
+	<script src='js/modernizr.min.js'></script>
+	
+	<!-- Pace -->
+	<script src='js/pace.min.js'></script>
+	
+	<!-- Popup Overlay -->
+	<script src='js/jquery.popupoverlay.min.js'></script>
+	
+	<!-- Slimscroll -->
+	<script src='js/jquery.slimscroll.min.js'></script>
+	
+	<!-- Cookie -->
+	<script src='js/jquery.cookie.min.js'></script>
+
+	<!-- Perfect -->
+	<script src="js/app/app.js"></script>
+	
+	<!-- Cargamos angular -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+	<script src="angularJS/CHome.js"></script>
+	<script src="angularJS/CListas.js"></script>
+	<script src="angularJS/CSeccion.js"></script>
+	<script src="angularJS/CProyecto.js"></script>
+	<script src="angularJS/CMenu.js"></script>
+	<script src="angularJS/CNotificacion.js"></script>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+	
+	
+	<script>
+		$(function()	{
+			//Colorbox 
+			$('.gallery-zoom').colorbox({
+				rel:'gallery',
+				maxWidth:'90%',
+				width:'800px'
+			});
+		});
+	</script>
+	
+  </body>
+</html>
