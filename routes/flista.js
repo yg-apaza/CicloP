@@ -20,16 +20,16 @@ router.post('/rol', function(req, res) {
 						{
 							case '1':
 								if(req.user._id.toString() == l.disenador)
-									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100, pertenece: true});
+									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100, pertenece: true});
 								else
-									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100, pertenece: false});
+									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100, pertenece: false});
 								break;
 							case '2':
 								if(req.user._id.toString() == l.probador && l.estado != 0)
-									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100});
+									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100});
 								break;
 							case '3':
-								lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.total) * 100});
+								lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100});
 								break;
 						}
 						callback();
@@ -208,8 +208,8 @@ router.post('/agregar', function(req, res) {
 				disenador: 		req.user._id,
 				probador: 		req.body.idProbador,
 				puntaje:		0,
-				puntajeMinimo:	puntajeActual(modelo.secciones),
-				total:			puntajeMaximo(modelo.secciones),
+				puntajeMinimo:	puntajeMinimo(modelo.secciones),
+				puntajeMaximo:	puntajeMaximo(modelo.secciones),
 				fCulminacion:	req.body.fCulminacion,
 				secciones:		modelo.secciones
 			});
@@ -234,12 +234,9 @@ router.post('/agregar', function(req, res) {
 						var i, j;
 						for(i = 0; i < lista2.secciones.length; i++)
 							for(j = 0; j < lista2.secciones[i].items.length; j++)
-							{
-								
 								lista.secciones[i].items[j].seleccionado = lista2.secciones[i].items[j].seleccionado;
-							}
-						lista.total = puntajeMaximo(lista.secciones);
-						lista.puntajeMinimo = puntajeActual(lista.secciones);
+						lista.puntajeMaximo = puntajeMaximo(lista.secciones);
+						lista.puntajeMinimo = puntajeMinimo(lista.secciones);
 						lista.save();
 						req.session.idLista = modelo._id;
 						res.json({status: true});
@@ -297,13 +294,15 @@ router.post('/guardarCambios', function(req, res) {
 			Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, rol) {
 				if(rol.tipo == '1')
 				{
-					lista.total = puntajeMaximo(req.body.secciones);
-					lista.puntajeMinimo = puntajeActual(req.body.secciones)
+					lista.estado = 0;
+					lista.puntaje = 0;
+					lista.puntajeMinimo = puntajeMinimo(req.body.secciones);
+					lista.puntajeMaximo = puntajeMaximo(req.body.secciones);
 				}
 				else if(rol.tipo == '2')
 				{
 					lista.estado = 2;
-					lista.puntaje = puntajeActual(lista.secciones);
+					lista.puntaje = puntajeActual(req.body.secciones);
 				}
 				lista.save();
 				res.json({status: true});
@@ -335,23 +334,34 @@ router.post('/publicar', function(req, res) {
 	});
 });
 
-function puntajeMaximo(secciones){
-	var count = 0;
-	for(var i = 0; i < secciones.length; i++)
-		for(var j = 0; j < secciones[i].items.length; j++)
-		{
-			if(secciones[i].items[j].seleccionado)
-				count += secciones[i].items[j].ponderacion;
-		}
-	return count;
-}
-
 function puntajeActual(secciones) {
 	var count = 0;
 	for(var i = 0; i < secciones.length; i++)
 		for(var j = 0; j < secciones[i].items.length; j++)
 		{
 			if(secciones[i].items[j].seleccionado && secciones[i].items[j].estado)
+				count += secciones[i].items[j].ponderacion;
+		}
+	return count;
+}
+
+function puntajeMinimo(secciones) {
+	var count = 0;
+	for(var i = 0; i < secciones.length; i++)
+		for(var j = 0; j < secciones[i].items.length; j++)
+		{
+			if(secciones[i].items[j].obligatoriedad)
+				count += secciones[i].items[j].ponderacion;
+		}
+	return count;
+}
+
+function puntajeMaximo(secciones){
+	var count = 0;
+	for(var i = 0; i < secciones.length; i++)
+		for(var j = 0; j < secciones[i].items.length; j++)
+		{
+			if(secciones[i].items[j].seleccionado)
 				count += secciones[i].items[j].ponderacion;
 		}
 	return count;
