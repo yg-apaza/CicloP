@@ -200,7 +200,6 @@ router.post('/agregar', function(req, res) {
 		Modelo.findOne({tipo: req.body.numLista}, function(err, modelo) {			
 			var lista = new Lista({
 				idProyecto: 	req.session.idProy,
-				idModelo: 		modelo._id,
 				tipo: 			modelo.tipo,
 				etapa: 			modelo.etapa,
 				nombre: 		modelo.nombre,
@@ -332,7 +331,36 @@ router.post('/publicar', function(req, res) {
 				{
 					lista.puntaje = puntajeActual(req.body.secciones);
 					if(verificarObligatorias(req.body.secciones) && lista.puntaje >= (lista.puntajeMinimo/lista.puntajeMaximo))
+					{
 						lista.estado = 3;
+						/*
+						var check = true;
+						var puntaje = 0;
+						var puntajeMax = 0;
+						
+						async.each(
+							tipos,
+							function(t, callback)
+							{
+								Lista.findOne({idProyecto: req.session.idProy, tipo: t[i], estado: 3}, function(err, lista) {
+									if(!err & lista)
+									{
+										puntaje += lista.puntaje;
+										puntajeMax += lista.puntajeMaximo;
+									}
+									callback();
+								});
+							},
+							function(err)
+							{
+								if(check)
+									cb(puntaje/puntajeMax);
+								else
+									cb(-1);
+							}
+						);
+						*/
+					}
 					else
 						lista.estado = 4;
 				}
@@ -402,13 +430,33 @@ function fechaString(fecha)
 	 		 yyyy;
 }
 
-function listaAprobada(listas, cb)
+function listaAprobada(tipos, cb)
 {
-	for(var i = 0; i < listas.length; i++)
-	{
-		
-	}
-	cb();
+	var check = true;
+	var puntaje = 0;
+	var puntajeMax = 0;
+	
+	async.each(
+		tipos,
+		function(t, callback)
+		{
+			Lista.findOne({idProyecto: req.session.idProy, tipo: t[i], estado: 3}, function(err, lista) {
+				if(!err & lista)
+				{
+					puntaje += lista.puntaje;
+					puntajeMax += lista.puntajeMaximo;
+				}
+				callback();
+			});
+		},
+		function(err)
+		{
+			if(check)
+				cb(puntaje/puntajeMax);
+			else
+				cb(-1);
+		}
+	);
 }
 
 module.exports = router;
