@@ -8,6 +8,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var path = require('path');
 var passport = require('passport');
+var fs = require('fs');
 //var socketio = require('socket.io').listen(3001).sockets;
 var LocalStrategy = require('passport-local' ).Strategy;
 var MongoStore = require('connect-mongo')(expressSession);
@@ -19,6 +20,7 @@ var fnotificacion = require('./routes/fnotificacion');
 var fproyecto = require('./routes/fproyecto');
 var flista = require('./routes/flista');
 var app = express();
+var reporteApp = express();
 
 /** View Engine Setup */
 app.set('views', path.join(__dirname, 'views'));
@@ -33,7 +35,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
 app.use(expressSession({
     secret: 'keyboard cat',
     resave: false,
@@ -53,12 +54,41 @@ passport.serializeUser(Usuario.serializeUser());
 passport.deserializeUser(Usuario.deserializeUser());
 
 /** Rutas POST*/
+app.use('/reporte', reporteApp);
 app.use('/', index);
 app.use('/fusuario/', fusuario);
 app.use('/fnotificacion/', fnotificacion);
 app.use('/fproyecto/', fproyecto);
 app.use('/flista', flista);
 
+/** Servidor del reporte */
+/*
+var jsreport = require('jsreport-core')({express: {app: reporteApp}});
+jsreport.init().then(function () {
+   jsreport.render({ 
+       template: { 
+           content: '<h1>Hello {{:foo}}</h1>', 
+           engine: 'jsrender', 
+           recipe: 'phantom-pdf'
+        }, 
+        data: { 
+            foo: "world"
+        }
+    }).then(function(resp) {
+     //prints pdf with headline Hello world
+     console.log(resp.content.toString())
+   });
+}).catch(function(e) {
+	  console.log(e)
+})
+*/
+var jsreport = require('jsreport');
+jsreport.render({ template: { content: 'Hello worls', engine: 'jsrender', recipe: 'phantom-pdf' } }).then(function(out) {
+    //out.stream.pipe(res);
+	out.stream.pipe(fs.createWriteStream('d:\\helloworld.pdf'));
+  }).catch(function(e) {    
+    console.log(e.message);
+  });
 /** Controladores de errores */
 
 // catch 404 and forward to error handler
