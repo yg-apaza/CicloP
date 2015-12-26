@@ -144,7 +144,8 @@
 
 				<div class="search-block">
 					<div class="input-group">
-						<input type="text" class="form-control input-sm" placeholder="Busca tus proyectos">
+						<input type="select" class="form-control input-sm" ng-model="data_search" placeholder="Busca tus proyectos">
+
 						<span class="input-group-btn">
 							<button class="btn btn-default btn-sm" type="button"><i class="fa fa-search"></i></button>
 						</span>
@@ -170,7 +171,7 @@
 							</a>
 							
 							<ul class="submenu" >
-								<li class="openable open"  ng-repeat="proyecto in proyectos">
+								<li class="openable open"  ng-repeat="proyecto in proyectos | filter:data_search">
 									<a href="#" ng-click="enviarID(proyecto.id)"><span class="submenu-label">{{proyecto.nombre}}</span></a>
 								</li>
 							</ul>

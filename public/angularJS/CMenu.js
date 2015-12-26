@@ -28,7 +28,6 @@ app.controller('myCtrlMenuSec',  function($scope,$http,$window) {
   $http.post('/fusuario').success(function(data) {
     $scope.usuario = data;
   });
-
 }); 
 
 //MENU PARTE INFERIOR
