@@ -56,6 +56,21 @@ app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
 			else 
 				alert("Error del Servidor");
 		});
-	}
+	};
+
+
+	$scope.colorEstado = function(estado){
+	//0: No publicado, 1: Publicado, 2: En proceso, 3: Aprobada, 4: Desaprobada
+     if (estado == 0)
+	  return {color:'lead'};//plomo
+     if (estado == 1)
+   	  return {color:'green'};//Verde
+   	 if (estado == 2)
+   	  return {color:'yellow'};//Amarillo
+     if (estado == 3)
+   	  return {color:'blue'};//Azul
+     if (estado == 4)
+   	  return {color:'red'};//Rojo
+  };
 });
 

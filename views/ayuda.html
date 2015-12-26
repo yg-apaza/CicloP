@@ -202,29 +202,34 @@
 			<div class="row row-merge" ng-controller="myCtrlNotificacion">
 					<div class="panel panel-default inbox-panel">
 						<div class="panel-heading">
-						<h4>Tus notificaciones</h4>
+						<h4>¿con qué necesitas ayuda?</h4>
 						</div>
 						<div class="panel-body">
 										
-							<ul class="list-group" >
-								<li ng-repeat="notificacion in notificaciones" class="list-group-item clearfix inbox-item">
-									
-									<span ng-class=colorIconClass(notificacion.tipo)>
-										<i ng-class=iconClass(notificacion.tipo)></i>
-									</span>
-
-									<span class="detail">	
-										<strong>{{notificacion.titulo+'   '}}</strong> {{notificacion.descripcion}}
-									</span>
-		
-									<span class="inline-block pull-right">						
-										<span class="time">{{notificacion.fecha}}</span>		
-									</span>
+							<ul class="list-group">
+								
+								<li class="list-group-item clearfix inbox-item" ng-click="count1 = count1 + 1">
+									Etapa de evaluación
 								</li>
+								<p ng-show="count1%2==1">Niveles de ciclo de vida de software propuestos por el Ciclo-P.</p>
+								<li class="list-group-item clearfix inbox-item" ng-click="count2 = count2 + 1">
+									Lista de chequeo
+								</li>
+								<p ng-show="count2%2==1">Herramienta utilizada para la validación de características de calidad de software.</p>
+								<li class="list-group-item clearfix inbox-item" ng-click="count3 = count3 + 1">
+									Diseñador
+								</li>
+								<p ng-show="count3%2==1">Encargado de definir el contenido de una lista de chequeo, es decir elegir los items.</p>
+								<li class="list-group-item clearfix inbox-item" ng-click="count4 = count4 + 1">
+									Probador
+								</li>
+								<p ng-show="count4%2==1">Encargado de aplicar una lista de chequeo, es decir revisar si el software cuenta o cumple.</p>
+								<li class="list-group-item clearfix inbox-item" ng-click="count5 = count5 + 1">
+									Coordinador de proyecto
+								</li>
+								<p ng-show="count5%2==1">Encargado de la administración del proyecto, elige el equipo de trabajo y asigna roles.</p>
+
 							</ul><!-- /list-group -->
-						</div>
-						<div class="panel-footer clearfix">
-							<div class="pull-left">{{'cantidad de notifiaciones: '+ notificaciones.length }}</div>
 						</div>
 					</div><!-- /panel -->
 			</div><!-- /.row -->

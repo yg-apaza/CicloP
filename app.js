@@ -81,7 +81,7 @@ jsreport.init().then(function () {
 }).catch(function(e) {
 	  console.log(e)
 })
-*/
+
 var jsreport = require('jsreport');
 jsreport.render({ template: { content: 'Hello worls', engine: 'jsrender', recipe: 'phantom-pdf' } }).then(function(out) {
     //out.stream.pipe(res);
