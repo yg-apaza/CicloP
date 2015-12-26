@@ -92,11 +92,11 @@ router.post('/agregar', function(req, res) {
 		var proy = new Proyecto({	nombre: req.body.nombre,
 									descripcion: req.body.descripcion,
 									fCulminacion: req.body.fechaCulminacion,
-									etapas: [{tipo: 1, estado: true, fInicio: new Date()},
-									         {tipo: 2, estado: false, fInicio: null},
-									         {tipo: 3, estado: false, fInicio: null},
-									         {tipo: 4, estado: false, fInicio: null},
-									         {tipo: 5, estado: false, fInicio: null}]
+									etapas: [{tipo: 1, estado: 1, puntaje: 0, fInicio: new Date()},
+									         {tipo: 2, estado: 0, puntaje: 0, fInicio: null},
+									         {tipo: 3, estado: 0, puntaje: 0, fInicio: null},
+									         {tipo: 4, estado: 0, puntaje: 0, fInicio: null},
+									         {tipo: 5, estado: 0, puntaje: 0, fInicio: null}]
 								});
 		proy.save(function(err) {
 			if (!err)
@@ -173,7 +173,7 @@ router.post('/agregar', function(req, res) {
 router.post('/verProyectos', function(req, res) {
 	Rol.find({idUsuario: req.user._id}, function(err, roles){
 		var nombresProyectos = [];
-		async.each(roles, function(r, callback) {
+		async.eachSeries(roles, function(r, callback) {
 			Proyecto.findOne({_id: r.idProyecto}, function (err, p) {
 				if(!err)
 					nombresProyectos.push({nombre: p.nombre, id: p._id.toString()});

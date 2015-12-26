@@ -402,4 +402,13 @@ function fechaString(fecha)
 	 		 yyyy;
 }
 
+function listaAprobada(listas, cb)
+{
+	for(var i = 0; i < listas.length; i++)
+	{
+		
+	}
+	cb();
+}
+
 module.exports = router;
