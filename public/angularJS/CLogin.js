@@ -25,10 +25,21 @@ app.controller('myCtrlUsuarioReg',  function($scope,$http,$window) {
 		if ($scope.claveVerificar == $scope.cuentaReg.clave){ 
 			$http.post('/fusuario/register', $scope.cuentaReg)
 			.success(function(data) {
-					if(data.status)
+				alert(JSON.stringify(data));
+					if(data.status){
 						$window.location.href = "/ingresar";
+					}
 					else {
-						$scope.respuestaServer =  data.message;
+						if(data.messageUsuario){
+							$scope.respuestaServer_usuario = "Usuario registrado";
+							$scope.respuestaServer_correo = "";
+						}
+						
+						if(data.messageCorreo){
+							$scope.respuestaServer_correo = "Correo registrado";
+							$scope.respuestaServer_usuario = "";
+						}
+
 					}
 			});
 		}

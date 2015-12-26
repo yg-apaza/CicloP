@@ -87,7 +87,13 @@ router.get('/notificaciones', function (req, res) {
 	else
 		res.redirect('/');
 });
-
+//AYUDA
+router.get('/ayuda', function (req, res) {
+	if(req.user)
+		res.sendFile(path.join(__dirname, '../views', 'ayuda.html'));
+	else
+		res.redirect('/');
+});
 
 //SECCION
 router.get('/seccion',function(req,res){

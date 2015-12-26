@@ -31,8 +31,17 @@
 	    </div>
 		<div class="login-widget animation-delay1">	
 			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa fa-plus-circle fa-lg"></i> Registrar Usuario
+				<div class="panel-heading clearfix">
+
+					<div class="pull-left">
+						<i class="fa fa-plus-circle fa-lg"></i> Registrar Usuario
+					</div>
+
+					<div class="pull-right">
+						<span style="font-size:11px;">¿Tienes una cuenta?</span>
+						 <a style="margin-top:-2px;" href="/ingresar" class="primary-font login-link"> Iniciar Sesión</a>
+					</div>
+
 				</div>
 				<div class="panel-body">
 					<form class="form-login" data-validate="parsley" ng-submit="registrar()" novalidate>
@@ -47,7 +56,7 @@
 						<div class="form-group">
 							<label>Nombre de Usuario</label>
 							<input type="text" placeholder="Usuario" class="form-control input-sm bounceIn animation-delay4" data-required="true" data-type="usuario" data-type="alphanum" ng-model="cuentaReg.usuario">
-							<p class="text-danger">{{respuestaServer}}</p>	
+							<p class="text-danger">{{respuestaServer_usuario}}</p>	
 						</div><!-- /frm-group -->
 						<div class="form-group">
 							<label>Contraseña</label>
@@ -60,13 +69,14 @@
 						<div class="form-group">
 							<label>Correo Electrónico</label>
 							<input type="text" placeholder="Correo Electrónico" class="form-control input-sm bounceIn animation-delay6" data-required="true" data-type="email" ng-model="cuentaReg.correo">
+							<p class="text-danger">{{respuestaServer_correo}}</p>
 						</div><!-- /form-group -->
 				
 						<div class="seperator"></div>
+
 						<div class="form-group">
-							<div class="controls">
-								¿Tienes una cuenta? <a href="/ingresar" class="primary-font login-link"> Iniciar Sesión</a>
-							</div>
+							 <label><a data-toggle="modal" data-target="#teminoCondicion">Leer terminos y condiciones</a></label>
+
 						</div><!-- /form-group -->
 							
 						<hr/>
@@ -79,6 +89,48 @@
 				</div>
 			</div><!-- /panel -->
 		</div><!-- /login-widget -->
+
+		<div id="teminoCondicion" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">
+		      <!-- CONTENIDO -->
+		      <div class="modal-body"  >
+		      	<center>
+		      		<h5><u><b>Términos y Condiciones de Uso del Sitio Web CicloP</b></u></h5>
+		      	</center>
+		      	<br>
+
+				<p align="justify">Gracias por visitar esta página web. Por favor, lee atentamente los Términos y Condiciones contenidos en este documento, ya que cada vez que se usa esta página web se están aceptando los Términos y Condiciones que aquí se exponen.</p>
+
+				<br>
+					<b>Política de Privacidad de la página web</b>
+				<p align="justify">Cualquier material o dato personal enviado a las páginas web CicloP queda amparado por la política de privacidad y por la protección de datos personales.</p>
+				<br>
+				<b>Exactitud, carácter completo y puntualidad de la información</b>
+				<p align="justify">Aunque usamos todos los medios a nuestro alcance para asegurar la exactitud y el carácter completo de la información contenida en esta página web. No asumimos responsabilidad alguna en el caso de que la información que se encuentra disponible en la misma no sea exacta o completa.</p>
+				<br>
+				<b>Derechos de Propiedad</b>
+				<p align="justify">CicloP es dueño único y exclusivo, de todos los derechos, título e intereses en y del Sitio Web, de todo el contenido, códigos, datos y materiales del mismo, el aspecto y el ambiente, el diseño y la organización del Sitio Web y la compilación de los contenidos, códigos, datos y los materiales en el Sitio Web, incluyendo pero no limitado a, cualesquiera derechos de autor, derechos de marca, derechos de patente, derechos de base de datos, derechos morales y otras propiedades intelectuales y derechos patrimoniales del mismo. El uso del Sitio Web no le otorga propiedad de ninguno de los contenidos, códigos, datos o materiales a los que pueda acceder en o a través del Sitio Web.</p>
+				<br>
+				<b>Licencia Limitada</b>
+				<p align="justify">Usted puede acceder y ver el contenido del Sitio Web desde su computadora o desde cualquier otro aparato y, a menos de que se indique de otra manera en estos Términos y Condiciones o en el Sitio Web, sacar copias o impresiones individuales del contenido del Sitio Web para su uso personal, interno únicamente. El uso del Sitio Web y de los servicios que se ofrecen en o a través del Sitio Web, son sólo para su uso personal, no comercial.</p>
+				<br>
+				<b>Uso Prohibido</b>
+				<p align="justify">Cualquier distribución, publicación o explotación comercial o promocional del Sitio Web, o de cualquiera de los contenidos, códigos, datos o materiales en el Sitio Web, está estrictamente prohibida, a menos de que usted haya recibido el previo permiso expreso por escrito del personal autorizado de CicloP o de algún otro poseedor de derechos aplicable.</p>
+				<br>
+				<b>Marcas Comerciales</b>
+				<p align="justify">El mal uso de las Marcas Comerciales expuestas en el Sitio Web o en o a través de cualquiera de los servicios del Sitio Web está estrictamente prohibido.</p>
+				<br>
+				<center>
+					<button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+				</center>
+		      	
+		      	
+		      </div>
+		      <!-- FIN CONTENIDO-->
+		      
+		      <!-- FIN PIE -->
+		</div></div></div>	
+
+
 	</div><!-- /login-wrapper -->
 	
     <!-- Le javascript

@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-      <!-- Bootstrap core CSS -->
+    <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	
 	<!-- Font Awesome -->
@@ -16,34 +16,16 @@
 	<!-- Pace -->
 	<link href="css/pace.css" rel="stylesheet">
 	
-	<!-- Chosen -->
-	<link href="css/chosen/chosen.min.css" rel="stylesheet"/>
+	<!-- Color box -->
+	<link href="css/colorbox/colorbox.css" rel="stylesheet">
 
-	<!-- Datepicker -->
-	<link href="css/datepicker.css" rel="stylesheet"/>
-	
-	<!-- Timepicker -->
-	<link href="css/bootstrap-timepicker.css" rel="stylesheet"/>
-	
-	<!-- Slider -->
-	<link href="css/slider.css" rel="stylesheet"/>
-	
-	<!-- Tag input -->
-	<link href="css/jquery.tagsinput.css" rel="stylesheet"/>
-
-	<!-- WYSIHTML5 -->
-	<link href="css/bootstrap-wysihtml5.css" rel="stylesheet"/>
-	
-	<!-- Dropzone -->
-	<link href='css/dropzone/dropzone.css' rel="stylesheet"/>
-	
 	<!-- Perfect -->
 	<link href="css/app.min.css" rel="stylesheet">
 	<link href="css/app-skin.css" rel="stylesheet">
 	
   </head>
 
-  <body class="overflow-hidden" ng-app="myAppHome" >
+  <body class="overflow-hidden" ng-app="myAppHome">
 
  	<!-- COLOR -->
 
@@ -68,7 +50,7 @@
 	<!-- /COLOR -->
 	
 	<div id="wrapper" class="preload">
-	
+
 		<!-- CABECERA -->
 
 		<div id="top-nav" class="skin-6 fixed">
@@ -88,7 +70,7 @@
 			</button>
 			<ul class="nav-notification clearfix">
 				<li class="dropdown" ng-controller="myCtrlNotificacion">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" >
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 						<i class="fa fa-bell fa-lg"></i>
 						<span ng-show="{{'noleidos'}}" class="notification-label bounceIn animation-delay4">{{noleidos}}</span>
 					</a>
@@ -194,7 +176,7 @@
 							</ul>
 							
 						</li>
-						<li class="active">
+						<li>
 							<a href="nuevoProyecto">
 								<span class="text">
 									Crear Proyecto
@@ -207,82 +189,50 @@
 			</div><!-- /sidebar-inner -->
 		</aside>	
 
-		<!-- /MENU -->	
-		
-		<div id="main-container" ng-controller="myCtrlAgregarProyecto">
+		<!-- /MENU -->		
+
+		<div id="main-container">
 			<div id="breadcrumb">
-				<ul class="breadcrumb">
-					 <li><i class="fa fa-home"></i><a href="/"> Inicio</a></li> 
-					 <li class="active">Proyecto</li>	 
+				<ul class="breadcrumb">	
+					 <li><i class="fa fa-home"></i><a href="/"> Inicio</a></li>
+					 <li>Ayuda</li> 
 				</ul>
 			</div><!-- /breadcrumb-->
-			<div class="padding-md">
-				<div class="panel panel-default">
-					<form ng-submit="crearProyecto()" data-validate="parsley" novalidate>
-						<div class="panel-heading">Crear Proyecto</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="nombreProyecto">Nombre del proyecto</label>
-										<input type="text" class="form-control input-sm" id="nombreProyecto" ng-model="newProject.nombre" data-required="true">
-									</div><!-- /form-group -->
-									<div class="form-group">
-										<label for="Descripcion">Descripcion</label>
-										<textarea class="form-control" rows="3" id="Descripcion" ng-model="newProject.descripcion"></textarea>
-									</div><!-- /form-group -->
-									<div class="form-group">
-										<label for="fechaCulminacion">Fecha de Culminacion</label>	
-
-
-											<input type="date" class="form-control" id="fechaCulminacion" name="input" ng-model="newProject.fechaCulminacion" placeholder="yyyy-MM-dd" min="2015-12-14" max="2020-12-12" required />
-									</div><!-- /form-group -->
-								</div>
-
-								<div class="col-md-6" ng-keyup="actualizarUsuarios()">
-
-								
-									<table class="table table-bordered table-condensed table-hover table-striped">
-										<thead>
-											<tr>
-												<th>Usuarios</th>
-												<th>Estado</th>
-												<th>Rol</th>	
-											</tr>
-										</thead>
-										<tr ng-repeat="usuario in usuarios">
-											<td> 	
-												<input type="text" class="form-control" ng-model="usuario.username" >
-											</td>
-											<td>
-												<span ng-class=classEstado(usuario.estado)>{{usuario.msjEstado}}</span>
-											</td>
-											<td> 
-												<select class="input-sm form-control inline" ng-model="usuario.rol"> 
-													<option ng-repeat="rol in roles" value="{{rol.valor}}">
-													{{rol.nombre}}
-													</option> 
-												</select>								
-											</td>
-										</tr>
-									</table>	
-									<div class="pull-left">
-										<a class="btn btn-default btn-xs login-link" href="#" ng-click="agregarUsuarios()" style="margin-top:-2px;"><i class="fa fa-plus-circle"></i> Agregar Usuario</a>
-									</div>				
-								</div>
-							</div>
-						</div>
-						
-						<div class="panel-footer text-right">
-							
-							<button type="submit" class="btn btn-success">Crear</button>
-							<p class="text-danger">{{respuestaServidorProyecto}}</p>
-						</div>
-					</form>
-				</div><!-- /panel -->
-			</div>
 			
+			<div class="row row-merge" ng-controller="myCtrlNotificacion">
+					<div class="panel panel-default inbox-panel">
+						<div class="panel-heading">
+						<h4>Tus notificaciones</h4>
+						</div>
+						<div class="panel-body">
+										
+							<ul class="list-group" >
+								<li ng-repeat="notificacion in notificaciones" class="list-group-item clearfix inbox-item">
+									
+									<span ng-class=colorIconClass(notificacion.tipo)>
+										<i ng-class=iconClass(notificacion.tipo)></i>
+									</span>
+
+									<span class="detail">	
+										<strong>{{notificacion.titulo+'   '}}</strong> {{notificacion.descripcion}}
+									</span>
+		
+									<span class="inline-block pull-right">						
+										<span class="time">{{notificacion.fecha}}</span>		
+									</span>
+								</li>
+							</ul><!-- /list-group -->
+						</div>
+						<div class="panel-footer clearfix">
+							<div class="pull-left">{{'cantidad de notifiaciones: '+ notificaciones.length }}</div>
+						</div>
+					</div><!-- /panel -->
+			</div><!-- /.row -->
+			
+
+
 		</div><!-- /main-container -->
+		
 
 		<!-- PIE DE PAGINA -->
 		<footer>
@@ -321,35 +271,10 @@
 	
 	<!-- Bootstrap -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    
-    <!-- Parsley -->
-	<script src="js/parsley.min.js"></script>
-    
-	<!-- Chosen -->
-	<script src='js/chosen.jquery.min.js'></script>	
+   
+	<!-- Colorbox -->
+	<script src="js/jquery.colorbox.min.js"></script>	
 
-	<!-- Mask-input -->
-	<script src='js/jquery.maskedinput.min.js'></script>	
-
-	<!-- Datepicker -->
-	<script src='js/bootstrap-datepicker.min.js'></script>	
-
-	<!-- Timepicker -->
-	<script src='js/bootstrap-timepicker.min.js'></script>	
-	
-	<!-- Slider -->
-	<script src='js/bootstrap-slider.min.js'></script>	
-	
-	<!-- Tag input -->
-	<script src='js/jquery.tagsinput.min.js'></script>	
-
-	<!-- WYSIHTML5 -->
-	<script src='js/wysihtml5-0.3.0.min.js'></script>	
-	<script src='js/uncompressed/bootstrap-wysihtml5.js'></script>	
-
-	<!-- Dropzone -->
-	<script src='js/dropzone.min.js'></script>	
-	
 	<!-- Modernizr -->
 	<script src='js/modernizr.min.js'></script>
 	
@@ -366,19 +291,24 @@
 	<script src='js/jquery.cookie.min.js'></script>
 
 	<!-- Perfect -->
-	<script src="js/app/app_form.js"></script>
 	<script src="js/app/app.js"></script>
-
+	
 	<!-- Cargamos angular -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
 	<script src="angularJS/CHome.js"></script>
-	<script src="angularJS/CProyecto.js"></script>
 	<script src="angularJS/CMenu.js"></script>
 	<script src="angularJS/CNotificacion.js"></script>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
-	
+	<script>
+		$(function()	{
+			//Colorbox 
+			$('.gallery-zoom').colorbox({
+				rel:'gallery',
+				maxWidth:'90%',
+				width:'800px'
+			});
+		});
+	</script>
 	
   </body>
 </html>
