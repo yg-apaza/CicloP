@@ -3,7 +3,6 @@ var Schema = mongoose.Schema;
 
 var Lista = new Schema({
 	idProyecto: 	Schema.Types.ObjectId,
-	idModelo: 		Schema.Types.ObjectId,
 	tipo: 			Number,
 	etapa: 			Number,
 	nombre: 		String,
