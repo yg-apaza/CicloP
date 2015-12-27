@@ -4,12 +4,12 @@ var cookieParser = require('cookie-parser');
 var express = require('express');
 var expressSession = require('express-session');
 var favicon = require('serve-favicon');
+var fs = require('fs');
+var jsreport = require('jsreport-core')();
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var path = require('path');
 var passport = require('passport');
-var fs = require('fs');
-//var socketio = require('socket.io').listen(3001).sockets;
 var LocalStrategy = require('passport-local' ).Strategy;
 var MongoStore = require('connect-mongo')(expressSession);
 
@@ -20,7 +20,6 @@ var fnotificacion = require('./routes/fnotificacion');
 var fproyecto = require('./routes/fproyecto');
 var flista = require('./routes/flista');
 var app = express();
-var reporteApp = express();
 
 /** View Engine Setup */
 app.set('views', path.join(__dirname, 'views'));
@@ -54,7 +53,6 @@ passport.serializeUser(Usuario.serializeUser());
 passport.deserializeUser(Usuario.deserializeUser());
 
 /** Rutas POST*/
-app.use('/reporte', reporteApp);
 app.use('/', index);
 app.use('/fusuario/', fusuario);
 app.use('/fnotificacion/', fnotificacion);
@@ -63,7 +61,6 @@ app.use('/flista', flista);
 
 /** Servidor del reporte */
 /*
-var jsreport = require('jsreport-core')({express: {app: reporteApp}});
 jsreport.init().then(function () {
    jsreport.render({ 
        template: { 
@@ -74,27 +71,15 @@ jsreport.init().then(function () {
         data: { 
             foo: "world"
         }
-    }).then(function(resp) {
-     //prints pdf with headline Hello world
-     console.log(resp.content.toString())
-   });
+	}).then(function(out) {
+		out.stream.pipe(fs.createWriteStream(path.join(__dirname, 'public', 'helloworld.pdf')));
+	}).catch(function(e) {    
+		console.log(e.message);
+	});
 }).catch(function(e) {
 	  console.log(e)
 })
-<<<<<<< HEAD
-
-=======
 */
-/*
->>>>>>> branch 'master' of https://github.com/yg-apaza/CicloP.git
-var jsreport = require('jsreport');
-jsreport.render({ template: { content: 'Hello worls', engine: 'jsrender', recipe: 'phantom-pdf' } }).then(function(out) {
-    //out.stream.pipe(res);
-	out.stream.pipe(fs.createWriteStream('helloworld.pdf'));
-  }).catch(function(e) {    
-    console.log(e.message);
-  });
-  */
 /** Controladores de errores */
 
 // catch 404 and forward to error handler
@@ -108,7 +93,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-
+/*
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -118,7 +103,7 @@ if (app.get('env') === 'development') {
     });
   });
 }
-
+*/
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {

@@ -5,6 +5,7 @@ var Modelo = require('../models/modelo');
 var Lista = require('../models/lista');
 var Rol = require('../models/rol');
 var Usuario = require('../models/usuario');
+var Proyecto = require('../models/proyecto');
 
 router.post('/rol', function(req, res) {
 	Rol.findOne({idUsuario: req.user._id, idProyecto: req.session.idProy}, function(err, rol) {
@@ -175,7 +176,7 @@ router.post('/probadores', function(req, res) {
 	Rol.find({idProyecto: req.session.idProy, tipo: '2'}, function(err, roles) {
 		var probadores = [];
 		if(!err){
-			async.each(
+			async.eachSeries(
 				roles,
 				function(r, callback)
 				{
@@ -228,7 +229,6 @@ router.post('/agregar', function(req, res) {
 			else
 			{
 				Lista.findOne({idProyecto: req.session.idProy, tipo: modelo.tipo, estado: 4}).sort({fCreacion : -1}).exec( function(err, lista2) {
-					console.log(err);
 					if(!err)
 					{
 						var i, j;
@@ -326,6 +326,8 @@ router.post('/publicar', function(req, res) {
 					lista.puntaje = 0;
 					lista.puntajeMinimo = puntajeMinimo(req.body.secciones);
 					lista.puntajeMaximo = puntajeMaximo(req.body.secciones);
+					lista.save();
+					res.json({status: true});
 				}
 				else if(rol.tipo == '2')
 				{
@@ -333,39 +335,63 @@ router.post('/publicar', function(req, res) {
 					if(verificarObligatorias(req.body.secciones) && lista.puntaje >= (lista.puntajeMinimo/lista.puntajeMaximo))
 					{
 						lista.estado = 3;
-						/*
-						var check = true;
-						var puntaje = 0;
-						var puntajeMax = 0;
-						
-						async.each(
-							tipos,
-							function(t, callback)
-							{
-								Lista.findOne({idProyecto: req.session.idProy, tipo: t[i], estado: 3}, function(err, lista) {
-									if(!err & lista)
+						var tipos = [];
+						switch(req.session.etapa)
+						{
+							case 1:
+								tipos = [1];
+								break;
+							case 2:
+								tipos = [2, 3];
+								break;
+							case 3:
+								tipos = [4, 5];
+								break;
+							case 4:
+								tipos = [6, 7]
+								break;
+							case 5:
+								tipos = [8];
+								break;
+						}
+						lista.save(function(err){
+							if(!err)
+								listaAprobada(req.session.idProy, tipos, function(puntaje){
+									if(puntaje != -1)
 									{
-										puntaje += lista.puntaje;
-										puntajeMax += lista.puntajeMaximo;
+										Proyecto.findOne({_id: req.session.idProy}, function(err, p){
+											p.etapas[req.session.etapa - 1].estado = 2;
+											p.etapas[req.session.etapa - 1].puntaje = puntaje * 100;
+											
+											if(req.session.etapa != 5)
+											{
+												p.etapas[req.session.etapa].estado = 1;
+												p.etapas[req.session.etapa].fInicio = new Date();
+											}
+											
+											nuevasEtapas = p.etapas;
+											Proyecto.update({_id: req.session.idProy}, {etapas: nuevasEtapas}, function(err) {
+												if(!err)
+													res.json({status: true});
+												else
+													res.json({status: false});
+											});
+										});
 									}
-									callback();
+									else
+										res.json({status: true});
 								});
-							},
-							function(err)
-							{
-								if(check)
-									cb(puntaje/puntajeMax);
-								else
-									cb(-1);
-							}
-						);
-						*/
+							else
+								res.json({status: false});
+						});
 					}
 					else
+					{
 						lista.estado = 4;
+						lista.save();
+						res.json({status: true});
+					}
 				}
-				lista.save();
-				res.json({status: true});
 			});
 		});
 	}
@@ -430,22 +456,23 @@ function fechaString(fecha)
 	 		 yyyy;
 }
 
-function listaAprobada(tipos, cb)
+function listaAprobada(idProy, tipos, cb)
 {
 	var check = true;
 	var puntaje = 0;
 	var puntajeMax = 0;
-	
 	async.each(
 		tipos,
 		function(t, callback)
 		{
-			Lista.findOne({idProyecto: req.session.idProy, tipo: t[i], estado: 3}, function(err, lista) {
-				if(!err & lista)
+			Lista.findOne({idProyecto: idProy, tipo: t, estado: 3}, function(err, lista) {
+				if(!err && lista)
 				{
 					puntaje += lista.puntaje;
 					puntajeMax += lista.puntajeMaximo;
 				}
+				else
+					check = false;
 				callback();
 			});
 		},
