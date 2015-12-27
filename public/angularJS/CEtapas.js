@@ -64,11 +64,11 @@ app.controller('myCtrlEtapasProyecto',  function($scope,$http,$window) {
      if (estado == 0)
 	  return {color:'lead'};//plomo
      if (estado == 1)
-   	  return {color:'green'};//Verde
+   	  return {color:'blue'};//Azul
    	 if (estado == 2)
    	  return {color:'yellow'};//Amarillo
      if (estado == 3)
-   	  return {color:'blue'};//Azul
+   	  return {color:'green'};//Verde
      if (estado == 4)
    	  return {color:'red'};//Rojo
   };
