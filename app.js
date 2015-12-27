@@ -81,12 +81,7 @@ jsreport.init().then(function () {
 }).catch(function(e) {
 	  console.log(e)
 })
-<<<<<<< HEAD
 
-=======
-*/
-/*
->>>>>>> branch 'master' of https://github.com/yg-apaza/CicloP.git
 var jsreport = require('jsreport');
 jsreport.render({ template: { content: 'Hello worls', engine: 'jsrender', recipe: 'phantom-pdf' } }).then(function(out) {
     //out.stream.pipe(res);
