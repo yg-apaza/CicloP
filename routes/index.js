@@ -1,4 +1,5 @@
 var express = require('express');
+var nodemailer = require('nodemailer');
 var path = require('path');
 var router = express.Router();
 
@@ -80,6 +81,7 @@ router.get('/agregarLista', function (req, res) {
 	else
 		res.redirect('/');
 });
+
 //NOTIFICACIONES
 router.get('/notificaciones', function (req, res) {
 	if(req.user)
@@ -87,6 +89,7 @@ router.get('/notificaciones', function (req, res) {
 	else
 		res.redirect('/');
 });
+
 //AYUDA
 router.get('/ayuda', function (req, res) {
 	if(req.user)
@@ -96,27 +99,54 @@ router.get('/ayuda', function (req, res) {
 });
 
 //SECCION
-router.get('/seccion',function(req,res){
+router.get('/seccion', function(req,res){
 	if(req.user)
 		res.sendFile(path.join(__dirname,'../views','etapaSeccionEditar.html'));
 	else 
 		res.redirect('/');
 })
-module.exports = router;
 
-router.get('/seccionProbador',function(req,res){
+router.get('/seccionProbador', function(req,res){
 	if(req.user)
 		res.sendFile(path.join(__dirname,'../views','etapaSeccionProbar.html'));
 	else 
 		res.redirect('/');
-})
-module.exports = router;
+});
 
 //REPORTE
-router.get('/reporte',function(req,res){
+router.get('/reporte', function(req,res){
 	if(req.user)
 		res.sendFile(path.join(__dirname,'../views','proyectoReporte.html'));
 	else 
 		res.redirect('/');
-})
+});
+
+router.post('/dejarMensaje', function(req, res){
+	var transporter = nodemailer.createTransport({
+	    service: 'Gmail',
+	    auth: {
+	        user: 'motsa.software@gmail.com',
+	        pass: 'motonmatoamotita'
+	    }
+	});
+	var mailOptions = {
+		    from: 'MOT S.A.',
+		    to: 'motsa.software@gmail.com',
+		    subject: "Mensaje de usuario",
+		    text: "",
+		    html:
+		    	'<h1><span style="font-family:verdana,geneva,sans-serif;"><strong>Nuevo mensaje de usuario</strong></span></h1>' +
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;"><strong>Nombre: </strong>' + req.body.nombre + '</span></p>' +
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;"><strong>Correo: </strong>' + req.body.correo + '</span></p>' +
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;"><strong>Mensaje:</strong></span></p>' +
+		    	'<p><span style="font-family:verdana,geneva,sans-serif;"> ' + req.body.mensaje + '</span></p>'
+	};
+	transporter.sendMail(mailOptions, function(err, info) {
+		if(!err)
+			res.json({status: true});
+		else
+			res.json({status: false});
+	});
+});
+
 module.exports = router;
