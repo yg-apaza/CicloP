@@ -257,8 +257,6 @@ router.post('/reporte', function(req, res) {
 	if(req.session.idProy)
 	{
 		var content = fs.readFileSync(path.join(__dirname, '../template.html'), 'utf8');
-		crypto.randomBytes(8, function(ex, buf) {
-			var tokenGen = buf.toString('hex');
 			dataReporte(req.session.idProy, function(data){
 				var jsreport = require('jsreport-core')();
 				jsreport.init().then(function () {
@@ -270,7 +268,7 @@ router.post('/reporte', function(req, res) {
 				        }, 
 				        data: data
 					}).then(function(out) {
-						out.stream.pipe(fs.createWriteStream(path.join(__dirname, '../public', 'reportes' , 'reporte_' + tokenGen + '.pdf')));
+						out.stream.pipe(fs.createWriteStream(path.join(__dirname, '../public', 'reporte.pdf')));
 						res.json({status: true, archivo: "reporte_" + tokenGen + ".pdf"})
 					}).catch(function(e) {    
 						res.json({status: false, archivo: ""})
@@ -279,7 +277,6 @@ router.post('/reporte', function(req, res) {
 					res.json({status: false, archivo: ""})
 				});
 			});
-		});
 	}
 });
 
