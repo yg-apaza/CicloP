@@ -190,7 +190,7 @@
 
 		<!-- /MENU -->	
 
-		<div id="main-container">
+		<div id="main-container" ng-controller="myCtrlReporte">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
 					 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li> 
@@ -215,59 +215,14 @@
 									<label>Descripcion del proyecto</label>
 									<p>Cada reporte me permite obtener un informe detallado de la condición actual o final del proyecto y de sus etapas..</p>
 								</div><!-- /form-group -->
-								<br>
-								<div class="form-group">
-									<label>Reporte de las Etapas de Evaluacion</label>
-									<div class="seperator"></div>
-									<a class="btn btn-success quick-btn">
-										<i class="fa fa-eye"></i><span>Ver</span>
-									</a>
-									<a class="btn btn-info quick-btn">
-										<i class="fa fa-print"></i><span>Imprimir</span>
-									</a>
-									<a class="btn btn-warning quick-btn">
-										<i class="fa  fa-cloud-download"></i><span>Descargar</span>
-									</a>
-									
-								</div><!-- /form-group -->
-								<div class="form-group">
-									<label>Reporte del Estado del Proyecto</label>
-									<div class="seperator"></div>
-									<a class="btn btn-success quick-btn">
-										<i class="fa fa-eye"></i><span>Ver</span>
-									</a>
-									<a class="btn btn-info quick-btn">
-										<i class="fa fa-print"></i><span>Imprimir</span>
-									</a>
-									<a class="btn btn-warning quick-btn">
-										<i class="fa  fa-cloud-download"></i><span>Descargar</span>
-									</a>
-									
-								</div><!-- /form-group -->
-								<div class="form-group">
-									<label>Reporte General del Proyecto</label>
-									<div class="seperator"></div>
-									<a class="btn btn-success quick-btn">
-										<i class="fa fa-eye"></i><span>Ver</span>
-									</a>
-									<a class="btn btn-info quick-btn">
-										<i class="fa fa-print"></i><span>Imprimir</span>
-									</a>
-									<a class="btn btn-warning quick-btn">
-										<i class="fa  fa-cloud-download"></i><span>Descargar</span>
-									</a>
-									
-								</div><!-- /form-group -->
-								
+								<br>				
 							</div>
 
 							
 							<div class="col-md-8"><!--col8-->
 								<div class="embed-responsive embed-responsive-16by9">
-								  <embed  class="embed-responsive-item" src="reporte.pdf">
-								</div>
-							
-									
+									<embed class="embed-responsive-item" ng-src="reporte.pdf">
+								</div>	
 							</div><!--/col8-->
 						</div>
 					</div>
@@ -343,6 +298,7 @@
 	<script src="angularJS/CProyecto.js"></script>
 	<script src="angularJS/CMenu.js"></script>
 	<script src="angularJS/CNotificacion.js"></script>
+	<script src="angularJS/CReportes.js"></script>
 	<script>
 		$(function()	{
 			//Colorbox 
