@@ -7,6 +7,8 @@ var router = express.Router();
 
 router.post('/', function(req, res) {
 	Proyecto.findOne({_id: req.body.id}, function(err, p) {
+		for(var i = 0; i < p.etapas.length; i++)
+			p.etapas[i].fInicio = fechaString(p.etapas[i].fInicio);
 		if(!err)
 			return res.json({status: true, proyecto: p});
 		else
@@ -226,5 +228,20 @@ router.post('/guardarId', function(req, res) {
 	req.session.idProy = req.body.id;
 	res.json({status: true});
 });
+
+function fechaString(fecha)
+{
+	if(fecha)
+	{
+		var yyyy = fecha.getFullYear().toString();
+		var mm = (fecha.getMonth()+1).toString();
+		var dd  = fecha.getDate().toString();
+		return	(dd[1]?dd:"0"+dd[0]) + '/' + 
+		 		(mm[1]?mm:"0"+mm[0]) + '/' +
+		 		 yyyy;
+	}
+	else
+		return '-';
+}
 
 module.exports = router;

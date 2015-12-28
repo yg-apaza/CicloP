@@ -121,8 +121,7 @@ router.get('/reporte', function(req,res){
 		res.redirect('/');
 });
 
-router.post('/dejarMensaje', function(req, res){
-
+router.post('/dejarMensaje', function(req, res) {
 	var transporter = nodemailer.createTransport({
 	    service: 'Gmail',
 	    auth: {
@@ -130,6 +129,7 @@ router.post('/dejarMensaje', function(req, res){
 	        pass: 'motonmatoamotita'
 	    }
 	});
+	
 	var mailOptions = {
 		    from: 'MOT S.A.',
 		    to: 'motsa.software@gmail.com',
@@ -142,6 +142,7 @@ router.post('/dejarMensaje', function(req, res){
 		    	'<p><span style="font-family:verdana,geneva,sans-serif;"><strong>Mensaje:</strong></span></p>' +
 		    	'<p><span style="font-family:verdana,geneva,sans-serif;"> ' + req.body.mensaje + '</span></p>'
 	};
+	
 	transporter.sendMail(mailOptions, function(err, info) {
 		if(!err)
 			res.json({status: true});
