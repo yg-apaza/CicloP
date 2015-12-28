@@ -362,15 +362,19 @@ router.post('/publicar', function(req, res) {
 										Proyecto.findOne({_id: req.session.idProy}, function(err, p){
 											p.etapas[req.session.etapa - 1].estado = 2;
 											p.etapas[req.session.etapa - 1].puntaje = puntaje * 100;
-											
+											fFinal = p.fCulminacionReal;
 											if(req.session.etapa != 5)
 											{
 												p.etapas[req.session.etapa].estado = 1;
 												p.etapas[req.session.etapa].fInicio = new Date();
 											}
+											else
+											{
+												fFinal = new Date();
+											}
 											
 											nuevasEtapas = p.etapas;
-											Proyecto.update({_id: req.session.idProy}, {etapas: nuevasEtapas}, function(err) {
+											Proyecto.update({_id: req.session.idProy}, {etapas: nuevasEtapas, fCulminacionReal: fFinal}, function(err) {
 												if(!err)
 													res.json({status: true});
 												else

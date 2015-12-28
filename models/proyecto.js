@@ -31,6 +31,7 @@ var Proyecto = new Schema({
     		message: '{VALUE} no es una fecha de culminación de proyecto valida'
     	}
     },
+    fCulminacionReal: Date,
     etapas: Array //[{tipo: Number, estado: Number, puntaje: Number, fInicio: Date}];
 });
 

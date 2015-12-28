@@ -94,11 +94,12 @@ router.post('/agregar', function(req, res) {
 		var proy = new Proyecto({	nombre: req.body.nombre,
 									descripcion: req.body.descripcion,
 									fCulminacion: req.body.fechaCulminacion,
+									fCulminacionReal: null,
 									etapas: [{tipo: 1, estado: 1, puntaje: 0, fInicio: new Date()},
 									         {tipo: 2, estado: 0, puntaje: 0, fInicio: null},
 									         {tipo: 3, estado: 0, puntaje: 0, fInicio: null},
 									         {tipo: 4, estado: 0, puntaje: 0, fInicio: null},
-									         {tipo: 5, estado: 0, puntaje: 0, fInicio: null}]
+									         {tipo: 5, estado: 0, puntaje: 0, fInicio: null}],
 								});
 		proy.save(function(err) {
 			if (!err)
