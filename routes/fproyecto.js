@@ -226,7 +226,11 @@ router.post('/verUltimoProyecto', function(req, res) {
 						},
 						function(err) {
 							if(!err)
+							{
+								for(var i = 0; i < p.etapas.length; i++)
+									p.etapas[i].fInicio = util.fechaString(p.etapas[i].fInicio);
 								return res.json({status: true, proyecto: p, usuarios: usuarios});
+							}
 							else
 								return res.json({status: false, proyecto: null, usuarios: usuarios});
 						}
@@ -358,7 +362,6 @@ function getListasReporte(idProy, cb)
 			},
 			function(err)
 			{
-				console.log(err);
 				for(var i = 0; i < dataListas.length; i++)
 					if(!dataListas[i])
 						dataListas[i] = {puntaje: '-', estado: '-'};
