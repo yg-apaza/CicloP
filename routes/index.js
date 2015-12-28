@@ -122,6 +122,7 @@ router.get('/reporte', function(req,res){
 });
 
 router.post('/dejarMensaje', function(req, res){
+
 	var transporter = nodemailer.createTransport({
 	    service: 'Gmail',
 	    auth: {

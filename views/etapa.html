@@ -89,7 +89,7 @@
 							</a>
 						</li>
 						
-						<li><a href="/notificaciones">Ver todos los mensajes</a></li>					  
+						<li><a href="/notificaciones" ng-click="leerNotificacion()">Ver todos los mensajes</a></li>					  
 					</ul>
 				</li>
 				
@@ -226,35 +226,36 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>ID</th>
 									<th>Lista de Chequeo</th>
-									<th>Fecha Limite de Evaluacion</th>
-									<th>Estado</th>
-									<th>Puntaje</th>
+									<th><center>Fecha Limite de Evaluacion</center></th>
+									<th><center>Estado</center></th>
+									<th><center>Puntaje</center></th>
 									<th></th>
 								</tr>
 							</thead>
 							<tr ng-repeat="lista in listas">
-								<td>1</td>
 								<td>{{lista.nombre}}</td>
-								<td>{{lista.fecha}}</td>
-								<td><i ng-style="colorEstado(lista.estado)" class="fa fa-circle"></i></td>
-								<td>{{lista.puntaje | number:2}}%</td>
+								<td><center>{{lista.fecha}}</center></td>
+								<td><center><i ng-style="colorEstado(lista.estado)" class="fa fa-circle"></i></center></td>
+								<td><center>{{lista.puntaje | number:2}}%</center></td>
 								<td>
 
 								<a class="btn btn-success" ng-click="listaChekeo(lista.id,1)" ng-show="lista.pertenece && lista.estado==0">editar <i class="fa fa-edit fa-lg"></i></a>
 								<a class="btn btn-success" ng-click="listaChekeo(lista.id,2)" ng-show="rol == 2 && (lista.estado==1 || lista.estado==2)">probar <i class="fa fa-edit fa-lg"></i></a>
 								</td>
+
 							</tr>
 
 						</table>	
 					</div>
 					<div class="panel-footer">
+					<center>
 						<i ng-style="colorEstado(0)" class="fa fa-circle"></i>No publicado
 						<i ng-style="colorEstado(1)" class="fa fa-circle"></i>Publicado
 						<i ng-style="colorEstado(2)" class="fa fa-circle"></i>En proceso
 						<i ng-style="colorEstado(3)" class="fa fa-circle"></i>Aprobado
 						<i ng-style="colorEstado(4)" class="fa fa-circle"></i>Desaprobado
+					</center>
 					</div>	
 				</div><!-- /panel -->
 			</div>
