@@ -1,6 +1,7 @@
 var async = require('async');
 var express = require('express');
 var router = express.Router();
+var util = require('./util');
 var Modelo = require('../models/modelo');
 var Lista = require('../models/lista');
 var Rol = require('../models/rol');
@@ -21,16 +22,16 @@ router.post('/rol', function(req, res) {
 						{
 							case '1':
 								if(req.user._id.toString() == l.disenador)
-									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100, pertenece: true});
+									lista.push({id: l._id, nombre: l.nombre, fecha: util.fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100, pertenece: true});
 								else
-									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100, pertenece: false});
+									lista.push({id: l._id, nombre: l.nombre, fecha: util.fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100, pertenece: false});
 								break;
 							case '2':
 								if(req.user._id.toString() == l.probador && l.estado != 0)
-									lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100});
+									lista.push({id: l._id, nombre: l.nombre, fecha: util.fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100});
 								break;
 							case '3':
-								lista.push({id: l._id, nombre: l.nombre, fecha: fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100});
+								lista.push({id: l._id, nombre: l.nombre, fecha: util.fechaString(new Date(l.fCulminacion)), estado: l.estado, puntaje: (l.puntaje / l.puntajeMaximo) * 100});
 								break;
 						}
 						callback();
@@ -369,16 +370,48 @@ router.post('/publicar', function(req, res) {
 												p.etapas[req.session.etapa].fInicio = new Date();
 											}
 											else
-											{
 												fFinal = new Date();
-											}
 											
 											nuevasEtapas = p.etapas;
 											Proyecto.update({_id: req.session.idProy}, {etapas: nuevasEtapas, fCulminacionReal: fFinal}, function(err) {
-												if(!err)
-													res.json({status: true});
-												else
-													res.json({status: false});
+												Rol.find({idProyecto: req.session.idProy}, function(err, roles){
+													if(!err)
+													{
+														var ids = [];
+														for(var i = 0; i < roles.length; i++)
+															ids.push(roles[i].idUsuario);
+														var etapa = "";
+														switch(req.session.etapa)
+														{
+															case 1:
+																etapa = "Toma y definición de requisitos";
+																break;
+															case 2:
+																etapa = "Análisis y diseño"
+																break;
+															case 3:
+																etapa = "Codificación"
+																break;
+															case 4:
+																etapa = "Pruebas"
+																break;
+															case 5:
+																etapa = "Implantación y mantenimiento"
+																break;
+														}
+
+														if(req.session.etapa != 5)
+															util.enviarNotificacion(3, [etapa, p.nombre], ids, true, function(err){
+																res.json({status: true});
+															});
+														else
+															util.enviarNotificacion(5, [p.nombre], ids, true, function(err){
+																res.json({status: true});
+															});
+													}
+													else
+														res.json({status: false});
+												});
 											});
 										});
 									}
@@ -448,16 +481,6 @@ function verificarObligatorias(secciones) {
 			}
 		}
 	return check;
-}
-
-function fechaString(fecha)
-{
-	var yyyy = fecha.getFullYear().toString();
-	var mm = (fecha.getMonth()+1).toString();
-	var dd  = fecha.getDate().toString();
-	return	(dd[1]?dd:"0"+dd[0]) + '/' + 
-	 		(mm[1]?mm:"0"+mm[0]) + '/' +
-	 		 yyyy;
 }
 
 function listaAprobada(idProy, tipos, cb)

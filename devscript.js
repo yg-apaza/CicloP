@@ -25,7 +25,7 @@ db.usuarios.insert({
 	correo: "aaaaaa@aaaaaa.aaa",
 	notificaciones:  	[{
 		        			leido : false,
-		        			fecha : "11-29",
+		        			fecha : ISODate("2015-12-28T06:20:40.020Z"),
 		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
 		        			titulo : "Bienvenido a Ciclo P",
 		        			tipo : 1
@@ -42,7 +42,7 @@ db.usuarios.insert({
 	correo: "bbbbbb@bbbbbb.bbb",
 	notificaciones:  	[{
 		        			leido : false,
-		        			fecha : "11-29",
+		        			fecha : ISODate("2015-12-28T06:20:40.020Z"),
 		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
 		        			titulo : "Bienvenido a Ciclo P",
 		        			tipo : 1
@@ -59,7 +59,7 @@ db.usuarios.insert({
 	correo: "cccccc@cccccc.ccc",
 	notificaciones:  	[{
 		        			leido : false,
-		        			fecha : "11-29",
+		        			fecha : ISODate("2015-12-28T06:20:40.020Z"),
 		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
 		        			titulo : "Bienvenido a Ciclo P",
 		        			tipo : 1
@@ -76,7 +76,7 @@ db.usuarios.insert({
 	correo: "dddddd@dddddd.ddd",
 	notificaciones:  	[{
 		        			leido : false,
-		        			fecha : "11-29",
+		        			fecha : ISODate("2015-12-28T06:20:40.020Z"),
 		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
 		        			titulo : "Bienvenido a Ciclo P",
 		        			tipo : 1
@@ -93,7 +93,7 @@ db.usuarios.insert({
 	correo: "eeeeee@eeeeee.eee",
 	notificaciones:  	[{
 		        			leido : false,
-		        			fecha : "11-29",
+		        			fecha : ISODate("2015-12-28T06:20:40.020Z"),
 		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
 		        			titulo : "Bienvenido a Ciclo P",
 		        			tipo : 1
@@ -110,7 +110,7 @@ db.usuarios.insert({
 	correo: "ffffff@ffffff.fff",
 	notificaciones:  	[{
 		        			leido : false,
-		        			fecha : "11-29",
+		        			fecha : ISODate("2015-12-28T06:20:40.020Z"),
 		        			descripcion : "Bienvenido al sistema del Ciclo P. Comience creando un proyecto.",
 		        			titulo : "Bienvenido a Ciclo P",
 		        			tipo : 1

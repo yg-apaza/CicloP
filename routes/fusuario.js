@@ -4,6 +4,7 @@ var express = require('express');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
 var path = require('path');
+var util = require('./util');
 var Usuario = require('../models/usuario');
 var Token = require('../models/token');
 var router = express.Router();
@@ -81,16 +82,7 @@ router.post('/register', function(req, res) {
 								nombre: req.body.nombre,
 								apellidos: req.body.apellidos,
 								username: req.body.usuario,
-								correo: req.body.correo,
-								notificaciones:[
-					                {
-					                	tipo: 1,
-					                	titulo: "Bienvenido a Ciclo-P",
-					                	descripcion: "Bienvenido al sistema del Ciclo-P. Comience creando un proyecto.",
-				                		fecha: new Date().toJSON().slice(5,10),
-				                		leido: false
-					                }
-				                ]
+								correo: req.body.correo
 							}),
 				req.body.clave,
 			    function(err, usuario) {
@@ -114,7 +106,10 @@ router.post('/register', function(req, res) {
 							enviarEmail(	req.body.correo,
 											req.body.nombre + " " + req.body.apellidos,
 											req.body.usuario);
-					    	return res.json({status: true, message: "Usuario registrado correctamente"});
+							util.enviarNotificacion(1, null, usuario._id, false, function(err){
+								return res.json({status: true, message: "Usuario registrado correctamente"});
+							});
+					    	
 						}
 					}
 				}
@@ -181,7 +176,11 @@ router.post('/cambiarContrasena', function(req, res) {
 		                        if (err)
 		                        	res.json({status: false});
 		                        else
-		                        	res.json({status: true});
+	                        	{
+		                        	util.enviarNotificacion(6, null, u._id, false, function(err){
+		                        		res.json({status: true});
+		                        	});
+	                        	}
 		                    });
 		                }
 		                else
