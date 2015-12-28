@@ -145,16 +145,30 @@ router.post('/agregar', function(req, res) {
 								});
 								
 								var i;
+								var rol_usr = [];
 								for(i = 0; i < rolesValidos.length; i++)
 								{
 									var rol = new Rol({	idUsuario: usuariosValidos[i],
 										idProyecto: proy._id,
 										tipo: rolesValidos[i]
 									});
+									rol_usr.push({tipo: rolesValidos[i], id: usuariosValidos[i]});
 									rol.save(function(err){});
 								}
-								req.session.idProy = proy._id;
-								return res.json({status: true, message: "Proyecto creado exitosamente."});
+
+								async.eachSeries(
+									rol_usr,
+									function(r, callback)
+									{
+										util.enviarNotificacion(2, [proy.nombre, (r.tipo == '2')?"Probador":"Diseñador"], r.id, false, function(err) {});
+										callback();
+									},
+									function(err)
+									{
+										req.session.idProy = proy._id;
+										return res.json({status: true, message: "Proyecto creado exitosamente."});
+									}
+								);
 							}
 							else
 							{
