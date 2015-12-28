@@ -7,7 +7,7 @@ var router = express.Router();
 router.post('/', function(req, res) {
 	var i;
 	var count = 0;
-	var notif = req.user.notificaciones;
+	var notif = req.user.notificaciones.reverse();
 	for(i = 0; i < notif.length; i++)
 	{
 		notif[i].fecha = util.fechaString(notif[i].fecha);
