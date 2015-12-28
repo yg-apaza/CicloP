@@ -207,15 +207,22 @@
 				</ul>
 			</div><!-- /breadcrumb-->
 			
+			<div class="main-header clearfix">
+				<div class="page-title">
+					<h3 class="no-margin"></h3>
+				</div><!-- /page-title -->				
+			</div><!-- /main-header -->			
+
+
 			<div class="padding-md">
 				<div class="panel panel-default">
 					<form>
-						<div class="panel-heading">Secciones</div>
+						<div class="panel-heading"><h4>{{nombreLista}}</h4></div>
 
 						<div class="panel-body">
 
 							<div ng-repeat="seccion in secciones"> 
-							<b>{{seccion.nombre}}</b><br><br>
+							<b>Sección: {{seccion.nombre}}</b><br><br>
 
 							<table class="table table-striped" id="responsiveTable">
 								<thead>
@@ -241,8 +248,8 @@
 							</div>
 						</div>
 						<div class="panel-footer text-right">
-							<button ng-click="guardarSecciones(0)" class="btn btn-success">Guardar Cambios</button>
-							<button data-toggle="modal" data-target="#msjReutilizar" class="btn btn-danger">Publicar Lista</button>
+							<button ng-click="guardarSecciones(0)" class="btn btn-warning">Guardar Cambios</button>
+							<button data-toggle="modal" data-target="#msjReutilizar" class="btn btn-success">Publicar Lista</button>
 						</div>
 					</form>
 				</div><!-- /panel -->

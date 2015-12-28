@@ -22,7 +22,7 @@
 	
   </head>
 
-  <body class="overflow-hidden">
+  <body class="overflow-hidden" ng-app="myAppHome" ng-controller="myCtrlHome">
 	<!-- Overlay Div -->
 	<div id="overlay" class="transparent"></div>
 
@@ -178,18 +178,19 @@
 						<div class="row">
 							<div class="col-md-7">
 								<h4>Dejanos un mensaje</h4>
-								<form class="contact-form">
-									<div class="form-group">
-										<label for="exampleInputPassword1">Nombre</label>
-										<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Nombre">
+
+								<form class="contact-form" ng-submit="enviarMensaje()" >
+									<div class="form-group" >
+										<label for="exampleInputPassword1" >Nombre</label>
+										<input type="text" ng-model="cliente.nombre" class="form-control" id="exampleInputPassword1" placeholder="Nombre">
 									</div><!-- /form-group -->
 									<div class="form-group">
-										<label for="exampleInputEmail1">Correo Electrónico</label>
-										<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Correo Electrónico">
+										<label for="exampleInputEmail2">Correo Electrónico</label>
+										<input type="email" ng-model="cliente.correo" class="form-control" id="exampleInputEmail2" placeholder="Correo Electrónico">
 									</div><!-- /form-group -->
 									<div class="form-group">
-										<label for="exampleInputEmail1">Mensaje</label>
-										<textarea class="form-control" rows="7" placeholder="Mensaje"></textarea>
+										<label for="exampleInputEmail3">Mensaje</label>
+										<textarea class="form-control" ng-model="cliente.mensaje" rows="7" placeholder="Mensaje"></textarea>
 									</div><!-- /form-group -->
 									<button type="submit" class="btn btn-sm btn-success">ENVIAR</button>
 								</form>
@@ -275,6 +276,12 @@
 	<!-- Perfect -->
 	<script src="js/app/app.js"></script>
 	
+
+	<!-- Cargamos angular -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+	<script src="angularJS/CHome.js"></script>
+
 	<script>
 		$(function()	{
 			$('.animated-element').waypoint(function() {

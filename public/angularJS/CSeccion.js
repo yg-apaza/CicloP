@@ -6,6 +6,7 @@ app.controller('myCtrlSeccion',  function($scope,$http,$window) {
 	$http.post('/flista/getLista')
 		.success(function(data){
 			if(data.status){
+				$scope.nombreLista = data.nombreLista;
 				$scope.secciones = data.secciones;
 			}
 			else 

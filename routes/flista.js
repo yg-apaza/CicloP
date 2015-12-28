@@ -265,7 +265,7 @@ router.post('/guardarIdLista', function(req, res) {
 
 router.post('/getLista', function(req, res) {
 	Lista.findOne({_id: req.session.idLista}, function(err, lista) {
-		res.json({status: true, secciones: lista.secciones});
+		res.json({status: true,nombreLista: lista.nombre, secciones: lista.secciones});
 	});
 });
 
