@@ -192,10 +192,8 @@ router.post('/cambiarContrasena', function(req, res) {
 					res.json({status: false});					
 			});
 		}
-		else{
+		else
 			res.json({status: false});
-		}
-			
 	});
 });
 
