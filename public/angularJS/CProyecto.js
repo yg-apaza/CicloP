@@ -136,6 +136,8 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 
 app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 
+	$http.post('/fproyecto/reporte').success(function(data) {});
+	
 	$scope.colorEstado = function(estado){
 	//2: Culminado, 1: En proceso, 0: Inhabilitado
 
