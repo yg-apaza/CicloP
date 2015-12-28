@@ -140,11 +140,11 @@ app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 	//2: Culminado, 1: En proceso, 0: Inhabilitado
 
      if (estado == 0)
-	  return {color:"lead"};//Plomo
+	  return {color:"#7A898F"};//Plomo
      if (estado == 1)
-   	  return {color:"yellow"};//Amarillo
+   	  return {color:"#FFFF00"};//Amarillo
    	 if (estado == 2)
-   	  return {color:"green"};//Verde
+   	  return {color:"#00FF00"};//Verde
   	};
 
 	$scope.val1=0;
@@ -165,12 +165,18 @@ app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data){
 		if(data.status){
-			$scope.val1=data.proyecto.etapas[0];
-			$scope.val2=data.proyecto.etapas[1];
-			$scope.val3=data.proyecto.etapas[2];
-			$scope.val4=data.proyecto.etapas[3];
-			$scope.val5=data.proyecto.etapas[4];
-			alert($scope.val1.estado);
+			var val1=data.proyecto.etapas[0].puntaje;
+			var val2=data.proyecto.etapas[1].puntaje;
+			var val3=data.proyecto.etapas[2].puntaje;
+			var val4=data.proyecto.etapas[3].puntaje;
+			var val5=data.proyecto.etapas[4].puntaje;
+			var val1Color = $scope.colorEstado(data.proyecto.etapas[0].estado).color;
+			var val2Color = $scope.colorEstado(data.proyecto.etapas[1].estado).color;
+			var val3Color = $scope.colorEstado(data.proyecto.etapas[2].estado).color;
+			var val4Color = $scope.colorEstado(data.proyecto.etapas[3].estado).color;
+			var val5Color = $scope.colorEstado(data.proyecto.etapas[4].estado).color;
+			var micolor = [val1Color,val2Color,val3Color,val4Color,val5Color];
+
 			$scope.myProject = data.proyecto;
 
 			$(function()	{
@@ -186,17 +192,13 @@ app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 			var donutChart = Morris.Donut({
 			  element: 'donutChart',
 			  data: [
-				{label: "Etapa 1 \n"+$scope.val1.puntaje, value: 100},
-				{label: "Etapa 2 \n"+$scope.val2.puntaje, value: 100},
-				{label: "Etapa 3 \n"+$scope.val3.puntaje, value: 100},
-				{label: "Etapa 4 \n"+$scope.val4.puntaje, value: 100},
-				{label: "Etapa 5 \n"+$scope.val5.puntaje, value: 100}
+				{label: "Etapa 1 \n"+val1, value: 100},
+				{label: "Etapa 2 \n"+val2, value: 100},
+				{label: "Etapa 3 \n"+val3, value: 100},
+				{label: "Etapa 4 \n"+val4, value: 100},
+				{label: "Etapa 5 \n"+val5, value: 100}
 			  ],
-			  colors: [$scope.colorEstado($scope.val1.estado).color,
-			  		$scope.colorEstado($scope.val2.estado).color,
-			  		$scope.colorEstado($scope.val3.estado).color,
-			  		$scope.colorEstado($scope.val4.estado).color,
-			  		$scope.colorEstado($scope.val5.estado).color]
+			  colors: micolor
 			});
 		}
 		else 
