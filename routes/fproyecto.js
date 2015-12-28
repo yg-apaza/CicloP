@@ -1,6 +1,10 @@
 var async = require('async');
+var crypto = require('crypto');
 var express = require('express');
+var fs = require('fs');
+var path = require('path');
 var util = require('./util');
+var Lista = require('../models/lista');
 var Usuario = require('../models/usuario');
 var Proyecto = require('../models/proyecto');
 var Rol = require('../models/rol');
@@ -244,5 +248,124 @@ router.post('/guardarId', function(req, res) {
 	req.session.idProy = req.body.id;
 	res.json({status: true});
 });
+
+router.post('/reporte', function(req, res) {
+	if(req.session.idProy)
+	{
+		var content = fs.readFileSync(path.join(__dirname, '../template.html'), 'utf8');
+		crypto.randomBytes(8, function(ex, buf) {
+			var tokenGen = buf.toString('hex');
+			dataReporte(req.session.idProy, function(data){
+				var jsreport = require('jsreport-core')();
+				jsreport.init().then(function () {
+				   jsreport.render({ 
+				       template: { 
+				           content: content, 
+				           engine: 'jsrender', 
+				           recipe: 'phantom-pdf'
+				        }, 
+				        data: data
+					}).then(function(out) {
+						out.stream.pipe(fs.createWriteStream(path.join(__dirname, '../public', 'reportes' , 'reporte_' + tokenGen + '.pdf')));
+						res.json({status: true, archivo: "reporte_" + tokenGen + ".pdf"})
+					}).catch(function(e) {    
+						res.json({status: false, archivo: ""})
+					});
+				}).catch(function(e) {
+					res.json({status: false, archivo: ""})
+				});
+			});
+		});
+	}
+});
+
+function dataReporte(idProy, cb)
+{
+	var data = {};
+	Proyecto.findOne({_id: idProy}, function(err, p) {
+		data.nombreProyecto = p.nombre;
+		data.fechaActual = util.fechaString(new Date());
+		data.descripcion = p.descripcion;
+		data.fechaFinal = util.fechaString(p.fCulminacionReal);
+		Rol.find({idProyecto: idProy}, function(err, roles){
+			var participantes = [];
+			async.eachSeries(
+				roles,
+				function(r, callback) {
+					Usuario.findOne({_id: r.idUsuario}, function(err, u){
+						participantes.push({nombre: u.nombre + " " + u.apellidos, rol: (r.tipo == '1')?"Diseñador":(r.tipo == '2')?"Probador":"Coordinador"});
+						callback();
+					});
+				},
+				function(err) {
+					data.participantes = participantes;
+					getListasReporte(idProy, function(dataListas) {
+						data.puntaje1 = dataListas[0].puntaje;
+						data.estado1 = dataListas[0].estado;
+						data.puntaje2 = dataListas[1].puntaje;
+						data.estado2 = dataListas[1].estado;
+						data.puntaje3 = dataListas[2].puntaje;
+						data.estado3 = dataListas[2].estado;
+						data.puntaje4 = dataListas[3].puntaje;
+						data.estado4 = dataListas[3].estado;
+						data.puntaje5 = dataListas[4].puntaje;
+						data.estado5 = dataListas[4].estado;
+						data.puntaje6 = dataListas[5].puntaje;
+						data.estado6 = dataListas[5].estado;
+						data.puntaje7 = dataListas[6].puntaje;
+						data.estado7 = dataListas[6].estado;
+						data.puntaje8 = dataListas[7].puntaje;
+						data.estado8 = dataListas[7].estado;
+						cb(data);
+					});
+				}
+			);
+		});
+	});
+}
+
+function getListasReporte(idProy, cb)
+{
+	var dataListas = [null, null, null, null, null, null, null, null];
+	Lista.find({idProyecto: idProy}).sort({fCreacion : -1}).exec( function(err, listas) {
+		async.eachSeries(
+			listas,
+			function(l, callback) {
+				if(!dataListas[l.tipo - 1])
+				{
+					var estado = "";
+					switch(l.estado)
+					{
+						case 0:
+							estado = "No publicado";
+							break;
+						case 1:
+							estado = "Publicado";
+							break;
+						case 2:
+							estado = "En proceso";
+							break;
+						case 3:
+							estado = "Aprobado";
+							break;
+						case 4:
+							estado = "Desaprobado";
+							break;
+					}
+					dataListas[l.tipo - 1] = {puntaje: (l.puntaje/l.puntajeMaximo * 100).toFixed(2) + '%', estado: estado};
+				}
+				callback();
+			},
+			function(err)
+			{
+				console.log(err);
+				for(var i = 0; i < dataListas.length; i++)
+					if(!dataListas[i])
+						dataListas[i] = {puntaje: '-', estado: '-'};
+				cb(dataListas);
+			}
+		);
+	});
+}
 
 module.exports = router;
