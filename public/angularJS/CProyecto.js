@@ -135,14 +135,70 @@ app.controller('myCtrlModificarProyecto',  function($scope,$http,$window) {
 });
 
 app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
-	
+
+	$scope.colorEstado = function(estado){
+	//2: Culminado, 1: En proceso, 0: Inhabilitado
+
+     if (estado == 0)
+	  return {color:"lead"};//Plomo
+     if (estado == 1)
+   	  return {color:"yellow"};//Amarillo
+   	 if (estado == 2)
+   	  return {color:"green"};//Verde
+  	};
+
+	$scope.val1=0;
+	$scope.val2=0;
+	$scope.val3=0;
+	$scope.val4=0;
+	$scope.val5=0;
+
 	$scope.myProject = {};
 	$scope.respuestaServidorProyecto;
+	$scope.arrEtapas = ['','Toma y Definición de Requisitos',
+									'Analisis y Diseño',
+									'Codificacion',
+									'Pruebas',
+									'Implantacion y mantenimiento'
+								];
 	
 	$http.post('/fproyecto/verUltimoProyecto')
 	.success(function(data){
-		if(data.status)
+		if(data.status){
+			$scope.val1=data.proyecto.etapas[0];
+			$scope.val2=data.proyecto.etapas[1];
+			$scope.val3=data.proyecto.etapas[2];
+			$scope.val4=data.proyecto.etapas[3];
+			$scope.val5=data.proyecto.etapas[4];
+			alert($scope.val1.estado);
 			$scope.myProject = data.proyecto;
+
+			$(function()	{
+				//Colorbox 
+				$('.gallery-zoom').colorbox({
+					rel:'gallery',
+					maxWidth:'90%',
+					width:'800px'
+				});
+			});
+			$('.navbar-toggle').click(function(){setTimeout(function() {donutChart.redraw();},100);});
+			
+			var donutChart = Morris.Donut({
+			  element: 'donutChart',
+			  data: [
+				{label: "Etapa 1 \n"+$scope.val1.puntaje, value: 100},
+				{label: "Etapa 2 \n"+$scope.val2.puntaje, value: 100},
+				{label: "Etapa 3 \n"+$scope.val3.puntaje, value: 100},
+				{label: "Etapa 4 \n"+$scope.val4.puntaje, value: 100},
+				{label: "Etapa 5 \n"+$scope.val5.puntaje, value: 100}
+			  ],
+			  colors: [$scope.colorEstado($scope.val1.estado).color,
+			  		$scope.colorEstado($scope.val2.estado).color,
+			  		$scope.colorEstado($scope.val3.estado).color,
+			  		$scope.colorEstado($scope.val4.estado).color,
+			  		$scope.colorEstado($scope.val5.estado).color]
+			});
+		}
 		else 
 			alert("Problemas internos");
 	});
@@ -156,4 +212,11 @@ app.controller('myCtrlVerProyecto',  function($scope,$http,$window) {
 				alert("Error del Servidor");
 		});
 	};
+
+
+
+	
+
+
+
 });

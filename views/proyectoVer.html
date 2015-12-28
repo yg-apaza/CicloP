@@ -213,61 +213,35 @@
 					<div class="row">
 						<div class="col-sm-8">
 							<div class="panel-body">
+
 								<table class="table table-striped"  ng-controller="myCtrlVerProyecto">
 									<thead>
 										<tr>
 											<th>ID</th>
 											<th>Etapa</th>
 											<th>Fecha de Inicio</th>	
-											<th>Fecha Limite</th>
 											<th></th>
 										</tr>
 									</thead>
-									<tr>
-										<td>1</td>
-										<td>Toma y Definición de Requisitos</td>
-										<td>
-										</td>
-										<td>12/10/15</td>
-										<td><a class="btn btn-danger" ng-click="guardarEtapa(1)">ir <i class="fa fa-chevron-right"></i></a></td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>Analisis y Diseño</td>
-										<td>
-										</td>
-										<td>12/10/15</td>
-										<td><a class="btn btn-danger" ng-click="guardarEtapa(2)">ir <i class="fa fa-chevron-right"></i></a></td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Codificacion</td>
-										<td>
-										</td>
-										<td>12/10/15</td>
-										<td><a class="btn btn-danger" ng-click="guardarEtapa(3)">ir <i class="fa fa-chevron-right"></i></a></td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td>Pruebas</td>
-										<td>
-										</td>
-										<td>12/10/15</td>
-										<td><a class="btn btn-danger" ng-click="guardarEtapa(4)">ir <i class="fa fa-chevron-right"></i></a></td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td>Implantacion y mantenimiento</td>
-										<td>
-										</td>
-										<td>12/10/15</td>
-										<td><a class="btn btn-danger" ng-click="guardarEtapa(5)">ir <i class="fa fa-chevron-right"></i></a></td>
+
+									<tr ng-repeat="etapa in myProject.etapas">
+										<td>{{etapa.tipo}}</td>
+										<td>{{arrEtapas[etapa.tipo]}}</td>
+										<td>{{etapa.fInicio}}</td>
+										<td><a ng-show="etapa.estado" class="btn btn-warning" ng-click="guardarEtapa(etapa.tipo)">ir <i class="fa fa-chevron-right"></i></a></td>
 									</tr>
 								</table>
 							</div>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-4" ng-controller="myCtrlVerProyecto">
+						<center>
 							<div id="donutChart" style="height: 250px;"></div>
+							<div>
+								<i ng-style="colorEstado(2)" class="fa fa-circle"></i>Culminado
+								<i ng-style="colorEstado(1)" class="fa fa-circle"></i>En proceso
+								<i ng-style="colorEstado(0)" class="fa fa-circle"></i>Inhabilitado							
+							</div>
+						</center>
 						</div>
 					</div>
 				</div><!-- /panel -->
@@ -356,32 +330,6 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 	
-	
-	<script >
-		$(function()	{
-			//Colorbox 
-			$('.gallery-zoom').colorbox({
-				rel:'gallery',
-				maxWidth:'90%',
-				width:'800px'
-			});
-		});
-		$('.navbar-toggle').click(function(){setTimeout(function() {donutChart.redraw();},500);});
-		
-		var donutChart = Morris.Donut({
-		  element: 'donutChart',
-		  data: [
-			{label: "Toma y Definicion \n de Requisitos", value: 5000},
-			{label: "Analisis y Diseño", value: 5000},
-			{label: "Codificacion", value: 5000},
-			{label: "Pruebas", value: 5000},
-			{label: "Implantacion \n y mantenimiento", value: 5000}
-		  ],
-		  colors: ['#f3ce85','#65CEA7' ,'#FC8675','#FC8675','#65CEA7']
-		});
-
-
-	</script>
 	
   </body>
 </html>
