@@ -22,9 +22,9 @@ sudo apt-get update
 sudo apt-get install mongodb-org
 ```
 
-## Instalacion
+## Instalación
 
-- Instalar las dependencias globles
+- Instalar las dependencias globales
 ```sh
 sudo npm install -g express
 sudo npm install -g express-generator
