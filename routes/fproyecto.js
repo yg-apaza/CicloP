@@ -229,6 +229,7 @@ router.post('/verUltimoProyecto', function(req, res) {
 							{
 								for(var i = 0; i < p.etapas.length; i++)
 									p.etapas[i].fInicio = util.fechaString(p.etapas[i].fInicio);
+								p.fCulminacion = util.fechaString(new Date(p.fCulminacion));
 								return res.json({status: true, proyecto: p, usuarios: usuarios});
 							}
 							else
@@ -265,11 +266,11 @@ router.post('/reporte', function(req, res) {
 				           content: content, 
 				           engine: 'jsrender', 
 				           recipe: 'phantom-pdf'
-				        }, 
+				        },
 				        data: data
 					}).then(function(out) {
 						out.stream.pipe(fs.createWriteStream(path.join(__dirname, '../public', 'reporte.pdf')));
-						res.json({status: true, archivo: "reporte_" + tokenGen + ".pdf"})
+						res.json({status: true, archivo: ""})
 					}).catch(function(e) {    
 						res.json({status: false, archivo: ""})
 					});
