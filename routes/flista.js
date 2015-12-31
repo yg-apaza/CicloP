@@ -49,10 +49,13 @@ router.post('/rol', function(req, res) {
 	});
 });
 
+// Arreglar listas disponibles
+
 router.post('/listasDisponibles', function(req, res) {
 	var total = [false, false];
 	switch(req.session.etapa)
 	{
+		// No es findOne
 		case 1: 
 			Lista.findOne({tipo: 1, idProyecto: req.session.idProy}, function(err, l1) {
 				if(!err)
@@ -197,6 +200,7 @@ router.post('/probadores', function(req, res) {
 	});
 });
 
+// datos pelados
 router.post('/agregar', function(req, res) {
 	if(req.body.numLista && req.body.idProbador && req.body.fCulminacion) {
 		Modelo.findOne({tipo: req.body.numLista}, function(err, modelo) {			
