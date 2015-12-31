@@ -316,6 +316,8 @@ router.post('/guardarCambios', function(req, res) {
 });
 
 router.post('/publicar', function(req, res) {
+	console.log('dd: ');
+	console.log(req.body.secciones.items);
 	if(req.body.secciones)
 	{
 		Lista.findOne({_id: req.session.idLista}, function(err, lista) {
