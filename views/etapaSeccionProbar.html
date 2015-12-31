@@ -195,7 +195,7 @@
 	
 		<!-- /MENU -->
 
-		<div id="main-container">
+		<div id="main-container" ng-controller="myCtrlSeccion">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
 					 <li><i class="fa fa-home"></i><a href="/"> Inicio</a></li> 
@@ -208,8 +208,8 @@
 					<h3 class="no-margin">{{myProject.nombre}}</h3>
 				</div><!-- /page-title -->
 			</div><!-- /main-header -->
-						
-			<div class="padding-md"  ng-controller="myCtrlSeccion">
+			
+			<div class="padding-md"  >
 				<div class="panel panel-default">
 					<form>
 						<div class="panel-heading"><h4>{{nombreLista}}</h4></div>
@@ -217,9 +217,7 @@
 						<div class="panel-body">
 
 							<div ng-repeat="seccion in secciones"> 
-							
 								<b>Sección: {{seccion.nombre}}</b><br><br>
-								
 								<table class="table table-striped" id="responsiveTable">
 									<thead>
 										<tr>
@@ -253,7 +251,7 @@
 				</div><!-- /panel -->
 			</div>
 			
-			<div id="msjReutilizar" class="modal fade" role="dialog"  ng-controller="myCtrlSeccion"><div class="modal-dialog"><div class="modal-content">
+			<div id="msjReutilizar" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">
 			      <!-- CONTENIDO -->
 			      <div class="modal-body"  >
 			      	<center>
@@ -267,7 +265,7 @@
 			      <!-- FIN PIE -->
 			</div></div></div>	
 
-			<div id="msjRespuesta" class="modal fade" role="dialog"  ng-controller="myCtrlSeccion"><div class="modal-dialog"><div class="modal-content">
+			<div id="msjRespuesta" class="modal fade" role="dialog" ><div class="modal-dialog"><div class="modal-content">
 			      <!-- CONTENIDO -->
 			      <div class="modal-body"  >
 			      	<center>
@@ -279,7 +277,7 @@
 			      
 			      <!-- FIN PIE -->
 			</div></div></div>					
-
+		
 		</div><!-- /main-container -->
 
 		<!-- PIE DE PAGINA -->
