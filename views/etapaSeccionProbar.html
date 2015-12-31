@@ -195,7 +195,7 @@
 	
 		<!-- /MENU -->
 
-		<div id="main-container" ng-controller="myCtrlSeccion">
+		<div id="main-container">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
 					 <li><i class="fa fa-home"></i><a href="/"> Inicio</a></li> 
@@ -203,22 +203,22 @@
 				</ul>
 			</div><!-- /breadcrumb-->
 
-			<div class="main-header clearfix">
+			<div class="main-header clearfix"  ng-controller="myCtrlVerProyecto">
 				<div class="page-title">
-					<h3 class="no-margin">{{nombreLista}}</h3>
-				</div><!-- /page-title -->				
-			</div><!-- /main-header -->		
+					<h3 class="no-margin">{{myProject.nombre}}</h3>
+				</div><!-- /page-title -->
+			</div><!-- /main-header -->
 						
-			<div class="padding-md">
+			<div class="padding-md"  ng-controller="myCtrlSeccion">
 				<div class="panel panel-default">
 					<form>
-						<div class="panel-heading">Secciones</div>
+						<div class="panel-heading"><h4>{{nombreLista}}</h4></div>
 
 						<div class="panel-body">
 
 							<div ng-repeat="seccion in secciones"> 
 							
-								<b>{{seccion.nombre}}</b><br><br>
+								<b>Sección: {{seccion.nombre}}</b><br><br>
 								
 								<table class="table table-striped" id="responsiveTable">
 									<thead>
@@ -253,11 +253,11 @@
 				</div><!-- /panel -->
 			</div>
 			
-			<div id="msjReutilizar" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">
+			<div id="msjReutilizar" class="modal fade" role="dialog"  ng-controller="myCtrlSeccion"><div class="modal-dialog"><div class="modal-content">
 			      <!-- CONTENIDO -->
 			      <div class="modal-body"  >
 			      	<center>
-			      	<h4>¿Deseas publicar?</h4>
+			      	<h4>¿Deseas Evaluar?</h4>
 			      	<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
 		  			<button type="button"  ng-click="guardarSecciones(1)" data-dismiss="modal" class="btn btn-success">Si</button>
 			      	</center>
@@ -267,7 +267,7 @@
 			      <!-- FIN PIE -->
 			</div></div></div>	
 
-			<div id="msjRespuesta" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content">
+			<div id="msjRespuesta" class="modal fade" role="dialog"  ng-controller="myCtrlSeccion"><div class="modal-dialog"><div class="modal-content">
 			      <!-- CONTENIDO -->
 			      <div class="modal-body"  >
 			      	<center>

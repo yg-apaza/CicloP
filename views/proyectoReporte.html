@@ -190,41 +190,31 @@
 
 		<!-- /MENU -->	
 
-		<div id="main-container" ng-controller="myCtrlReporte">
+		<div id="main-container">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li> 
+					 <li><i class="fa fa-home"></i><a href="index.html"> Inicio</a></li> 
 					 <li class="active">Proyectos</li>
 				</ul>
 			</div><!-- /breadcrumb-->
 			
-			<div class="main-header clearfix">
+			<div class="main-header clearfix"  ng-controller="myCtrlVerProyecto">
 				<div class="page-title">
-					<h3 class="no-margin">Sistema Bancario</h3>
-					<span>Proyecto 1</span>
+					<h3 class="no-margin">{{myProject.nombre}}</h3>
+					<span> Descripcion del proyecto: {{myProject.descripcion}}</span>
+
 				</div><!-- /page-title -->
 			</div><!-- /main-header -->
 			
-			<div class="padding-md">
+			<div class="padding-md" ng-controller="myCtrlReporte">
 				<div class="panel panel-default">
 					<div class="panel-heading">Reportes</div>
 					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Descripcion del proyecto</label>
-									<p>Cada reporte me permite obtener un informe detallado de la condición actual o final del proyecto y de sus etapas..</p>
-								</div><!-- /form-group -->
-								<br>				
-							</div>
-
-							
-							<div class="col-md-8"><!--col8-->
-								<div class="embed-responsive embed-responsive-16by9">
+						<center>
+							<div class="embed-responsive embed-responsive-16by9">
 									<embed class="embed-responsive-item" ng-src="reporte.pdf">
-								</div>	
-							</div><!--/col8-->
-						</div>
+							</div>	
+						</center>
 					</div>
 				</div><!-- /panel -->
 			</div>

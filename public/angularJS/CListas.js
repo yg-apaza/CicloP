@@ -81,14 +81,20 @@ app.controller('myCtrlListas',  function($scope,$http,$window) {
 
 	$scope.agregarLista = function (reut){
 		$scope.listaAgregar.reutilizar = reut;
-		
-		$http.post('/flista/agregar',$scope.listaAgregar)
-			.success(function(data){
-				if(data.status)
-					$window.location.href = "/etapa";
-				else 
-					alert("Error del Servidor");
-			});
+		if($scope.listaAgregar.numLista && $scope.listaAgregar.fCulminacion){
+			if($scope.listaAgregar.idProbador){
+				$http.post('/flista/agregar',$scope.listaAgregar)
+				.success(function(data){
+					if(data.status)
+						$window.location.href = "/etapa";
+					else 
+						alert("Error del Servidor");
+				});				
+			}
+			else{
+				$scope.msgProbador = "Campo obligatorio vacío";
+			}
+		}
 	};
 
 	$scope.verificarLista = function (id){

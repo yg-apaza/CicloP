@@ -200,7 +200,8 @@
 		<div id="main-container" ng-controller="myCtrlListas">
 			<div id="breadcrumb">
 				<ul class="breadcrumb">
-					 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li> 
+					 <li><i class="fa fa-home"></i><a href="index.html"> Inicio</a></li> 
+					 <li>Agregar Lista</li> 
 				</ul>
 			</div><!-- /breadcrumb-->
 			
@@ -219,7 +220,7 @@
 										</thead>
 										<tr ng-repeat="listaDisponible in listasDisponibles">
 											<td> 	
-												<input type="radio" name="stack-radio" ng-click="verificarLista(listaDisponible)" ng-model="listaAgregar.numLista" value="{{listaDisponible}}">	
+												<input type="radio" name="stack-radio" ng-click="verificarLista(listaDisponible)" ng-model="listaAgregar.numLista" value="{{listaDisponible}}" required />	
 												<span class="custom-radio"></span>
 												{{arrListasDisponibles[listaDisponible]}}						
 											</td>
@@ -231,21 +232,22 @@
 
 									<div class="form-group">
 										<label for="nombreProyecto">Probador</label>
-										<select class="input-sm form-control inline" ng-model="listaAgregar.idProbador"> 
-											<option ng-repeat="probador in probadores" value="{{probador.id}}">{{probador.username}}</option>
+										<select class="input-sm form-control inline" ng-model="listaAgregar.idProbador" > 
+											<option ng-repeat="probador in probadores" value="{{probador.id}}" >{{probador.username}}</option>
 										</select>
+										<p class="text-danger">{{msgProbador}}</p>	
 									</div><!-- /form-group -->
 									
 									<div class="form-group">
-										<label for="fechaCulminacion">Fecha de Culminacion</label>
+										<label for="fechaCulminacion">Fecha de culminación</label>
 										<input type="date" class="form-control" id="fechaCulminacion" name="input" ng-model="listaAgregar.fCulminacion" placeholder="yyyy-MM-dd" min="2015-12-20" max="2050-12-12" required />
 									</div><!-- /form-group -->
 								</div>
 							</div>
 						</div>
 						<div class="panel-footer text-right">
-							<button data-toggle="modal" data-target="#msjReutilizar" class="btn btn-success" ng-show='reutilizar==1'>Aceptar</button>
-							<button ng-click="agregarLista(0)" class="btn btn-success" ng-show='reutilizar==0'>Aceptar</button>
+							<button data-toggle="modal" data-target="#msjReutilizar" class="btn btn-success" ng-show='reutilizar==1'>Añadir</button>
+							<button ng-click="agregarLista(0)" class="btn btn-success" ng-show='reutilizar==0'>Añadir</button>
 						</div>
 					</form>
 				</div><!-- /panel -->
